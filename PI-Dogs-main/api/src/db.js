@@ -40,7 +40,6 @@ Dogs.belongsToMany(Temperament, {through :"Dogs_Temperaments"});
 
 Temperament.belongsToMany(Dogs, {through :"Dogs_Temperaments"} );
 
-
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 let obj = {

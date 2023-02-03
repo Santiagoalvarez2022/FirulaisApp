@@ -1,12 +1,8 @@
 const express = require('express');
 const router = express.Router()
+const {handler_getTemperaments} = require('../../handlers/index')
 
-const controllers = require("../../controllers/index")
-
-
-router.get("/", async (req, res)=>{
-    res.send("temperaments")
-})
+router.get("/",handler_getTemperaments)
 
 
 module.exports = router
