@@ -1,4 +1,4 @@
-const {Dogs} = require('../../db')
+const {Dog} = require('../../db')
 const DATA_API = require('../get_all_data_api.js')
 
 //los controllers son funciones que realizan la logixa de las peticiones
@@ -7,7 +7,7 @@ const DATA_API = require('../get_all_data_api.js')
 const get_allForName = async (name) =>{
     name = name.toLowerCase()
     const api = await DATA_API()
-    const db = await Dogs.findAll()
+    const db = await Dog.findAll()
     const alldogs = await api.concat(db)
 
 

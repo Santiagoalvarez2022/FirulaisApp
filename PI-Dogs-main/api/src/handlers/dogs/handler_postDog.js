@@ -2,14 +2,14 @@ const {post_dog} = require("../../controllers/index")
 
 
 const handler_postDog = async (req, res) =>{
-    let {Nombre, Altura, Peso, Años_de_vida} = req.body;
+    let {Nombre, Altura, Peso, Años_de_vida,temperaments} = req.body;
     try {
         //validaciones : solo validos los campos obligatorio
         if(!Nombre || !Altura || !Peso) throw Error("Faltan datos")
         else{
             //creo nueva raza con
             let name = Nombre
-            const newRace = await post_dog(name,Altura,Peso,Años_de_vida);
+            const newRace = await post_dog(name,Altura,Peso,Años_de_vida,temperaments);
             res.status(200).json(newRace)
         }
     } catch (error) {

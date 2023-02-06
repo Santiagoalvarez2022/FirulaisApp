@@ -4,15 +4,15 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('temperament', {
-    ID:{
-      type : DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey :true
+      id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue : DataTypes.UUIDV4
     },
-    Nombre :{
+    name :{
       type : DataTypes.STRING,
       allowNull: false,
-      
+      unique :true
     }
 
 

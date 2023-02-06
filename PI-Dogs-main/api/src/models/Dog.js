@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('dogs', {
+  sequelize.define('dog', {
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
@@ -32,9 +32,4 @@ module.exports = (sequelize) => {
   {timestamps: false}//elimina las propiedades de fecha de creacion y de modificacion
   );
 };
-/*[ ] Raza con las siguientes propiedades:
-ID *
-Nombre *
-Altura *
-Peso *
-*/
+

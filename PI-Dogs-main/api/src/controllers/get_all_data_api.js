@@ -8,13 +8,14 @@ const DATA_API = async () => {
     
     //retorno un nuevo array con los datos filtrados y ordenados de manera similar a la base de datos
     return dogs = result.data.map(obj =>{
-        let {id,name,height,weight,life_span,image} = obj
+        let {id,name,height,weight,life_span,image,temperament} = obj
         return {
             id,name,
             Altura : height.metric,
             Peso : weight.metric,
             Años_de_vida: life_span,
-            image :image.url
+            image :image.url,
+            temperament
         }
     }) 
 }
