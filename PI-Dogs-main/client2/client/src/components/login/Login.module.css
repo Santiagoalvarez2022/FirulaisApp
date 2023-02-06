@@ -12,20 +12,46 @@
     height: fit-content;
     display: flex;
     font-size: 15rem;
-    color: rgba(0, 0, 0, 0.834);
+    color: rgb(0, 0, 0);
 
-    border: 1px solid;
 
     margin-top: 15rem;
 }
 
+.sub{
+    display: flex;
+    font-size: 5rem;
+    border: 1px solid;
+
+    align-items: center;
+
+}
 .subtitle{
     display: flex;
     font-size: 5rem;
     height: fit-content;
     border: 1px solid;
+    margin-left: 8rem;
+    padding-right: 5rem;
+    padding-left: 5rem;
 
 
+}
 
+.button{
+    border:  1px red solid;
+    display: flex;
+    padding: 1rem;
+    
+   
+}
+
+.button h3{
+    
+    font-size: 2rem;
+    background:white;
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 
 }

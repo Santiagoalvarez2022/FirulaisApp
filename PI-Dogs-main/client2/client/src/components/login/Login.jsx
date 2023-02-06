@@ -9,8 +9,15 @@ const Login = () =>{
     return(
       <div className={style.all}>
           <h1 className={style.title}> Firulais </h1>
-          <h2 className={style.subtitle}>Dog lovers</h2>
-          <Link to= '/home' ><button>Entrar</button> </Link>
+          
+        <div className={style.sub}>
+        <h2 className={style.subtitle}>Dog lovers</h2>
+          <Link to= '/home' >
+            <div className={style.button}>
+              <h3>Login</h3> 
+            </div> 
+          </Link>
+        </div>
     
       </div>
     )
