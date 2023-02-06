@@ -6,8 +6,7 @@ const Navbar = () =>{
     return(
       <div>
           <h1>soy el componete Navbar</h1>
-        <Link to= '/' ><button>Ir al Home</button> </Link>
-    
+
       </div>
     )
 }
