@@ -1,24 +1,43 @@
 import React from "react";
 import {Link} from "react-router-dom"
+import style from './Card.module.css'
+//de prueba 
+import fakeimage from './dog.png'
 
 
 const Card = (props) =>{
-    const {id,name,Altura,Peso,Años_de_vida,image,temperament} = props
 
+    const {id,name,Peso,image,temperament} = props
+    console.log("este el card",props)
 
     return(
-      <div>
-          <Link to= '/' ><button>Ir al Home</button> </Link>
-          <h3>{id}</h3>
-          <h3>{name}</h3>
-          <h3>{Altura}</h3>
-          <h3>{Peso}</h3>
-          <h3>{Años_de_vida}</h3>
-          <img src={image} alt="" />
-          <h3>{temperament}</h3>
-      </div>
+      <Link to= {`/detail${id}`} className={style.all} >
+      
+          <div className={style.title}>
+            <p>{name}</p>
+          </div>
+          
+          <div className={style.subcontent}>
+            <div className={style.imagen}>
+              <img src={image || fakeimage} alt="" />
+
+            </div>
+            <div className={style.temperamentos}>
+              <p>Sus temperamentos : </p>
+              <p >{temperament}</p>
+            </div>
+
+          </div>
+
+      
+      </Link>
+      
     )
 }
+/*Imagen
+Nombre
+Temperamento
+Peso */
 
 export default Card;
 /*name: "Affenpinscher", Altura: "23 - 29", … }

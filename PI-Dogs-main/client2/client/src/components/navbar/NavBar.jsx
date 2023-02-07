@@ -6,7 +6,7 @@ const Navbar = () =>{
     return(
       <div className={style.all}>
         <form action="" className={style.form}>
-          <label htmlFor="">BUSCAR PERROS</label>
+          <label htmlFor="">b</label>
           <input type="text" />
           <button>BUSCAR</button>
         </form>

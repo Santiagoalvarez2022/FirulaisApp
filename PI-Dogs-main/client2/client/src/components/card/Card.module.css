@@ -1,0 +1,51 @@
+
+
+.all{
+
+    text-decoration: none;
+    background: grey;
+    height: 25rem;
+
+    border-radius: .5rem;
+}
+
+
+.title{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 15%;
+    font-size: 2rem;
+    border: 1px black solid;
+    text-align: center;
+    color: white;
+}
+
+.subcontent {
+    text-decoration: none;
+
+    display: flex;
+    flex-direction: column;
+    border: 1px solid ;
+    height: 85%;
+    align-items: center;
+
+}
+.imagen{
+    border: 2px solid;
+    height: 70%;
+    display: flex;
+
+}
+.imagen img {
+    width: 100%;
+}
+
+.subcontent .temperamentos{
+    color: black;
+    font-size: 1.2rem;
+    width: 100%;
+    height: 30%;
+}

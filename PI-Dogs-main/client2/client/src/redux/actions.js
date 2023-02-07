@@ -5,9 +5,9 @@ export const GET_DOGS = "GET_DOGS";
 //funciones
 export const get_dogs = () =>{
     try {
-        return function(dispatch){
-            axios('http://localhost:3001/dogs')
-                .then(response => dispatch({type: GET_DOGS, payload: response.data}))
+        return async function(dispatch){
+            let result = await axios('http://localhost:3001/dogs')
+            dispatch({type : GET_DOGS , payload: result.data})
         }
     } catch (error) {
       return {error:error.message}  

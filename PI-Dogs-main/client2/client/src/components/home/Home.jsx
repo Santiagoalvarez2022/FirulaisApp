@@ -3,29 +3,37 @@ import {Link} from "react-router-dom"
 import axios from 'axios'
 import Card from "../card/Card";
 import {connect} from 'react-redux'
+
+import style from './Home.module.css'
 //importo las actions que voy a despachar
 import { get_dogs } from "../../redux/actions";
 
-const Home = (props) =>{
-    console.log(props)
-    //hago el pedido a la api al montarse el component
-    const [dogs,setdogs] = useState([])
 
+const Home = (props) =>{
+   console.log("props del hpme ", props)
+  //hago el pedido a la api al montarse el component
     useEffect(()=>{
-      async function getdata(){
-        const data = await props.get_dogs()
-      } 
-      let result = getdata()
-      setdogs(result)
-      console.log(dogs)
+      //get_dog es una funcion que despaña el action creator, que asu vex este depacha otra
+      props.get_dogs()
     }
     ,[])
 
 
-
     return(
-      <div>
-          <h1>soy el componete Home</h1>
+      <div className={style.all}>
+          <div className={style.conteiner}>
+          {props.dogs ? props.dogs.map((dog)=>{
+            const {name,id,Peso,image,temperament} = dog
+            return <Card 
+              name = {name}
+              key = {id}
+              id = {id}
+              Peso = {Peso}
+              image = {image}
+              temperament = {temperament}
+            />
+          }) :null }
+          </div>
       </div>
     )
 }
