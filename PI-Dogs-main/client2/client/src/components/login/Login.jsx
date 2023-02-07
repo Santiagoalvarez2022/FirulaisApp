@@ -12,8 +12,8 @@ const Login = () =>{
           
         <div className={style.sub}>
         <h2 className={style.subtitle}>Dog lovers</h2>
-          <Link to= '/home' >
-            <div className={style.button}>
+          <Link className={style.button} to= '/home' >
+            <div>
               <h3>Login</h3> 
             </div> 
           </Link>

@@ -1,0 +1,18 @@
+.all{
+    display: flex;
+    height: 4rem;
+    background: #646262;
+}
+.form{
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 3rem;
+}
+.form button{
+    width: 5rem;
+}
+.link{
+    font-size: 2rem;
+    padding-left: 2rem ;
+}

@@ -1,11 +1,22 @@
 import React from "react";
 import {Link} from "react-router-dom"
-
+import style from './NavBar.module.css'
 
 const Navbar = () =>{
     return(
-      <div>
-          <h1>soy el componete Navbar</h1>
+      <div className={style.all}>
+        <form action="" className={style.form}>
+          <label htmlFor="">BUSCAR PERROS</label>
+          <input type="text" />
+          <button>BUSCAR</button>
+        </form>
+
+        <Link className={style.link} to='/create' >CREATE</Link>
+
+        <Link className={style.link} to='/about' >about</Link>
+        <Link className={style.link}  to= '/' ><button>Salir</button> </Link> 
+
+
 
       </div>
     )

@@ -6,7 +6,7 @@ const Create = () =>{
     return(
       <div>
           <h1>soy el componete Create</h1>
-        <Link to= '/' ><button>Ir al Home</button> </Link>
+        <Link to= '/home' ><button>Ir al Home</button> </Link>
     
       </div>
     )
