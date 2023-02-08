@@ -4,7 +4,7 @@
 
     text-decoration: none;
     background: grey;
-    height: 25rem;
+    height: min-content;
 
     border-radius: .5rem;
 }
@@ -41,6 +41,7 @@
 }
 .imagen img {
     width: 100%;
+    height: 200px ;
 }
 
 .subcontent .temperamentos{

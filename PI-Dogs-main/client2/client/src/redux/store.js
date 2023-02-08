@@ -4,7 +4,7 @@ import {applyMiddleware, compose,createStore} from 'redux';
 //importo thunkMiffleware que se usa para ver los estados de redux en la consola
 import thunkMiddleware from 'redux-thunk';
 
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION__COMPOSE__|| compose;
 
 const store = createStore(
     rootReducer,

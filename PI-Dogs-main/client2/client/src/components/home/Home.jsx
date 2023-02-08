@@ -1,53 +1,107 @@
 import React, { useEffect, useState } from "react";
-import {Link} from "react-router-dom"
-import axios from 'axios'
 import Card from "../card/Card";
-import {connect} from 'react-redux'
-
+import {useDispatch, useSelector} from 'react-redux'
+import { sumar, dataApi, get_dogs } from "../../redux/actions";
 import style from './Home.module.css'
-//importo las actions que voy a despachar
-import { get_dogs } from "../../redux/actions";
+import Pages from "./paginado";
 
 
 const Home = (props) =>{
-   console.log("props del hpme ", props)
-  //hago el pedido a la api al montarse el component
-    useEffect(()=>{
-      //get_dog es una funcion que despaña el action creator, que asu vex este depacha otra
-      props.get_dogs()
-    }
-    ,[])
+  const dispatch = useDispatch()
+  const selector = useSelector((state) => state.dogs)
+  const [state, setState] = useState([])
+  const [inicio, setInicio] = useState(0)
+  const [fin, setFin] = useState(7)
+  
+  useEffect(()=>{
+  dispatch(get_dogs())
+
+  
+ },[]) 
+
+  const [valuePage, SetValuePage] = useState(1)
+  const [finDogs, setFinDogs] = useState(8) // VALOR INCIAL DE CANTIDAD DE PERROSS
+
+  const finalpage = finDogs * valuePage
+  const InicioDogs = finalpage - finDogs
+
+  const Next = (valuePage) =>{
+    let pag = valuePage + 1
+    SetValuePage(pag) 
+  }
+  const back= (valuePage) =>{
+    let pag = valuePage - 1
+    SetValuePage(pag) 
+  }
+
 
 
     return(
-      <div className={style.all}>
+      <div className={style.all}>  
+           <div><h2>Pagina {valuePage}</h2></div>
+           <button onClick={()=>back(valuePage)}>ATRAS</button>
+           <button onClick={()=>Next(valuePage)}>SIGUIENTE</button>
+
           <div className={style.conteiner}>
-          {props.dogs ? props.dogs.map((dog)=>{
+          {selector  ? selector.slice(InicioDogs,finalpage).map((dog)=>{
             const {name,id,Peso,image,temperament} = dog
-            return <Card 
-              name = {name}
-              key = {id}
-              id = {id}
-              Peso = {Peso}
-              image = {image}
-              temperament = {temperament}
+            return <Card
+            indice = {selector.indexOf(dog)}
+            name = {name}
+            key = {id}
+            id = {id}
+            Peso = {Peso}
+            image = {image}
+            temperament = {temperament}
             />
           }) :null }
+
           </div>
+          
+          
       </div>
     )
 }
 //se encarga de proposionarle el store de redux a las props de este componente props ahora es un obj con la propiedad dogs = valor global del store
-const mapStateToProps = (state) =>{
-  return{
-    dogs : state.dogs
-  }
-}
 
-//se encarga de proporcionar las funciones que usan el "dispatch" de las actions 
-const mapDispatchToProps = (dispatch) =>{
-  return {
-    get_dogs :()=> dispatch(get_dogs())
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Home) ;
+export default Home ;
+
+
+/*
+  menu(selector.length)
+   function menu(num){
+    num = Math.ceil(num /8) + 3 
+    let cantd_indices = [] 
+    while(num > 0){
+      cantd_indices.unshift(num)
+      
+      num--
+    } 
+    setState(cantd_indices)
+   }
+  
+  const handlerIndice = (e)=>{
+    let id = parseInt(e.target.id)
+    if(id === 1){
+      setInicio(0)
+      setFin(8)
+      return
+    }        
+    let fin = (id * 7) + 2
+    let inicio = fin - 8
+    console.log(inicio, fin)
+    setInicio(inicio)
+    setFin(fin)
+
+
+    <nav className={style.indice}>
+            <h2>total de perro : {selector.length}</h2>
+            <ul>  
+            {selector.length ? state.map((indice)=>{
+              return (
+                <li key={indice} id={indice} onClick={(e)=>handlerIndice(e)} >{indice}</li>
+              )
+           }) : null}
+             </ul>
+          </nav>
+  } */
