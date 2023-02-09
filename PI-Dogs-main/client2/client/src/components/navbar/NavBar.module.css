@@ -1,18 +1,43 @@
 .all{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     height: 10vb;
     background: #646262;
+    padding: .5rem;
+    border: 2px red solid;
+
 }
 .form{
-    width: 50%;
     display: flex;
     justify-content: space-around;
     font-size: 3rem;
+    border: 2px red solid;
+
 }
 .form button{
     width: 5rem;
 }
-.link{
-    font-size: 2rem;
-    padding-left: 2rem ;
+.routes{
+    border: 2px red solid;
+}
+
+.filtros{
+    display: grid;
+    grid-template-columns:repeat(4, 1fr);
+    text-align: center;
+}
+.filtrosNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.filtros p {
+    border: 2px white solid;
+    font-size: 1.5rem;
+    width: 100%;
+    color: antiquewhite;
+    background: #000;
+    cursor: pointer;
+
 }

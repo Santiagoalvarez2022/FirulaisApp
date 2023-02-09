@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Card from "../card/Card";
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { sumar, dataApi, get_dogs } from "../../redux/actions";
 import style from './Home.module.css'
 import Pages from "./paginado";
 
 
-const Home = (props) =>{
+const Home = (props) => {
   const dispatch = useDispatch()
   const selector = useSelector((state) => state.dogs)
   const [state, setState] = useState([])
   const [inicio, setInicio] = useState(0)
   const [fin, setFin] = useState(7)
-  
-  useEffect(()=>{
-  dispatch(get_dogs())
 
-  
- },[]) 
+  useEffect(() => {
+    dispatch(get_dogs())
+
+
+  }, [])
 
   const [valuePage, SetValuePage] = useState(1)
   const [finDogs, setFinDogs] = useState(8) // VALOR INCIAL DE CANTIDAD DE PERROSS
@@ -25,46 +25,47 @@ const Home = (props) =>{
   const finalpage = finDogs * valuePage
   const InicioDogs = finalpage - finDogs
 
-  const Next = (valuePage) =>{
+  const Next = (valuePage) => {
     let pag = valuePage + 1
-    SetValuePage(pag) 
+    SetValuePage(pag)
   }
-  const back= (valuePage) =>{
+  const back = (valuePage) => {
     let pag = valuePage - 1
-    SetValuePage(pag) 
+    SetValuePage(pag)
   }
 
 
 
-    return(
-      <div className={style.all}>  
-           <div><h2>Pagina {valuePage}</h2></div>
-           <button onClick={()=>back(valuePage)}>ATRAS</button>
-           <button onClick={()=>Next(valuePage)}>SIGUIENTE</button>
-
-          <div className={style.conteiner}>
-          {selector  ? selector.slice(InicioDogs,finalpage).map((dog)=>{
-            const {name,id,Peso,image,temperament} = dog
-            return <Card
-            indice = {selector.indexOf(dog)}
-            name = {name}
-            key = {id}
-            id = {id}
-            Peso = {Peso}
-            image = {image}
-            temperament = {temperament}
-            />
-          }) :null }
-
-          </div>
-          
-          
+  return (
+    <div className={style.all}>
+      <div><h2>Pagina {valuePage}</h2>
+        <button onClick={() => back(valuePage)}>ATRAS</button>
+        <button onClick={() => Next(valuePage)}>SIGUIENTE</button>
       </div>
-    )
+
+      <div className={style.conteiner}>
+        {selector ? selector.slice(InicioDogs, finalpage).map((dog) => {
+          const { name, id, Peso, image, temperament } = dog
+          return <Card
+            indice={selector.indexOf(dog)}
+            name={name}
+            key={id}
+            id={id}
+            Peso={Peso}
+            image={image}
+            temperament={temperament}
+          />
+        }) : null}
+
+      </div>
+
+
+    </div>
+  )
 }
 //se encarga de proposionarle el store de redux a las props de este componente props ahora es un obj con la propiedad dogs = valor global del store
 
-export default Home ;
+export default Home;
 
 
 /*

@@ -13,8 +13,6 @@
     grid-template-rows:repeat(2, .5fr) ;
     gap: 1rem;
 
-    border: 3px red solid;
-
     
 }
 
