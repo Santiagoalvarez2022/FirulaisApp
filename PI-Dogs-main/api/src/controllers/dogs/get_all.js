@@ -8,8 +8,8 @@ const get_all = async () =>{
     const  dogs_api = await DATA_API()
     const a  = dogs_api.map(dog =>{
       const {id, name, Altura, Peso, Años_de_vida,image,temperament} = dog;
-      let min = 0
-      let max = 0
+      let min = undefined
+      let max = undefined
 
       if(Peso){
         let promedio = Peso.split("-")
@@ -24,12 +24,13 @@ const get_all = async () =>{
 
         }
 
+
+
       }
       return{
         id,
         name,
         Altura,
-        Peso,
         min,
         max,
         Años_de_vida,

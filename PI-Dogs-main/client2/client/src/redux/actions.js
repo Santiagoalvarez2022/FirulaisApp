@@ -48,8 +48,25 @@ export const order_peso = (order) => async (dispatch) => {
     let filter = []
     //de menor a mayor
     if(order === "AD"){
+        filter = result.data.sort(function (a, b) {
+            const A = a.min; // ignore upper and lowercase
+            //para que no aparezcan los que no tienen dato minimo primero 
+            if(A === undefined  || A === 0){
+                A = 10000
+            }
+            const B = b.min; // ignore upper and lowercase
+            if(B === undefined|| B === 0 ){
+                B = 10000
+            }
+            return A - B
+        })
+    } else if(order === "DA"){
+        filter = result.data.sort(function (a, b) {
+            const A = a.max; // ignore upper and lowercase
+            const B = b.max; // ignore upper and lowercase
+            return B - A
+        })
     }
-
     
     return dispatch({
         type : GET_DOGS,

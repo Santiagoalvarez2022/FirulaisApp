@@ -7,7 +7,7 @@ import fakeimage from './dog.png'
 
 const Card = (props) =>{
 
-    const {id,name,Peso,image,temperament, indice,max,min} = props
+    const {id,name,image,temperament, indice,max,min} = props
 
 
     return(
