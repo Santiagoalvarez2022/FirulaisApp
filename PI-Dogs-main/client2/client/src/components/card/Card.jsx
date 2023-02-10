@@ -7,7 +7,8 @@ import fakeimage from './dog.png'
 
 const Card = (props) =>{
 
-    const {id,name,Peso,image,temperament, indice} = props
+    const {id,name,Peso,image,temperament, indice,max,min} = props
+
 
     return(
       <Link to= {`/detail${id}`} className={style.all} > 
@@ -25,6 +26,10 @@ const Card = (props) =>{
             <div className={style.temperamentos}>
               <p>Sus temperamentos : </p>
               <p >{temperament}</p>
+                <p>--PESO- </p>
+                <p>min : {min}</p>
+                <p>max : {max}</p>
+
             </div>
 
           </div>

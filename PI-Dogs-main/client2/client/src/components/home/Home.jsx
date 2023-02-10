@@ -47,7 +47,7 @@ const Home = (props) => {
       <div className={style.conteiner_page}>
         <div className={style.conteiner}>
           {selector ? selector.slice(InicioDogs, finalpage).map((dog) => {
-            const { name, id, Peso, image, temperament } = dog
+            const { name, id, Peso, image, temperament, max ,min } = dog
             return <Card
               indice={selector.indexOf(dog)}
               name={name}
@@ -56,6 +56,8 @@ const Home = (props) => {
               Peso={Peso}
               image={image}
               temperament={temperament}
+              max = {max}
+              min= {min}
             />
           }) : null}
         </div>

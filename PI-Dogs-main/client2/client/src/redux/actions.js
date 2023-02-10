@@ -6,8 +6,10 @@ export const FILTER_TEMPERAMENT = "FILTER_TEMPERAMENT";
 export const ORDER_RACE= "ORDER_RACE";
 
 
+
 export const get_dogs = () => async (dispatch) => {
     let result = await axios.get("http://localhost:3001/dogs") 
+    console.log(result);
     return dispatch({
         type : GET_DOGS,
         payload : result.data
@@ -40,6 +42,21 @@ export const get_by_name = (name) => async (dispatch) => {
     })
 }
 
+
+export const order_peso = (order) => async (dispatch) => {
+    let result = await axios.get(`http://localhost:3001/dogs`) 
+    let filter = []
+    //de menor a mayor
+    if(order === "AD"){
+    }
+
+    
+    return dispatch({
+        type : GET_DOGS,
+        payload : result.data
+    })
+}
+
 export const order_races = (type) => async (dispatch) =>{
     let result = await axios.get(`http://localhost:3001/dogs`) 
     let filter = []
@@ -66,41 +83,38 @@ export const order_alfabet = (type) => async (dispatch) =>{
     let result = await axios.get(`http://localhost:3001/dogs`) 
     let filter = []
     //VER EL ID DE CADA UNO Y SI ES UN NUM == API, STRING === DATABASE
-    if(type === "ALL"){
+
+   if( type === "ZA"){
+        filter = result.data.sort(function (a, b) {
+            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+              return 1;
+            }
+            if (nameA > nameB) {
+              return -1;
+            }
+          
+            // names must be equal
+            return 0;
+        })
+    } else if (type === "AZ"){
+        filter = result.data.sort(function (a, b) {
+            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+          
+            // names must be equal
+            return 0;
+        })
+    } else {
         filter = result.data
     }
-
-
-    if(type === "AZ"){
-        filter =  result.data.sort(function (a, b) {
-            if (a.name > b.name) {
-              return 1;
-            }
-            if (a.name < b.name) {
-              return -1;
-            }
-            // a must be equal to b
-            return 0;
-          });
-    } else if( type === "ZA"){
-        
-        filter = result.data.sort(function (a, b) {
-            let prim = a.name[0].toUpperCase() + a.name.slice(1);
-            let seg = b.name[0].toUpperCase() + b.name.slice(1);
-            console.log(prim , seg);
-            if (prim > seg) {
-              return 1;
-            }
-            if (prim < seg) {
-              return -1;
-            }
-            // a must be equal to b
-            return 0;
-          });
-    } 
-
-
-    console.log(filter);
     return dispatch({
         type : GET_DOGS ,
         payload : filter

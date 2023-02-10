@@ -9,6 +9,8 @@ const DATA_API = async () => {
     //retorno un nuevo array con los datos filtrados y ordenados de manera similar a la base de datos
     return dogs = result.data.map(obj =>{
         let {id,name,height,weight,life_span,image,temperament} = obj
+ 
+
         return {
             id,name,
             Altura : height.metric,
@@ -19,5 +21,7 @@ const DATA_API = async () => {
         }
     }) 
 }
+
     
 module.exports = DATA_API;
+/*       */

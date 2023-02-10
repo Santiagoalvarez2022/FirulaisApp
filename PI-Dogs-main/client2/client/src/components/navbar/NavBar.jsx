@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {Link} from "react-router-dom"
 import style from './NavBar.module.css'
-import { get_by_name , get_temperaments, filter_temperament, order_races , order_alfabet} from "../../redux/actions";
+import { get_by_name , get_temperaments, filter_temperament, order_races , order_alfabet, order_peso} from "../../redux/actions";
 const Navbar = () =>{
   //selectorTemps esta subscirptos al store
   const selectorTemps = useSelector((state)=>state.temperaments)
@@ -38,7 +38,11 @@ const Navbar = () =>{
   const handlerAlfabetOrder =(event) =>{
     console.log(event.target.id)
     dispatch(order_alfabet(event.target.id))
-   }
+  }
+  const handlerPesoOrder =(event) =>{
+    dispatch(order_peso(event.target.id))
+  }
+
 
 
 
@@ -58,6 +62,10 @@ const Navbar = () =>{
 
             <li className={style.filtros_li}>Filtros
                 <ul>
+                  <li>Peso<ul>
+                    <li id="AD" onClick={(event)=>handlerPesoOrder(event)} >A-D</li>
+                    <li id="DA" onClick={(event)=>handlerPesoOrder(event)} >D-A</li>
+                    </ul></li>    
                   <li>Raza <ul>
                     <li id="ALL" onClick={(event)=>handlerRaceOrder(event)} >TODOS</li>
                     <li id="API" onClick={(event)=>handlerRaceOrder(event)} >API</li>
@@ -68,7 +76,6 @@ const Navbar = () =>{
                     <li id="ZA" onClick={(event)=>handlerAlfabetOrder(event)} >Z-A</li>
                     <li id="ALL" onClick={(event)=>handlerAlfabetOrder(event)}>Normal</li>
                     </ul> </li>
-                  <li>Peso</li>    
                 </ul> 
             </li>
           </ul>

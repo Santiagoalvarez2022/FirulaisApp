@@ -6,6 +6,40 @@ const DATA_API = require('../get_all_data_api.js');
 const get_all = async () =>{
  
     const  dogs_api = await DATA_API()
+    const a  = dogs_api.map(dog =>{
+      const {id, name, Altura, Peso, Años_de_vida,image,temperament} = dog;
+      let min = 0
+      let max = 0
+
+      if(Peso){
+        let promedio = Peso.split("-")
+
+        if(promedio[1]){
+          max = parseInt(promedio[1].trim() );
+          
+        } 
+
+        if(promedio[0]){
+          min = parseInt(promedio[0].trim());
+
+        }
+
+      }
+      return{
+        id,
+        name,
+        Altura,
+        Peso,
+        min,
+        max,
+        Años_de_vida,
+        image,
+        temperament
+      }
+    }
+    )
+
+
     let  dogs_db  = await Dog.findAll({
       include : {
         model :Temperament,
@@ -15,33 +49,31 @@ const get_all = async () =>{
         }
       }
     })
-
     dogs_db = dogs_db.map(dog =>{
       const {id, name, Altura, Peso, Años_de_vida,image} = dog;
-    
+      let promedio = Peso.split("-")
+      let min = parseInt(promedio[0].trim());
+      let max = parseInt(promedio[1].trim());
       return{
         id,
         name,
         Altura,
-        Peso,
+        max,
+        min,
         Años_de_vida,
         image,
         temperament :dog.temperaments.map((t)=> t.name).join(", ")
       }
 
-      
     })
-
-    //sacar propiedades inecesarias a los datos de la api
-  
     
-    const all_dogs = dogs_api.concat(dogs_db)
+    const all_dogs = a.concat(dogs_db)
 
     return all_dogs
-    
 
 }
 
+get_all()
 
 module.exports = get_all;
 
