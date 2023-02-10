@@ -38,25 +38,27 @@ const Home = (props) => {
 
   return (
     <div className={style.all}>
-      <div><h2>Pagina {valuePage}</h2>
+      <div className={style.paginado}>
         <button onClick={() => back(valuePage)}>ATRAS</button>
         <button onClick={() => Next(valuePage)}>SIGUIENTE</button>
+        <h2>Pagina {valuePage}</h2>
       </div>
 
-      <div className={style.conteiner}>
-        {selector ? selector.slice(InicioDogs, finalpage).map((dog) => {
-          const { name, id, Peso, image, temperament } = dog
-          return <Card
-            indice={selector.indexOf(dog)}
-            name={name}
-            key={id}
-            id={id}
-            Peso={Peso}
-            image={image}
-            temperament={temperament}
-          />
-        }) : null}
-
+      <div className={style.conteiner_page}>
+        <div className={style.conteiner}>
+          {selector ? selector.slice(InicioDogs, finalpage).map((dog) => {
+            const { name, id, Peso, image, temperament } = dog
+            return <Card
+              indice={selector.indexOf(dog)}
+              name={name}
+              key={id}
+              id={id}
+              Peso={Peso}
+              image={image}
+              temperament={temperament}
+            />
+          }) : null}
+        </div>
       </div>
 
 

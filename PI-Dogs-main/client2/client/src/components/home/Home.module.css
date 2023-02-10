@@ -1,18 +1,29 @@
 .all{
     display: flex;
-    padding: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: .5rem;
     flex-direction: column;
+    background: #023047;
 }
-
+.paginado{
+    display: flex;
+}
+.paginado button{
+    padding: .5rem;
+}
+.conteiner_page{
+    display: flex;
+    justify-content: center;
+}
 .conteiner{
-
-    width: 100%;
+    width: 85%;
     height: fit-content;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows:repeat(2, .5fr) ;
     gap: 1rem;
-
+    padding-top:1rem ;
     
 }
 

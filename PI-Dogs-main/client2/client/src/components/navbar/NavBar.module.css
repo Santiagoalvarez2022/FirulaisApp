@@ -1,43 +1,168 @@
+
 .all{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    height: 10vb;
-    background: #646262;
-    padding: .5rem;
-    border: 2px red solid;
-
-}
-.form{
     display: flex;
-    justify-content: space-around;
-    font-size: 3rem;
-    border: 2px red solid;
+    height: 6vb;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    background: #fec601;
+
+    border-bottom: .4rem solid #2364aa;
 
 }
-.form button{
-    width: 5rem;
-}
-.routes{
-    border: 2px red solid;
+
+.logout{
+    margin-inline: .5rem;
+    width: 10% ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border-radius: .5rem;
+    background: #2364aa;
 }
 
-.filtros{
-    display: grid;
-    grid-template-columns:repeat(4, 1fr);
+.logout:hover{
+    background: #000;
+}
+.logout a{
     text-align: center;
+    color: aliceblue;
+    text-decoration: none;
+    font-family: fantasy;
+    border: #000 solid 1px;
+    width: 100%;
 }
-.filtrosNav {
+
+.form{
+    width: 40%;
+    display: flex;
+    justify-content: end;
+    padding-right: 8rem;
+}
+
+.form button {
+    border-end-end-radius: .7rem;
+    border-top-right-radius: .7rem;
+
+    width: 7rem;
+    background: #FB8500;
+    cursor: pointer;
+
+    border: none;
+
+}
+
+
+.form input{
+    border: none;
+
+    width: 21rem;
+    border-bottom-left-radius: .7rem;
+    border-top-left-radius: .7rem;
+
+    font-size: 1.7rem;
+    padding: .5rem;
+
+    font-family: fantasy;
+
+
+}
+
+
+.temperaments{
+    border: #000 solid 1px;
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 2%;
+}
+
+.temperaments form{
+    width: 100%;
+    padding: .5rem;
+}
+
+.temperaments form select{
+    padding: .5rem;
+    width: 100%;
+    color: #caf0f8;
+    background: #023047;
+    border-radius: .7rem;
+    border: #2364aa .1rem solid;
+    font-size: 1rem;
+}
+
+
+.menu {
+    width: 25% ;
+    display: flex;
+    margin-left: 3%;
+}
+
+
+
+
+
+
+/*elimino decoracion a los links*/
+.menu ul a {
+    text-decoration: none;
+}
+
+.menu_ul{
+    display: flex;
+    list-style: none;
+    width: 100%;
     text-align: center;
 }
-.filtros p {
-    border: 2px white solid;
-    font-size: 1.5rem;
-    width: 100%;
-    color: antiquewhite;
-    background: #000;
-    cursor: pointer;
 
+.menu_ul > li {
+    border: 1px solid ;
+    width: 50%; 
+    
+    background: #FB8500;
+    cursor: pointer;
+    
+    border: none;
+}
+
+
+/*cada sublista se oculta y aparece al pasar el cursor*/
+
+.menu_li{
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+.filtros_li{
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    
+    border: 1px solid red;
+    
+} 
+.menu_ul li ul{
+    display: none;
+    position: absolute;
+    list-style: none;
+}
+
+.menu_ul li:hover > ul{
+    display: block;
+
+}
+
+
+
+.menu_ul li ul {
+  position:relative;
+  background: #000;
+  color: white;
+  min-width: 100%;
+ 
+}
+
+.menu_ul li ul li{
+    border : 2px red solid;
+    padding: .5rem;
 }

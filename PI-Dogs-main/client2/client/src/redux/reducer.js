@@ -1,9 +1,10 @@
 //debemos importar las actions
-import {GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS} from './actions'
+import {GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS, FILTER_TEMPERAMENT} from './actions'
 
 const initialSate = {
     dogs : [],
     temperaments : []
+    
 
 }
 //debe ser una funcion pura
@@ -27,6 +28,13 @@ const rootReducer = (state = initialSate , action) =>{
             return{
                 ...state,
                 temperaments:action.payload
+            }
+        }
+
+        case FILTER_TEMPERAMENT:{
+            return {
+                ...state,
+                dogs: action.payload
             }
         }
            
