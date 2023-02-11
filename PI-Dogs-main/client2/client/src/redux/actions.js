@@ -47,23 +47,24 @@ export const order_peso = (order) => async (dispatch) => {
     let result = await axios.get(`http://localhost:3001/dogs`) 
     let filter = []
     //de menor a mayor
+
     if(order === "AD"){
         filter = result.data.sort(function (a, b) {
-            const A = a.min; // ignore upper and lowercase
+            let A  =  a.min; // ignore upper and lowercase
             //para que no aparezcan los que no tienen dato minimo primero 
-            if(A === undefined  || A === 0){
+            if(!A ){
                 A = 10000
             }
-            const B = b.min; // ignore upper and lowercase
-            if(B === undefined|| B === 0 ){
+            let  B = b.min; // ignore upper and lowercase
+            if(!B ){
                 B = 10000
             }
             return A - B
         })
     } else if(order === "DA"){
         filter = result.data.sort(function (a, b) {
-            const A = a.max; // ignore upper and lowercase
-            const B = b.max; // ignore upper and lowercase
+            let  A = a.max; // ignore upper and lowercase
+            let  B = b.max; // ignore upper and lowercase
             return B - A
         })
     }

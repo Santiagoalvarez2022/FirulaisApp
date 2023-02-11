@@ -9,6 +9,7 @@ const Card = (props) =>{
 
     const {id,name,image,temperament, indice,max,min} = props
 
+    console.log(props);
 
     return(
       <Link to= {`/detail${id}`} className={style.all} > 

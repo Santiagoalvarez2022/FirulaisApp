@@ -8,6 +8,7 @@ const get_all = async () =>{
     const  dogs_api = await DATA_API()
     const a  = dogs_api.map(dog =>{
       const {id, name, Altura, Peso, Años_de_vida,image,temperament} = dog;
+      
       let min = undefined
       let max = undefined
 
