@@ -15,7 +15,6 @@ const Card = (props) =>{
       
           <div className={style.title}>
             <p>{name}</p>
-            <p>{indice}</p>
           </div>  
           
           <div className={style.subcontent}>

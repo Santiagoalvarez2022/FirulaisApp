@@ -26,8 +26,12 @@ const Navbar = () =>{
   },[])
   
   const selectTemperament = (event) => {
-    let tempermant = event.target.value
-    dispatch(filter_temperament(tempermant))
+    //delaro una variable que contien el temperamento seleccionado
+    let temperament = event.target.value.trim()
+    console.log(event.target.value.trim());
+
+    dispatch(filter_temperament(temperament))
+   
   }
 
   //orders 
@@ -84,14 +88,15 @@ const Navbar = () =>{
           </ul>
         </div>
         <div className={style.temperaments}  >
-          <form >
-            <select name="temperamentos" id="temp" >
-                  <option  >Elije por temperamentos</option>
+          <form action="#">
+            <select onChange = {selectTemperament}  name="temperamentos" id="temp" >
+                  <option >TODOS LOS PERROS</option>
                               {selectorTemps.length ? selectorTemps.map((temp)=>{
                               return <option
-                              onClick={(event)=>selectTemperament(event)}
+                              value={temp.name}
                               key={temp.id}
                               name = {temp}
+
                               >                    
                               {temp.name}
                               </option>

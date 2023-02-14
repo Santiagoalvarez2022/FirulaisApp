@@ -42,9 +42,24 @@ export const get_temperaments = () => async (dispatch) =>{
     })
 }
 
+
+
 export const  filter_temperament = (temperament) => async (dispatch) =>{
+    let filter = [] 
     let result = await axios.get(`http://localhost:3001/dogs`) 
-    let filter = [{name:"santiago"}]
+    if(temperament === "TODOS LOS PERROS"){
+        filter = result.data
+    } else{
+
+        filter = await result.data.filter(dog => {
+        let temperaments = dog.temperament
+        if(dog.temperament){
+            if(temperaments.includes(temperament)){
+                return dog
+            }
+        } 
+        })
+    }
     return dispatch({
         type : FILTER_TEMPERAMENT,
         payload : filter
