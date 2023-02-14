@@ -4,15 +4,14 @@
     height: 6vb;
     padding-top: .5rem;
     padding-bottom: .5rem;
-    background: #fec601;
+    background:  #f1c770;
 
-    border-bottom: .4rem solid #2364aa;
 
 }
 
 .logout{
     margin-inline: .5rem;
-    width: 10% ;
+    width: 5% ;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,6 +19,7 @@
     border-radius: .5rem;
     background: #2364aa;
 }
+
 
 .logout:hover{
     background: #000;
@@ -29,7 +29,6 @@
     color: aliceblue;
     text-decoration: none;
     font-family: fantasy;
-    border: #000 solid 1px;
     width: 100%;
 }
 
@@ -70,7 +69,6 @@
 
 
 .temperaments{
-    border: #000 solid 1px;
     width: 20%;
     display: flex;
     justify-content: center;

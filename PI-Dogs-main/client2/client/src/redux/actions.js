@@ -9,12 +9,17 @@ export const ORDER_RACE= "ORDER_RACE";
 
 export const get_dogs = () => async (dispatch) => {
     let result = await axios.get("http://localhost:3001/dogs") 
-    console.log(result);
     return dispatch({
         type : GET_DOGS,
         payload : result.data
     })
 }
+
+export const post_dog = (data) =>async () => {
+    let newdog =  await axios.post("http://localhost:3001/dogs", data)
+    return newdog
+} 
+
 
 export const get_temperaments = () => async (dispatch) =>{
     let result = await axios.get(`http://localhost:3001/temperaments`) 

@@ -51,6 +51,9 @@ const Navbar = () =>{
         <div className={style.logout} >
           <Link className={style.link}  to= '/' >Salir </Link> 
         </div>
+        <div className={style.logout}>
+         <Link to= '/home' >Home </Link>
+        </div>
         <div className={style.menu} >
           <ul className={style.menu_ul}> 
             <li className={style.menu_li}>Menu 
