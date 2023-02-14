@@ -4,6 +4,8 @@ export const GET_BY_NAME = "GET_BY_NAME";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const FILTER_TEMPERAMENT = "FILTER_TEMPERAMENT";
 export const ORDER_RACE= "ORDER_RACE";
+export const DETAIL_DOG= "DETAIL_DOG";
+export const RESET_DETAIL_DOG= "RESET_DETAIL_DOG";
 
 
 
@@ -20,7 +22,18 @@ export const post_dog = (data) =>async () => {
     return newdog
 } 
 
-
+export const detail_dog = (id) => async (dispatch) => {
+    let result = await axios.get(`http://localhost:3001/dogs/${id}`) 
+    return dispatch({
+        type : DETAIL_DOG,
+        payload : result.data
+    })
+}
+export const reset_detail_dog = () => async (dispatch) => {
+    return dispatch({
+        type : RESET_DETAIL_DOG,
+    })
+}
 export const get_temperaments = () => async (dispatch) =>{
     let result = await axios.get(`http://localhost:3001/temperaments`) 
     return dispatch({
