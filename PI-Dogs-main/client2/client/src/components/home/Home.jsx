@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { sumar, dataApi, get_dogs } from "../../redux/actions";
 import style from './Home.module.css'
 import Pages from "./paginado";
+import Loanding from "../loanding/Loading";
 
 
 const Home = (props) => {
@@ -34,38 +35,42 @@ const Home = (props) => {
     SetValuePage(pag)
   }
 
-
-
-  return (
-    <div className={style.all}>
-      <div className={style.paginado}>
-        <button onClick={() => back(valuePage)}>ATRAS</button>
-        <button onClick={() => Next(valuePage)}>SIGUIENTE</button>
-        <h2>Pagina {valuePage}</h2>
-      </div>
-
-      <div className={style.conteiner_page}>
-        <div className={style.conteiner}>
-          {selector ? selector.slice(InicioDogs, finalpage).map((dog) => {
-            const { name, id,  image, temperament, max ,min } = dog
-            return <Card
-              indice={selector.indexOf(dog)}
-              name={name}
-              key={id}
-              id={id}
-             
-              image={image}
-              temperament={temperament}
-              max = {max}
-              min= {min}
-            />
-          }) : null}
+  if(!Object.keys(selector).length){
+    return(
+      <Loanding />
+    )
+  } else {
+    return (
+      <div className={style.all}>
+        <div className={style.paginado}>
+          <button onClick={() => back(valuePage)}>ATRAS</button>
+          <button onClick={() => Next(valuePage)}>SIGUIENTE</button>
+          <h2>Pagina {valuePage}</h2>
         </div>
+
+        <div className={style.conteiner_page}>
+          <div className={style.conteiner}>
+            {selector ? selector.slice(InicioDogs, finalpage).map((dog) => {
+              const { name, id,  image, temperament, max ,min } = dog
+              return <Card
+                indice={selector.indexOf(dog)}
+                name={name}
+                key={id}
+                id={id}
+              
+                image={image}
+                temperament={temperament}
+                max = {max}
+                min= {min}
+              />
+            }) : null}
+          </div>
+        </div>
+
+
       </div>
-
-
-    </div>
-  )
+    )
+  }
 }
 //se encarga de proposionarle el store de redux a las props de este componente props ahora es un obj con la propiedad dogs = valor global del store
 

@@ -9,11 +9,11 @@
 
 .conteiner {
     padding-top: 3rem;
+    padding-bottom: 3rem;
 
     display: flex;
     justify-content: center;
     background:#122b28 ;
-    height: 100vb;
 }
 
 .conteiner > div{

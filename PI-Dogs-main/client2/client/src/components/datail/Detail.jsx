@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {Link, useParams} from "react-router-dom"
 import { detail_dog, reset_detail_dog } from "../../redux/actions";
 import style from "./Detail.module.css"
-
+import Loanding from '../loanding/Loading'
 const Detail = () =>{
     const selector = useSelector((state)=>state.detaildog)
     const dispatch = useDispatch()
@@ -20,24 +20,29 @@ const Detail = () =>{
     console.log(selector);
     const años = Object.keys(selector).length? selector.Años_de_vida.replace(" years","") : null
 
-    return(
-      <div className={style.conteiner} >
-       <div>
-        <div className={style.title}>
-          <h1>{selector.name}</h1>
-          <img src={selector.image} alt="" />
+    if(!Object.keys(selector).length){
+      return(
+        <Loanding />
+      )
+    } else {
+      return(
+        <div className={style.conteiner} >
+        <div>
+          <div className={style.title}>
+            <h1>{selector.name}</h1>
+            <img src={selector.image} alt="" />
+          </div>
+          <div className={style.info} >
+            <h3>Altura aproximada entre {selector.Altura} cm.</h3>
+            <h3>Rango aproximado de su peso es de {selector.Peso}kg.</h3>
+            <h3>Estimativo de vida {años} años.</h3>
+            <h3>Temperamentos que los caracterizan: "{selector.temperament}".</h3>
+          </div>
         </div>
-        <div className={style.info} >
-          <h3>Altura aproximada entre {selector.Altura} cm.</h3>
-          <h3>Rango aproximado de su peso es de {selector.Peso}kg.</h3>
-          <h3>Estimativo de vida {años} años.</h3>
-          <h3>Temperamentos que los caracterizan: "{selector.temperament}".</h3>
         </div>
-       </div>
-      </div>
-    )
+      )
+  }
 }
-
 export default Detail;
 
 /*

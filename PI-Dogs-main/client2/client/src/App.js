@@ -9,6 +9,7 @@ import Navbar from './components/navbar/NavBar';
 import { Route } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
+import About from './components/about/about';
 
 
 function App() {
@@ -34,6 +35,10 @@ function App() {
 
       <Route exact path="/detail/:id">
         <Detail />
+      </Route>
+
+      <Route exact path="/about">
+        <About />
       </Route>
     </div>
   );

@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import style from './Create.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { get_dogs,filter_temperament, post_dog } from "../../redux/actions";
+import image from './cargando.gif'
 
 // /^[a-zA-Z ]+$/.test("das asd ")
 
@@ -108,56 +109,66 @@ const Create = () =>{
     // dispatch(post_dog(form))
   }
 
-  return(
-      <div  className={style.conteiner}>
-        <form  onClick={(e)=> handlerSubmit(e)} >
-          <div className={style.campos}>
-            <label htmlFor="name">Nombre</label>
-            <input onChange={handlerForm} value={form.name} name="name"  type="text" /> 
-          </div>
-
-          <div id={style.medidas}>
-
-            <label htmlFor="altura">Altura</label> 
-            <div className={style.medidas_input} >
-              <input  type="number" placeholder="min" onChange={handlerForm}  name="alturaMin" value={form.alturaMin} />
-              <input  type="number" placeholder="max" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
-            </div>
-          
-          </div>  
-
-          <div id={style.medidas}>
-            <label htmlFor="peso">Peso</label>
-           <div className={style.medidas_input} >
-            <input  type="number" placeholder="min" onChange={handlerForm}  name="pesoMin" value={form.pesoMin} />
-            <input  type="number" placeholder="max" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />
-           </div>
-          </div>
-
-          <div className={style.campos}>
-            <label htmlFor="años_de_vida">AÑOS DE VIDA</label>
-            <input type="number" onChange={handlerForm}  name="años_de_vida" value={form.años_de_vida} />
-          </div>
-          {console.log(error)}
-          <div id={ !Object.keys(error).length && style.button}  className={style.campos}>
-          <button  disabled={ Object.keys(error).length} onClick={()=>{handlerSendData()}} type="submit">ENVIAR</button>
-          </div>
-
-        </form>
-        {
-          Object.keys(error).length ? 
-          <div  className={style.error}>
-            {error.name ? <p>{error.name}</p> : null}
-            {error.altura ? <p>{error.altura}</p> : null}
-            {error.peso ? <p>{error.peso}</p> : null}
-            {error.años_de_vida ? <p>{error.años_de_vida}</p> : null}
-          </div>
-          : null
-        }
-        
+  if(!Object.keys(selectorTemps).length){
+    return(
+      <div className={style.loading}>
+        <img src={image} alt="" />
       </div>
-  )
-}
+    )
+  } else {
+
+
+    return(
+        <div  className={style.conteiner}>
+          <form  onClick={(e)=> handlerSubmit(e)} >
+            <div className={style.campos}>
+              <label htmlFor="name">Nombre</label>
+              <input onChange={handlerForm} value={form.name} name="name"  type="text" /> 
+            </div>
+
+            <div id={style.medidas}>
+
+              <label htmlFor="altura">Altura</label> 
+              <div className={style.medidas_input} >
+                <input  type="number" placeholder="min" onChange={handlerForm}  name="alturaMin" value={form.alturaMin} />
+                <input  type="number" placeholder="max" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
+              </div>
+            
+            </div>  
+
+            <div id={style.medidas}>
+              <label htmlFor="peso">Peso</label>
+            <div className={style.medidas_input} >
+              <input  type="number" placeholder="min" onChange={handlerForm}  name="pesoMin" value={form.pesoMin} />
+              <input  type="number" placeholder="max" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />
+            </div>
+            </div>
+
+            <div className={style.campos}>
+              <label htmlFor="años_de_vida">AÑOS DE VIDA</label>
+              <input type="number" onChange={handlerForm}  name="años_de_vida" value={form.años_de_vida} />
+            </div>
+            {console.log(error)}
+            <div id={ !Object.keys(error).length && style.button}  className={style.campos}>
+            <button  disabled={ Object.keys(error).length} onClick={()=>{handlerSendData()}} type="submit">ENVIAR</button>
+            </div>
+
+          </form>
+          {
+            Object.keys(error).length ? 
+            <div  className={style.error}>
+              {error.name ? <p>{error.name}</p> : null}
+              {error.altura ? <p>{error.altura}</p> : null}
+              {error.peso ? <p>{error.peso}</p> : null}
+              {error.años_de_vida ? <p>{error.años_de_vida}</p> : null}
+            </div>
+            : null
+          }
+          
+        </div>
+    )
+  }
+}  
 
 
 /* <div className={style.campos}>
