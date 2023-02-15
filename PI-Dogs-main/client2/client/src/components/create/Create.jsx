@@ -51,8 +51,13 @@ const Create = () =>{
       image : ""
     }
   )   
-  
+  //estado para los temperamentos seleccionados de la lista <select /> y de los que voy a crear en el input
   const [temperaments, setTemperaments ] = useState([])
+  
+  //estado del input para la creacion de nuevos temperamentos 
+  const [createTemperaments, setTCreateTemperaments ] = useState("")
+
+  
 
   const [error,setError] = useState({
     // name : "", //que no tenga caracteres especiales ni numeros o si ya existe
@@ -75,15 +80,22 @@ const Create = () =>{
     event.preventDefault() 
   }
 
-
-  const handlerTemperaments =(event)=>{
-    const value = event.target.value
-    setForm({...form, ["temperaments"] : form.temperaments + " " + value}) 
-   
+  const handlerCreateTemperament = (event) =>{
+    let value = event.target.value
+    setTCreateTemperaments(value)
   }
+
+  const handlerTemperaments =(value)=>{
+    console.log("estado del cratetemperaments ", createTemperaments);
+    console.log("valor de handler temperament ", value);
+    
+    setForm({...form, ["temperaments"] : form.temperaments + " " + value}) 
+    setTCreateTemperaments("")
+  }
+  console.log("valor de tempermants del form ", form.temperaments);
    
-  const deleteTemperament = (event) =>{
-    const value = event.target.innerHTML
+  const deleteTemperament = (value) =>{
+   
     console.log("toque ", value);
     if(temperaments.length === 1){
       setTemperaments([])
@@ -111,7 +123,6 @@ const Create = () =>{
     })
 
   }
-  
 
   if(!Object.keys(dogs).length){
     return(
@@ -167,16 +178,32 @@ const Create = () =>{
             <div className={style.formTemperaments} >
 
                 <div className={style.header} >
-                  <p>SELECCIONA LOS TEMPERAMENTO</p> 
-                  <select  onChange={handlerTemperaments} className={style.select} name="" id="">
-                    <option value="lista"    >Lista de temperamentos</option>
-                    {selectorTemps.length ? selectorTemps.map((temp)=>{
-                      return <option
-                      key={temp.id}
-                      value = {temp.name.trim()}
-                      >{temp.name.trim()}</option>
-                    }): null} 
-                  </select>
+
+                  <div className={style.header_p}>
+                    <p>SELECCIONA LOS TEMPERAMENTO</p> 
+                  </div>
+
+                  <div className={style.header_select} >
+                    <select  onChange={(e)=>handlerTemperaments(e.target.value)} className={style.select} name="" id="">
+                      <option value="lista"    >Lista de temperamentos</option>
+                      {selectorTemps.length ? selectorTemps.map((temp)=>{
+                        return <option
+                        key={temp.id}
+                        value = {temp.name.trim()}
+                        >{temp.name.trim()}</option>
+                      }): null} 
+                    </select>
+                  </div>
+
+
+                  <div className={style.header_input} > 
+                    <div className={style.header_input_form}>
+                      <input onChange={handlerCreateTemperament}  name="search" type="text"   value={createTemperaments} /> 
+                      <button onClick={()=>handlerTemperaments(createTemperaments)} >AGREGAR</button>
+                    </div > 
+                  </div>
+                
+
                 </div>
 
                 <div className={style.seleccionados} >
@@ -189,7 +216,7 @@ const Create = () =>{
                         key = {temp}>
                           <p
                            value ={temp}
-                           onClick = {deleteTemperament}
+                           onClick = {(e)=> deleteTemperament(e.target.innerHTML)}
                            >{temp}</p> 
                       </div> 
                     })}
@@ -197,14 +224,16 @@ const Create = () =>{
                 </div>
             </div>
           </form>
+                
+
+
           <div className={style.img}>
                   <label htmlFor="años_de_vida">Foto</label>
                   <input type="file"onChange={handlerForm}  name = "image" value={form.image} />
 
-                </div> 
+          </div> 
        
-         
-
+        
 
           {
             Object.keys(error).length ? 
@@ -226,62 +255,3 @@ const Create = () =>{
 
 export default Create;
 
-
-  /* Ruta de creación de raza de perro: debe contener
-
-[ x] Un formulario controlado con JavaScript con los siguientes campos:
-Nombre
-Altura (Diferenciar entre altura mínima y máxima)
-Peso (Diferenciar entre peso mínimo y máximo)
-Años de vida
-
-[ ] Posibilidad de seleccionar/agregar uno o más temperamentos
-[ ] Botón/Opción para crear una nueva raza de perro
-Es requisito que el formulario de creación esté validado con JavaScript 
-y no sólo con validaciones HTML. Pueden agregar las validaciones que consideren. 
-Por ejemplo: Que el nombre de la raza no pueda contener números o símbolos, 
-que el peso/altura mínimo no pueda ser mayor al máximo y viceversa, etc.*/ 
-
-
-/*          
-<div className={style.conteiner_temperaments} >
-<p>Temperamentos</p>
-<div className={style.temperaments}>
-  {selectorTemps.length 
-  ? selectorTemps.slice(InicioPage,finalpage).map(temp =>{
-    return <div
-    key={temp.id}
-    >{temp.name}</div>
-  })  
-  : null}
-</div>
-
-  <button onClick={()=> back(valuePage)} >atras</button>
-  <button onClick={()=> Next(valuePage)} >adelante</button>
-<div> <>pagina : {valuePage }</></div>
-
-</div> 
-
-
-/* <div className={style.campos}>
-            <p>TEPERAMENTOS </p>
-            <label htmlFor="">Temperamentos</label>
-            <label htmlFor="">crea y luego selecionalo en la lista de arriba</label>
-            <input  onChange={(e)=>handlerForm(e)}  name="temperaments" value={form.temperaments} type="text" />
-        </div>
-
-          
-        <form className={style.temperaments} onChange= {(e)=>{handlerTemperaments(e)}} >
-              <select multiple name="temperamentos" id="temp" >
-                    <option>Elije por temperamentos</option>
-                                {selectorTemps.length ? selectorTemps.map((temp)=>{
-                                return <option
-                                onClick={(event)=>selectTemperament(event)}
-                                key={temp.id}
-                                name = {temp}
-                                >                    
-                                {temp.name}
-                                </option>
-                            })  :null}
-              </select>
-        </form>          */ 

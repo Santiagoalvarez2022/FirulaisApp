@@ -210,28 +210,108 @@ input{
 }
 
 
-.formTemperaments  
-
-.select {
-    width: 50%;
-    height: 3rem;
-}
-
-
 .header{
     height: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;    
+    border: 2px solid ;
+
+    padding: .5rem;
+
 }
 
-.header select{
-    margin-top: 1rem;
+.header_p{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.7rem;
+    color: aliceblue;
+    font-family: fantasy;
+    text-shadow: #122b28 4px   4px 2px ;
+
+}
+
+.header_select{
+    width: 100%;
+    height:40%  ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.header_input{
+    width: 100%;
+    height:50%  ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_input_form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 80%; 
+    border-top-right-radius:  1rem;
+    border-bottom-right-radius:  1rem;
+
+}   
+
+.header_input_form input{
+
+
+    font-size: 1.2rem;
+    padding-left: .5rem;
+    margin-right: .5rem;
+    width: 80%;
+    height: 95%;
+    outline: none;
+    background-color: #dfe;
+    border: 0;
+}
+.header_input_form button{
+
+    border-radius: .5rem;
+
+    background: #dfe;
+    font-size: 1.2rem;
+    padding-left: .5rem;
+    border: 2px solid ;
+    padding: .5rem;
+    height: 95%;
+}
+
+
+.header_input_form button:hover{
+    color: #dfe;
+    background: #348897;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.header_select select{
     border-radius: 1rem;
     background:#f1c770;
     font-size: 1.2rem;
     padding-left: .5rem;
+    border: 2px solid ;
 
+    width: 80%;
+    height: 95%;
  
 }
 
@@ -282,7 +362,7 @@ input{
     background: #ec6071;
 }
 
-
+ 
 
 /*
 .color1 {color: #122b28;} azul-negro
