@@ -19,6 +19,7 @@ export const get_dogs = () => async (dispatch) => {
 
 export const post_dog = (data) =>async () => {
     let newdog =  await axios.post("http://localhost:3001/dogs", data)
+    console.log("actions ok");
     return newdog
 } 
 
