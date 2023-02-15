@@ -79,7 +79,6 @@ const get_all = async () =>{
     })
     
     const all_dogs = a.concat(dogs_db)
-    console.log(all_dogs);
     return all_dogs
 
 }

@@ -39,10 +39,17 @@ const Detail = () =>{
             <h3>Altura aproximada entre {selector.Altura} cm.</h3>
             <h3>Rango aproximado de su peso es de {selector.Peso}kg.</h3>
             <h3>Estimativo de vida {años} años.</h3>
-            <h3>Temperamentos que los caracterizan: "{selector.temperament}".</h3>
+            <h3>Temperamentos que los caracterizan: "{typeof(selector.temperament) === "string"
+            ? <h3>{selector.temperament}</h3>
+            : selector.temperaments.map((t)=>{
+              return <h3
+              
+              >{t.name }</h3>
+            })
+          }".</h3>
           </div>
         </div>
-        </div>
+        </div> 
       )
   }
 }

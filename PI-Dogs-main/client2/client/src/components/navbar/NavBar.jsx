@@ -12,11 +12,12 @@ const Navbar = () =>{
   const handlerSubmit = (event) =>{
     event.preventDefault()
     dispatch(get_by_name(stateForm))
-  
+    setForm("")
   }
   
   const changeHandler = (event) =>{
     setForm(event.target.value)
+    //dispatch(get_by_name(stateForm))
   }
 
   useEffect(()=>{
@@ -115,21 +116,3 @@ const Navbar = () =>{
 }
 
 export default Navbar;
-
-/*
-        <div className={style.filtros}>
-          <div onClick={()=>{}} >
-            <p >TEMPERAMENTOS</p>
-           
-          
-          </div>
-          <div onClick={()=>{}} ><p>RAZA</p></div>
-          <div onClick={()=>{}} ><p>PESO</p></div>
-          <div onClick={()=>{}} ><p>ALFABETO</p></div>
-        
-          
-        </div>
-        <div className={style.routes}>
-          
-          
-        </div> */

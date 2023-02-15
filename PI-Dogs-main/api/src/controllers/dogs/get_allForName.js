@@ -1,4 +1,4 @@
-const {Dog} = require('../../db')
+const {Dog,Temperament} = require('../../db')
 const DATA_API = require('../get_all_data_api.js')
 
 //los controllers son funciones que realizan la logixa de las peticiones
@@ -8,7 +8,8 @@ const get_allForName = async (name) =>{
     console.log(name);
     name = name.toLowerCase()
     const  dogs_api = await DATA_API()
-    const a  = dogs_api.map(dog =>{
+    const a  = dogs_api.map(dog =>{ 
+
       const {id, name, Altura, Peso, Años_de_vida,image,temperament} = dog;
       let min = undefined
       let max = undefined
@@ -35,18 +36,19 @@ const get_allForName = async (name) =>{
         image,
         temperament
       }
-    }
-    )
+    })
+
     let  dogs_db  = await Dog.findAll({
         include : {
-          model :Temperament,
-          attributes : ['name'],
-          trougth :{
-            attributes : ["dog_temperament"]
-          }
+            model :Temperament,
+            attributes : ['name'],
+            trougth :{
+                attributes : ["dog_temperament"]
+            }
         }
-      })
-      dogs_db = dogs_db.map(dog =>{
+    })
+    dogs_db = dogs_db.map(dog =>{
+          console.log("llego aca")
         const {id, name, Altura, Peso, Años_de_vida,image} = dog;
  
         let altura = Altura.split("-")
@@ -74,10 +76,9 @@ const get_allForName = async (name) =>{
     const alldogs = await a.concat(dogs_db)
 
 
-    //array con coincidencias
+    // //array con coincidencias
     const coincidencias = [];
 
-    
     alldogs.forEach(obj => {
         //declaro variable que guarda el nombre de la raza y lo paso todo a mayusculas
         let name_of_race = obj.name;
@@ -87,7 +88,10 @@ const get_allForName = async (name) =>{
             coincidencias.push(obj)
         }
     });
-    if(coincidencias.length === 0) throw Error("No se encontraron coincidencias")
+    if(coincidencias.length === 0) {
+        return [{error:"No se encontro ninguna raza que contenga el nombre pedido."}];
+        
+    }
     else{
         return coincidencias;
     }

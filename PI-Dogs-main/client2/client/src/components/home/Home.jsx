@@ -16,8 +16,6 @@ const Home = (props) => {
 
   useEffect(() => {
     dispatch(get_dogs())
-
-
   }, [])
 
   const [valuePage, SetValuePage] = useState(1)
@@ -47,24 +45,29 @@ const Home = (props) => {
           <button onClick={() => Next(valuePage)}>SIGUIENTE</button>
           <h2>Pagina {valuePage}</h2>
         </div>
-
+            {console.log(selector)}
+        {/* */}
         <div className={style.conteiner_page}>
-          <div className={style.conteiner}>
-            {selector ? selector.slice(InicioDogs, finalpage).map((dog) => {
-              const { name, id,  image, temperament, max ,min } = dog
-              return <Card
-                indice={selector.indexOf(dog)}
-                name={name}
-                key={id}
-                id={id}
-              
-                image={image}
-                temperament={temperament}
-                max = {max}
-                min= {min}
-              />
-            }) : null}
-          </div>
+          {selector[0].error ?<div className={style.error}><h3>{selector[0].error}</h3> <form action=""><button>Ver todos</button></form> </div> 
+          :  <div className={style.conteiner}>
+          { selector.length>0 ?  selector.slice(InicioDogs, finalpage).map((dog) => {
+            const { name, id,  image, temperament, max ,min } = dog
+            return <Card
+              indice={selector.indexOf(dog)}
+              name={name}
+              key={id}
+              id={id}
+            
+              image={image}
+              temperament={temperament}
+              max = {max} 
+              min= {min}
+            />
+          }) : null  }
+        </div>  }
+
+        
+
         </div>
 
 
