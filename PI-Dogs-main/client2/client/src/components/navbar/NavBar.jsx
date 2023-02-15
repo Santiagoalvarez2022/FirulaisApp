@@ -17,7 +17,6 @@ const Navbar = () =>{
   
   const changeHandler = (event) =>{
     setForm(event.target.value)
-    dispatch(get_by_name(stateForm))
   }
 
   useEffect(()=>{

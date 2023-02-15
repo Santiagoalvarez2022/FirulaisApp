@@ -16,7 +16,7 @@ const get_all = async () =>{
       if(Peso){
         let promedio = Peso.split("-")
 
-        if(promedio[1]){
+        if(promedio[1]){ 
           max = parseInt(promedio[1].trim() );
           
         } 
@@ -79,6 +79,7 @@ const get_all = async () =>{
     })
     
     const all_dogs = a.concat(dogs_db)
+    console.log(all_dogs);
     return all_dogs
 
 }

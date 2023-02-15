@@ -5,37 +5,68 @@ const post_dog = async (name, alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,v
     let Altura = `${alturaMin} - ${alturaMax}`
     let Peso = `${pesoMin} - ${pesoMax}`
     let temperament = temperaments.trim()
-    let Años_de_vida = `${vidaMin} - ${vidaMax} years` 
+    let Años_de_vida = `${vidaMin} - ${vidaMax} years`
 
     //validaciones : solo validos los campos obligatorio
     if(!name ) throw Error("Faltan datos")
     //creo registro de Dog
     const newrace = await Dog.create({name,Altura,Peso,Años_de_vida})
-    
+
     //creo array con cada temperamento
     let arr_temperaments = temperament.split(" ");
 
     for (let index = 0; index < arr_temperaments.length; index++) {
         const element = arr_temperaments[index];
         //creo  registros de Temperament
-        let newTemp = await Temperament.create({name : element})
+       try {
+          // let newTemp = await Temperament.create({name : element})
+          //row obj devuelto created boolean que determina si lo creo o ya existia 
+          const [row, created] = await Temperament.findOrCreate({
+            where : {name : element}
+          })
+          console.log("este es el elemento ", element );
+          console.log("este es el row ", row );
+          console.log("este es el created ", created );
 
-        newrace.addTemperament(newTemp)
-    } 
-    console.log(newrace); 
+          newrace.addTemperament(row)
+       } catch (error) {
+          console.log(error.message);
+       }
+
+    }
+    console.log(newrace);
     return {...newrace.dataValues, ...{temperaments}}
 }
 
 module.exports = post_dog;
 
 
-    // const find_dog = await Dog.findOne({ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // const find_dog = await Dog.findOne({
     //     where : {name : "santiagp"},
     //     include : Temperament
     // })
     // console.log(find_dog);
 
-    
+
     // { front
     //     name: 'pepe',
     //     alturaMax: '',
@@ -58,7 +89,7 @@ module.exports = post_dog;
     "temperament": "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"
 }
      */  /*
-    modelo bd  
+    modelo bd
      id: {
       type: DataTypes.UUID,
       primaryKey: true,

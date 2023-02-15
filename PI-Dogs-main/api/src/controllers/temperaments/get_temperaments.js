@@ -27,7 +27,7 @@ const func_all_temperaments = (arrayOftemperaments) =>{
   arrayOftemperaments.forEach(arrOfTemp=>{
     if(arrOfTemp){
       arrOfTemp.forEach(temp=>{
-      final.push(temp)
+      final.push(temp.trim())
       })
     }
   })
