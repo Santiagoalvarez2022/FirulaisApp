@@ -46,7 +46,9 @@ const Create = () =>{
       pesoMax : "",
       pesoMin : "",
       temperaments :"",
-      años_de_vida : "" 
+      vidaMax : "",
+      vidaMin : "",
+      image : ""
     }
   )   
   
@@ -76,27 +78,40 @@ const Create = () =>{
 
   const handlerTemperaments =(event)=>{
     const value = event.target.value
-    
-    setTemperaments([...temperaments,value]) 
+    setForm({...form, ["temperaments"] : form.temperaments + " " + value}) 
+   
   }
    
   const deleteTemperament = (event) =>{
     const value = event.target.innerHTML
-    console.log(value);
+    console.log("toque ", value);
     if(temperaments.length === 1){
       setTemperaments([])
       return 
     }
-    setTemperaments(temperaments.filter((t)=> t !==  value))
+    let update_Temperaments = form.temperaments.trim().split(" ").filter(t => t !== value)
+    setForm({...form,["temperaments"] : update_Temperaments.join(" ")})
   }  
 
  
   const handlerSendData = () =>{
-    setForm({...form,["temperaments"] : temperaments.join(" ")})
     dispatch(post_dog(form))
+    console.log(form);
     console.log("enviado ");
+    setForm(   {
+      name : "",
+      alturaMax : "",
+      alturaMin : "",
+      pesoMax : "",
+      pesoMin : "",
+      temperaments :"",
+      vidaMax : "",
+      vidaMin : "",
+      image : "" 
+    })
+
   }
- 
+  
 
   if(!Object.keys(dogs).length){
     return(
@@ -131,18 +146,19 @@ const Create = () =>{
                   <input  type="number" placeholder="min" onChange={handlerForm}  name="pesoMin" value={form.pesoMin} />
                   <input  type="number" placeholder="max" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />
                 </div>
+                </div> 
+
+           
+                <div id={style.medidas}>
+                  <label htmlFor="vida">Rango de vida aproximado </label>
+                <div className={style.medidas_input} >
+                  <input  type="number" placeholder="min" onChange={handlerForm}  name="vidaMin" value={form.vidaMin} />
+                  <input  type="number" placeholder="max" onChange={handlerForm}  name="vidaMax" value={form.vidaMax} />
+                </div>
                 </div>
 
-                <div className={style.campos}>
-                  <label htmlFor="años_de_vida">AÑOS DE VIDA</label>
-                  <input type="number" onChange={handlerForm}  name="años_de_vida" value={form.años_de_vida} />
-                </div>
-                <div className={style.campos}>
-                  <label htmlFor="años_de_vida">Foto</label>
-                  <input type="number" onChange={handlerForm}  name="años_de_vida" value={form.años_de_vida} />
 
-                </div>
-      
+           
       
               <div id={ !Object.keys(error).length && style.button}  className={style.campos}>
                 <button  disabled={ Object.keys(error).length} onClick={()=>{handlerSendData()}} type="submit">ENVIAR</button>
@@ -166,7 +182,7 @@ const Create = () =>{
                 <div className={style.seleccionados} >
                   <p>SELECCIONADOS</p>
                   <div>
-                    {temperaments.map((temp)=>{
+                    {form.temperaments.split(" ").map((temp)=>{
                       if(temp === "") return
                       return <div 
                         className={style.temps_selected}
@@ -181,7 +197,12 @@ const Create = () =>{
                 </div>
             </div>
           </form>
+          <div className={style.img}>
+                  <label htmlFor="años_de_vida">Foto</label>
+                  <input type="file"onChange={handlerForm}  name = "image" value={form.image} />
 
+                </div> 
+       
          
 
 

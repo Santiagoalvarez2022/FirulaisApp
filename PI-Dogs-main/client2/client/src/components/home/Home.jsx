@@ -50,6 +50,7 @@ const Home = (props) => {
 
         <div className={style.conteiner_page}>
           <div className={style.conteiner}>
+            {console.log(selector)}
             {selector ? selector.slice(InicioDogs, finalpage).map((dog) => {
               const { name, id,  image, temperament, max ,min } = dog
               return <Card

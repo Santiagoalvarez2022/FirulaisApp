@@ -4,6 +4,9 @@ import {Link, useParams} from "react-router-dom"
 import { detail_dog, reset_detail_dog } from "../../redux/actions";
 import style from "./Detail.module.css"
 import Loanding from '../loanding/Loading'
+
+import image_respaldo from './fotoRespaldo.jpg' 
+
 const Detail = () =>{
     const selector = useSelector((state)=>state.detaildog)
     const dispatch = useDispatch()
@@ -12,7 +15,7 @@ const Detail = () =>{
 
     useEffect(()=>{
       dispatch(detail_dog(id))
-      return ()=>{
+      return ()=>{ 
         dispatch(reset_detail_dog())
       }
     },[])
@@ -30,7 +33,7 @@ const Detail = () =>{
         <div>
           <div className={style.title}>
             <h1>{selector.name}</h1>
-            <img src={selector.image} alt="" />
+            <img src={selector.image ||image_respaldo } alt="" />
           </div>
           <div className={style.info} >
             <h3>Altura aproximada entre {selector.Altura} cm.</h3>
