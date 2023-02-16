@@ -4,8 +4,9 @@
     height: 6vb;
     padding-top: .5rem;
     padding-bottom: .5rem;
-    background:  #f1c770;
-
+    background:  #edc067;
+    border-bottom: .2rem solid #023047; 
+    filter: drop-shadow(10px 1px 10px grey) ;
 
 }
 
@@ -36,7 +37,7 @@
     width: 40%;
     display: flex;
     justify-content: end;
-    padding-right: 8rem;
+    padding-right: 1rem;
 }
 
 .form button {
@@ -115,6 +116,7 @@
     text-align: center;
 }
 
+
 .menu_ul > li {
     border: 1px solid ;
     width: 50%; 
@@ -123,6 +125,8 @@
     cursor: pointer;
     
     border: none;
+
+    text-decoration: none;
 }
 
 
@@ -131,36 +135,75 @@
 .menu_li{
     border-bottom-left-radius: 1rem;
     border-top-left-radius: 1rem;
+    font-size: 1.5rem;
 }
+.ultimo{
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+.menu_li > ul > li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    text-decoration: none;
+    padding-bottom: .5rem;
+ 
+
+} 
+
 .filtros_li{
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
+    font-size: 1.5rem;
     
-    border: 1px solid red;
-    
+    border: 1px solid #FB8500 ;
+     
 } 
-.menu_ul li ul{
+.menu_ul >li> ul {
+    border-bottom-left-radius:  2rem ;
+    border-bottom-right-radius: 2rem ;
+
+}
+
+
+.menu_ul >li ul{
     display: none;
     position: absolute;
     list-style: none;
+    background: #FB8500;
 }
+
 
 .menu_ul li:hover > ul{
     display: block;
-
 }
 
-
-
+ 
 .menu_ul li ul {
   position:relative;
-  background: #000;
   color: white;
   min-width: 100%;
  
 }
 
 .menu_ul li ul li{
-    border : 2px red solid;
-    padding: .5rem;
+    border : 2px #FB8500;
+    font-size: 1.2rem;
+    padding-top: 1rem;
+
+}
+
+.menu_ul li ul li:hover {
+    background: #023047;
+}
+.menu_ul li ul li ul li{
+    background: #074665;
+    padding-bottom: .5rem;
+}
+
+.menu_ul li ul li ul li:hover {
+    
+    background: #2364aa;
 }

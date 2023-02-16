@@ -1,52 +1,99 @@
 
+/*
+.color1 {color: #122b28;} azul-negro
+.color2 {color: #12616f;} aul-verde
+.color3 {color: #ec6071;} roza
+.color4 {color: #f1c770;} amarillo
+.color5 {color: #f8efb8;} amarillo claro
+*/
 
 .all{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: .2rem;
+    
 
     text-decoration: none;
-    background: grey;
-    height: min-content;
+    height: 22rem;
+    border-radius: .5rem; 
 
-    border-radius: .5rem;
+    color: antiquewhite;
+    background: #023047;
+
+    border: black .1rem solid ;
+
+    box-shadow: 8px 4px 15px grey ;
+}
+
+.all:hover{
+    border: aliceblue .1rem solid ;
+
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    font-size: 1.2rem;
+
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+
+.subcontent{
+    height: 90%;
+
+
+
 }
 
 
-.title{
 
+.imagen{
     display: flex;
     justify-content: center;
     align-items: center;
 
-    height: 15%;
-    font-size: 2rem;
-    border: 1px black solid;
-    text-align: center;
-    color: white;
-}
-
-.subcontent {
-    text-decoration: none;
-
-    display: flex;
-    flex-direction: column;
-    border: 1px solid ;
-    height: 85%;
-    align-items: center;
-
-}
-.imagen{
+    background: aliceblue;
     border: 2px solid;
-    height: 70%;
+    height: 60%;
     display: flex;
 
 }
+
+
 .imagen img {
     width: 100%;
-    height: 200px ;
+    max-height: 100%;
 }
 
-.subcontent .temperamentos{
-    color: black;
-    font-size: 1.2rem;
+
+.temperamentos{
+    height: 20%;
+
+}
+
+
+.peso{
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    
+}
+.peso h3{
+    
+}
+
+.peso div  {
     width: 100%;
-    height: 30%;
+    display: flex;
+
+    
+}
+
+.peso div p {
+    width: 50%;
+    text-align: center;
 }

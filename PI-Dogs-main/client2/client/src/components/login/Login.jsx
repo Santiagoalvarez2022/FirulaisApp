@@ -6,7 +6,7 @@ import {Link} from "react-router-dom"
 //hacer funcion que valla cambiando entre 4 o 5 imagense de fondo
 
 const Login = () =>{
-    return(
+    return( 
       <div className={style.all}>
           <h1 className={style.title}> Firulais </h1>
           
@@ -14,7 +14,7 @@ const Login = () =>{
         <h2 className={style.subtitle}>Dog lovers</h2>
           <Link className={style.button} to= '/home' >
             <div>
-              <h3>Login</h3> 
+              <h3>Entrarssssss</h3> 
             </div> 
           </Link>
         </div>

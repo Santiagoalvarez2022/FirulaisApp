@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom"
 import style from './Card.module.css'
 //de prueba 
-import fakeimage from './dog.png'
+import fakeimage from './dog.jpg'
 
 
 const Card = (props) =>{
@@ -20,17 +20,20 @@ const Card = (props) =>{
           <div className={style.subcontent}>
             <div className={style.imagen}>
               <img src={image || fakeimage} alt="" />
-
             </div>
+
             <div className={style.temperamentos}>
-              <p>Sus temperamentos : </p>
+              <h3>Temperamentos : </h3>
               <p >{temperament}</p>
-                <p>--PESO- </p>
-                <p>min : {min}</p>
-                <p>max : {max}</p>
-
             </div>
 
+            <div className={style.peso} >
+              <h3>Peso :  </h3> 
+              <div>
+                <p>min : {min} kg</p>
+                <p>max : {max} kg</p>
+              </div>
+            </div>
           </div>
 
       

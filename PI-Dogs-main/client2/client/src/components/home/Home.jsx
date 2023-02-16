@@ -29,6 +29,7 @@ const Home = (props) => {
     SetValuePage(pag)
   }
   const back = (valuePage) => {
+    if(valuePage === 1 ) return
     let pag = valuePage - 1
     SetValuePage(pag)
   }
@@ -41,36 +42,36 @@ const Home = (props) => {
     return (
       <div className={style.all}>
         <div className={style.paginado}>
-          <button onClick={() => back(valuePage)}>ATRAS</button>
-          <button onClick={() => Next(valuePage)}>SIGUIENTE</button>
-          <h2>Pagina {valuePage}</h2>
+          <div className={style.buttons} >
+            <button  className={style.button_1} onClick={() => back(valuePage)}>ATRAS</button>
+            <button  className={style.button_2} onClick={() => Next(valuePage)}>SIGUIENTE</button>
+          </div>
+          <div className={style.paginas}>
+            <p>Pagina {valuePage}</p>
+          </div>
         </div>
-            {console.log(selector)}
-        {/* */}
+
+
         <div className={style.conteiner_page}>
-          {selector[0].error ?<div className={style.error}><h3>{selector[0].error}</h3> <form action=""><button>Ver todos</button></form> </div> 
-          :  <div className={style.conteiner}>
-          { selector.length>0 ?  selector.slice(InicioDogs, finalpage).map((dog) => {
-            const { name, id,  image, temperament, max ,min } = dog
-            return <Card
-              indice={selector.indexOf(dog)}
-              name={name}
-              key={id}
-              id={id}
+            {selector[0].error ?<div className={style.error}><h3>{selector[0].error}</h3> <form action=""><button>Ver todos</button></form> </div> 
             
-              image={image}
-              temperament={temperament}
-              max = {max} 
-              min= {min}
-            />
-          }) : null  }
-        </div>  }
-
-        
-
+            : <div className={style.conteiner}>
+            { selector.length>0 ?  selector.slice(InicioDogs, finalpage).map((dog) => {
+              const { name, id,  image, temperament, max ,min } = dog
+              return <Card
+                indice={selector.indexOf(dog)}
+                name={name}
+                key={id}
+                id={id}
+              
+                image={image}
+                temperament={temperament}
+                max = {max} 
+                min= {min}
+              />
+            }) : null  }
+          </div>}
         </div>
-
-
       </div>
     )
   }
@@ -117,4 +118,5 @@ export default Home;
            }) : null}
              </ul>
           </nav>
-  } */
+  } 
+  */

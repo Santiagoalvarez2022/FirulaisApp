@@ -63,15 +63,15 @@ const Navbar = () =>{
             <li className={style.menu_li}>Menu 
                 <ul className={style.depliegemenu} >
                     <li><Link className={style.link} to='/create' >CREATE</Link></li>
-                    <li> <Link className={style.link} to='/about' >about</Link></li>
+                    <li className={style.ultimo}> <Link className={style.link} to='/about' >about</Link></li>
                 </ul>
             </li>
 
             <li className={style.filtros_li}>Filtros
                 <ul>
                   <li>Peso<ul>
-                    <li id="AD" onClick={(event)=>handlerPesoOrder(event)} >A-D</li>
-                    <li id="DA" onClick={(event)=>handlerPesoOrder(event)} >D-A</li>
+                    <li id="AD" onClick={(event)=>handlerPesoOrder(event)} >min-max</li>
+                    <li id="DA" onClick={(event)=>handlerPesoOrder(event)} >max-min</li>
                     </ul></li>    
                   <li>Raza <ul>
                     <li id="ALL" onClick={(event)=>handlerRaceOrder(event)} >TODOS</li>
@@ -81,7 +81,7 @@ const Navbar = () =>{
                   <li>Aldabeticamente <ul>
                     <li id="AZ" onClick={(event)=>handlerAlfabetOrder(event)} >A-Z</li>
                     <li id="ZA" onClick={(event)=>handlerAlfabetOrder(event)} >Z-A</li>
-                    <li id="ALL" onClick={(event)=>handlerAlfabetOrder(event)}>Normal</li>
+                    <li className={style.ultimo}  id="ALL" onClick={(event)=>handlerAlfabetOrder(event)}>Normal</li>
                     </ul> </li>
                 </ul> 
             </li>
