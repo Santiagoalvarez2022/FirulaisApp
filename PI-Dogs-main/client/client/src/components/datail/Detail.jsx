@@ -36,17 +36,19 @@ const Detail = () =>{
             <img src={selector.image ||image_respaldo } alt="" />
           </div>
           <div className={style.info} >
-            <h3>Altura aproximada entre {selector.Altura} cm.</h3>
-            <h3>Rango aproximado de su peso es de {selector.Peso}kg.</h3>
-            <h3>Estimativo de vida {años} años.</h3>
-            <h3>Temperamentos que los caracterizan: "{typeof(selector.temperament) === "string"
-            ? <h3>{selector.temperament}</h3>
-            : selector.temperaments.map((t)=>{
-              return <h3
-              
-              >{t.name }</h3>
-            })
-          }".</h3>
+            <h3 className={style.Altura}>Altura aproximada entre {selector.Altura} cm.</h3>
+            <h3 className={style.Peso}>Rango aproximado de su peso es de {selector.Peso}kg.</h3>
+            <h3 className={style.Vida}>Estimativo de vida {años} años.</h3>
+            <div className={style.Temperaments}>
+              <h3 className={style.Temperaments}>Temperamentos que los caracterizan:</h3> {typeof(selector.temperament) === "string"
+              ? <h4>{selector.temperament}</h4>
+              : selector.temperaments.map((t)=>{
+                return <h4
+                
+                >{t.name }</h4>
+              })
+            }
+            </div>
           </div>
         </div>
         </div> 

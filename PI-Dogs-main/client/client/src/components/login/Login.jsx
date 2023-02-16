@@ -11,10 +11,10 @@ const Login = () =>{
           <h1 className={style.title}> Firulais </h1>
           
         <div className={style.sub}>
-        <h2 className={style.subtitle}>Dog lovers</h2>
+        <h3 className={style.subtitle}>Conocé a tus mascostas</h3>
           <Link className={style.button} to= '/home' >
             <div>
-              <h3>Entrarssssss</h3> 
+              <h3>Entrar</h3> 
             </div> 
           </Link>
         </div>

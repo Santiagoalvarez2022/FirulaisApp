@@ -48,22 +48,20 @@ const Navbar = () =>{
   }
 
 
-
-
     return(
       <div className={style.all}>
         <div className={style.logout} >
           <Link className={style.link}  to= '/' >Salir </Link> 
         </div>
         <div className={style.logout}>
-         <Link to= '/home' >Home </Link>
+         <Link to= '/home' >Inicio </Link>
         </div>
         <div className={style.menu} >
           <ul className={style.menu_ul}> 
             <li className={style.menu_li}>Menu 
                 <ul className={style.depliegemenu} >
-                    <li><Link className={style.link} to='/create' >CREATE</Link></li>
-                    <li className={style.ultimo}> <Link className={style.link} to='/about' >about</Link></li>
+                    <li className={style.ultimo} ><Link className={style.link} to='/create' >CREAR RAZA</Link></li>
+                    {/* <li className={style.ultimo}> <Link className={style.link} to='/about' >about</Link></li> */}
                 </ul>
             </li>
 

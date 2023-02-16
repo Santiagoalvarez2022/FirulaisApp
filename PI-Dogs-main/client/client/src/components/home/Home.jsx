@@ -22,9 +22,12 @@ const Home = (props) => {
   const [finDogs, setFinDogs] = useState(8) // VALOR INCIAL DE CANTIDAD DE PERROSS
 
   const finalpage = finDogs * valuePage
-  const InicioDogs = finalpage - finDogs
+  const InicioPage = finalpage - finDogs
 
+  const totalPages = Math.ceil(selector.length/finDogs)
+  
   const Next = (valuePage) => {
+    if(valuePage === totalPages) return
     let pag = valuePage + 1
     SetValuePage(pag)
   }
@@ -56,7 +59,7 @@ const Home = (props) => {
             {selector[0].error ?<div className={style.error}><h3>{selector[0].error}</h3> <form action=""><button>Ver todos</button></form> </div> 
             
             : <div className={style.conteiner}>
-            { selector.length>0 ?  selector.slice(InicioDogs, finalpage).map((dog) => {
+            { selector.length>0 ?  selector.slice(InicioPage, finalpage).map((dog) => {
               const { name, id,  image, temperament, max ,min } = dog
               return <Card
                 indice={selector.indexOf(dog)}

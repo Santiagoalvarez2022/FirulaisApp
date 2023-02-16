@@ -86,17 +86,13 @@ const Create = () =>{
   }
 
   const handlerTemperaments =(value)=>{
-    console.log("estado del cratetemperaments ", createTemperaments);
-    console.log("valor de handler temperament ", value);
     
     setForm({...form, ["temperaments"] : form.temperaments + " " + value}) 
     setTCreateTemperaments("")
   }
-  console.log("valor de tempermants del form ", form.temperaments);
    
   const deleteTemperament = (value) =>{
    
-    console.log("toque ", value);
     if(temperaments.length === 1){
       setTemperaments([])
       return 
@@ -108,8 +104,6 @@ const Create = () =>{
  
   const handlerSendData = () =>{
     dispatch(post_dog(form))
-    console.log(form);
-    console.log("enviado ");
     setForm(   {
       name : "",
       alturaMax : "",
@@ -171,7 +165,7 @@ const Create = () =>{
 
            
       
-              <div id={ !Object.keys(error).length && style.button}  className={style.campos}>
+              <div id={ form.name && !Object.keys(error).length && style.button}  className={style.campos}>
                 <button  disabled={ Object.keys(error).length} onClick={()=>{handlerSendData()}} type="submit">ENVIAR</button>
               </div>
             </div>
@@ -226,14 +220,14 @@ const Create = () =>{
           </form>
                 
 
-
+{/* 
           <div className={style.img}>
                   <label htmlFor="años_de_vida">Foto</label>
                   <input type="file"onChange={handlerForm}  name = "image" value={form.image} />
 
           </div> 
        
-        
+         */}
 
           {
             Object.keys(error).length ? 

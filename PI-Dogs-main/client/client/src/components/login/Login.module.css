@@ -14,20 +14,21 @@
     font-size: 15rem;
     color: rgb(0, 0, 0);
 
+    filter: drop-shadow(10px 1px 8px white) ;
 
     margin-top: 15rem;
 }
 
 .sub{
     display: flex;
-    font-size: 5rem;
+    font-size: 3rem; 
 
     align-items: center;
 
 }
 .subtitle{
     display: flex;
-    font-size: 5rem;
+    font-size: 3rem;
     height: fit-content;
     margin-left: 8rem;
     padding-right: 5rem;
@@ -50,7 +51,9 @@
     background:yellow;
     color: black;
     cursor: pointer;
-    border: .1rem solid
+    border: .1rem solid;
+    filter: drop-shadow(3px 3px 3px  black) ;
+
 }
 
 .button:hover{
