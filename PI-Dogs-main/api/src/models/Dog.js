@@ -28,6 +28,9 @@ module.exports = (sequelize) => {
     image : {
       type : DataTypes.STRING,
     },
+    color: {
+      type : DataTypes.STRING,
+    }
     
   },
   {timestamps: false}//elimina las propiedades de fecha de creacion y de modificacion

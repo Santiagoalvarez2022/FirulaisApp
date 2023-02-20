@@ -12,10 +12,11 @@ const {post_dog} = require("../../controllers/index")
     } */      
 
 const handler_postDog = async (req, res) =>{
-    let {name, alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,vidaMin,image,temperaments} = req.body;
+    console.log(req.body);
+    let {name, color, alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,vidaMin,image,temperaments} = req.body;
     try {
         //creo nueva raza con 
-        const newRace = await post_dog(name, alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,vidaMin,image,temperaments);
+        const newRace = await post_dog(name,color ,alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,vidaMin,image,temperaments);
         res.status(200).json(newRace)
         
     } catch (error) {

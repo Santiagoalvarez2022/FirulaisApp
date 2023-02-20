@@ -1,6 +1,6 @@
 const {Dog, Temperament} = require('../../db')
 
-const post_dog = async (name, alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,vidaMin,image,temperaments) =>{
+const post_dog = async (name, color, alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,vidaMin,image,temperaments) =>{
 
     let Altura = `${alturaMin} - ${alturaMax}`
     let Peso = `${pesoMin} - ${pesoMax}`
@@ -10,7 +10,7 @@ const post_dog = async (name, alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,v
     //validaciones : solo validos los campos obligatorio
     if(!name ) throw Error("Faltan datos")
     //creo registro de Dog
-    const newrace = await Dog.create({name,Altura,Peso,Años_de_vida})
+    const newrace = await Dog.create({name,Altura,Peso,Años_de_vida, color})
 
     //creo array con cada temperamento
     let arr_temperaments = temperament.split(" ");

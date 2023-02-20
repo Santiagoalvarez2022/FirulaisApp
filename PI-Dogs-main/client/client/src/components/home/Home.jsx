@@ -3,9 +3,8 @@ import Card from "../card/Card";
 import { useDispatch, useSelector } from 'react-redux'
 import { sumar, dataApi, get_dogs } from "../../redux/actions";
 import style from './Home.module.css'
-import Pages from "./paginado";
 import Loanding from "../loanding/Loading";
-
+import Paginado from "../paginado/paginado";
 
 const Home = (props) => {
   const dispatch = useDispatch()
@@ -44,17 +43,7 @@ const Home = (props) => {
   } else {
     return (
       <div className={style.all}>
-        <div className={style.paginado}>
-          <div className={style.buttons} >
-            <button  className={style.button_1} onClick={() => back(valuePage)}>ATRAS</button>
-            <button  className={style.button_2} onClick={() => Next(valuePage)}>SIGUIENTE</button>
-          </div>
-          <div className={style.paginas}>
-            <p>Pagina {valuePage}</p>
-          </div>
-        </div>
-
-
+       <Paginado />
         <div className={style.conteiner_page}>
             {selector[0].error ?<div className={style.error}><h3>{selector[0].error}</h3> <form action=""><button>Ver todos</button></form> </div> 
             

@@ -48,7 +48,8 @@ const Create = () =>{
       temperaments :"",
       vidaMax : "",
       vidaMin : "",
-      image : ""
+      image : "",
+      color : ""
     }
   )   
   //estado para los temperamentos seleccionados de la lista <select /> y de los que voy a crear en el input
@@ -103,6 +104,7 @@ const Create = () =>{
 
  
   const handlerSendData = () =>{
+    console.log(form);
     dispatch(post_dog(form))
     setForm(   {
       name : "",
@@ -113,7 +115,8 @@ const Create = () =>{
       temperaments :"",
       vidaMax : "",
       vidaMin : "",
-      image : "" 
+      image : "",
+      color : ""
     })
 
   }
@@ -161,6 +164,14 @@ const Create = () =>{
                   <input  type="number" placeholder="max" onChange={handlerForm}  name="vidaMax" value={form.vidaMax} />
                 </div>
                 </div>
+
+                <div id={style.medidas}>
+                  <label htmlFor="color">Color </label>
+                <div className={style.medidas_input} >
+                  <input  type="text" placeholder="añade su color" onChange={handlerForm}  name="color" value={form.color} />
+                </div>
+                </div>
+
 
 
            

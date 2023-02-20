@@ -39,6 +39,8 @@ const Detail = () =>{
             <h3 className={style.Altura}>Altura aproximada entre {selector.Altura} cm.</h3>
             <h3 className={style.Peso}>Rango aproximado de su peso es de {selector.Peso}kg.</h3>
             <h3 className={style.Vida}>Estimativo de vida {años} años.</h3>
+            <h3 className={style.Vida}>Color de la Raza {selector.color}.</h3>
+
             <div className={style.Temperaments}>
               <h3 className={style.Temperaments}>Temperamentos que los caracterizan:</h3> {typeof(selector.temperament) === "string"
               ? <h4>{selector.temperament}</h4>

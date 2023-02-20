@@ -1,0 +1,65 @@
+.paginado{
+    display: flex;
+    height: 5rem;
+    margin-bottom: .5rem;
+}
+
+.paginas{
+    display: flex;
+    width: 50%;
+    justify-content: end;
+
+}
+.paginas p{
+    color: #023047;
+    padding-right: 2rem;
+    padding-left:  2rem;
+    padding-top:   .5rem;
+    padding-bottom:.5rem;
+    font-size: 1.3rem;
+    border-bottom: #023047 2px solid;
+
+}
+
+.buttons{
+    display: flex;
+    width: 50%;
+    padding-top:.5rem ;
+}
+.buttons button{
+    width: fit-content;
+    background:  #023047 ;
+    border: none;
+    color: aliceblue;
+    border: .1rem solid #023047;
+    cursor: pointer;
+    
+
+    
+}
+.button_1{ 
+    padding: 1rem; 
+    border-bottom-left-radius:2rem ;
+    border-top-left-radius:2rem ;
+
+}
+.button_2{
+    padding: 1rem;
+    border-bottom-right-radius:2rem ;
+    border-top-right-radius:2rem ;
+}
+
+.buttons button:hover{
+    transition: .5s;
+    background: aliceblue;
+    color: #023047;
+    border: .1rem solid #023047;
+}
+
+.conteiner_indice{ 
+    display: flex ; 
+
+}
+.indice{
+    background: yellow;  
+}
