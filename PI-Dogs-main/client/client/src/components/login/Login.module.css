@@ -1,68 +1,104 @@
+/*.color1 {color: #ffb56f;}
+.color2 {color: #ffd75c;}
+.color3 {color: #003f90;}
+.color4 {color: #0084a8;}
+.color5 {color: #00d0c4;}
+
+
+.color1 {color: #201e06; negro }
+.color2 {color: #2f5828;}
+.color3 {color: #ff5d07; naranja}
+.color4 {color: #ffe24f;}
+.color5 {color: #fffbde;}
+
+*/
+
 .all{
-    height: 100vb;
-    background-image: url('./dog.png');
-    background-size: 100% 100%;
     display: flex;
     flex-direction: column;
+    background:#0048E8 ;
+    height: 100vb;
+
+    box-shadow:  0px 0px 1rem .03rem inset rgba(0, 0, 0, 0.551) ;
 }
 
-
-.title{
-    width: fit-content;
-    height: fit-content;
+.conteiner_title { 
+    height: 15%;
     display: flex;
-    font-size: 15rem;
-    color: rgb(0, 0, 0);
-
-    filter: drop-shadow(10px 1px 8px white) ;
-
-    margin-top: 15rem;
+    justify-content: start;
+    align-items: center;
+    padding: 0; 
 }
+
+.conteiner_title > h1{
+    font-size: 4.5rem;
+    color: #fff;
+    height: fit-content;
+    margin: 0;
+    margin-left: 5rem ;
+    font-family: 'Tilt Warp', cursive;
+    filter: drop-shadow(0px 10px 10px  black) ;
+
+}
+
+.body {
+    display: flex;
+    height: 70%; 
+}
+
+.getIn{
+    width: 50%;
+}
+
+
+
 
 .sub{
     display: flex;
-    font-size: 3rem; 
-
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-
+    height: 100%;
 }
-.subtitle{
-    display: flex;
+
+.enunciado {
+    height: 70%; 
     font-size: 3rem;
-    height: fit-content;
-    margin-left: 8rem;
-    padding-right: 5rem;
-    padding-left: 5rem;
-
-
+    padding-top: 10rem;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #D9D9D9;
+    
 }
+
 
 .button{
+    height: 30%;
+    font-size: 2rem;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+
+
+
+
+.imagen{
+    width: 50%;
     display: flex;
-    padding: 1rem;
-    margin-left: 1rem;
-
-    padding: 1rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
-    border-radius: 1.5rem;
+    justify-content: center;
     
-    text-decoration: none;
-    background:yellow;
-    color: black;
-    cursor: pointer;
-    border: .1rem solid;
-    filter: drop-shadow(3px 3px 3px  black) ;
 
 }
-
-.button:hover{
-    transition: .7s;
-    background: #000;
-    color: yellow;
-}
-
-.button div h3{
-    font-size: 1.7rem;
+.imagen > img {
+    border-radius: 2.5rem;
+    width: 450px;
+    height: 515px;
+    box-shadow: 
+    1rem 1rem 1rem black,
+    1rem 1rem 3rem 1rem rgba(0, 0, 0, 0.635)
+    ;
+    
 
 }
