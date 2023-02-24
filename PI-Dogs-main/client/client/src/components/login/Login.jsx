@@ -21,11 +21,11 @@ const Login = () =>{
                 <p>y aprendé más de ellas</p>
               </div>
               <div  className={style.button}>
-                <Link to= '/home' >
-                  <div>
-                    <h3>Entrar</h3> 
-                  </div> 
-                </Link>
+                  <Link to= '/home' >
+                    <div>
+                      <h3>Entrar</h3> 
+                     </div>  
+                  </Link>
               </div>
             </div>
           </div>
