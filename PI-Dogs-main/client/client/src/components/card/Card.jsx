@@ -4,7 +4,6 @@ import style from './Card.module.css'
 //de prueba 
 import fakeimage from './dog.jpg'
 
-
 const Card = (props) =>{
 
     const {id,name,image,temperament, indice,max,min} = props

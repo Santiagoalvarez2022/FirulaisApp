@@ -18,18 +18,29 @@
     height: 22rem;
     border-radius: .5rem; 
 
-    color: antiquewhite;
-    background: #023047;
 
-    border: black .1rem solid ;
+    color: #dadbe5;
 
-    box-shadow: 8px 4px 15px grey ;
+    
+    box-shadow: 4px 4px 0px hsl(215, 10%, 51%)  ;
+    
+    background: #6599e8;
 }
 
 .all:hover{
-    border: aliceblue .1rem solid ;
-
+    /* box-shadow: 8px 4px 0px hsl(216, 18%, 46%)  ; */
+    background:#1269eb  ;
 }
+
+
+
+
+
+
+
+
+
+
 
 .title{
     display: flex;

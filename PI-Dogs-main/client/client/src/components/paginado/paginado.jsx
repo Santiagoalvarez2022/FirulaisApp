@@ -8,9 +8,14 @@ import Pages from "./paginado";
 
 const Paginado = (props) => {
     const selector = useSelector((state)=> state.dogs)
+   
+
+
     const [valuePage, SetValuePage] = useState(1)
     const [finDogs, setFinDogs] = useState(8) // VALOR INCIAL DE CANTIDAD DE PERROSS
   
+    
+
     const finalpage = finDogs * valuePage
     const InicioPage = finalpage - finDogs
   
@@ -47,28 +52,22 @@ const Paginado = (props) => {
       <div className={style.all}>
         <div className={style.paginado}>
           <div className={style.buttons} >
-            <button  className={style.button_1} onClick={() => back(valuePage)}>ATRAS</button>
-            <button  className={style.button_2} onClick={() => Next(valuePage)}>SIGUIENTE</button>
-          </div>
-          <div className={style.paginas}>
-            <p>Pagina {valuePage}</p>
+            <button  className={style.button_1} onClick={() => back(valuePage)}> {"<"} </button>
+              <div className={style.conteiner_indice}>{
+              num_indice_total
+                  ? indice.map(i=> {
+                      return <div
+                      className={style.indice}
+                      key={i}
+                      >
+                          {i}
+                      </div>
+                  })
+                  : null
+              }</div>
+            <button  className={style.button_2} onClick={() => Next(valuePage)}> {">"} </button>
           </div>
         </div>
-        <div>
-            <div className={style.conteiner_indice}>{
-            num_indice_total
-                ? indice.map(i=> {
-                    return <div
-                    className={style.indice}
-                    key={i}
-                    >
-                        {i}
-                    </div>
-                })
-                : null
-            }</div>
-        </div>
-   
       </div>
     )
   

@@ -3,7 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {Link} from "react-router-dom"
 import style from './NavBar.module.css'
 import { get_by_name , get_temperaments, filter_temperament, order_races , order_alfabet, order_peso} from "../../redux/actions";
+import { useLocation } from "react-router-dom";
+
+
+
 const Navbar = () =>{
+
+  const location = useLocation()
+
+
   //selectorTemps esta subscirptos al store
   const selectorTemps = useSelector((state)=>state.temperaments)
   const [stateForm, setForm] = useState("")
@@ -54,7 +62,8 @@ const Navbar = () =>{
           <Link className={style.link}  to= '/' >Salir </Link> 
         </div>
         <div className={style.logout}>
-         <Link to= '/home' >Inicio </Link>
+        {location.pathname === "/home" ? null :  <Link to= '/home' >Inicio </Link>}
+        
         </div>
         <div className={style.menu} >
           <ul className={style.menu_ul}> 

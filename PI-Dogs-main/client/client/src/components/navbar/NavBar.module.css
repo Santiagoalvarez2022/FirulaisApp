@@ -4,40 +4,55 @@
     height: 6vb;
     padding-top: .5rem;
     padding-bottom: .5rem;
-    background:  #edc067;
-    border-bottom: .2rem solid #023047; 
+    background: #6599e8;
+    
+    border-bottom: .2rem solid #84a1cc; 
     filter: drop-shadow(10px 1px 10px grey) ;
+
+    align-items: center;
 
 }
 
-.logout{
-    margin-inline: .5rem;
-    width: 5% ;
+
+/*log ouot */
+.logout {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
     border-radius: .5rem;
-    background: #2364aa;
 }
 
-
-.logout:hover{
-    background: #000;
-}
 .logout a{
+    margin-inline: 1rem;
     text-align: center;
     color: aliceblue;
     text-decoration: none;
-    font-family: fantasy;
     width: 100%;
 }
 
+.logout a:hover{
+    transition: .5s;
+    color: #074665;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*Searchbar */
 .form{
     width: 40%;
     display: flex;
     justify-content: end;
     padding-right: 1rem;
+    height: 2rem;
 }
 
 .form button {
@@ -45,7 +60,6 @@
     border-top-right-radius: .7rem;
 
     width: 7rem;
-    background: #FB8500;
     cursor: pointer;
 
     border: none;
@@ -55,10 +69,13 @@
 
 .form input{
     border: none;
+    border-radius: .2rem;
+
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 
     width: 21rem;
-    border-bottom-left-radius: .7rem;
-    border-top-left-radius: .7rem;
+
 
     font-size: 1.7rem;
     padding: .5rem;
@@ -93,14 +110,13 @@
 }
 
 
+
+/*Menu desplegables */
 .menu {
     width: 25% ;
     display: flex;
     margin-left: 3%;
 }
-
-
-
 
 
 
@@ -121,7 +137,6 @@
     border: 1px solid ;
     width: 50%; 
     
-    background: #FB8500;
     cursor: pointer;
     
     border: none;

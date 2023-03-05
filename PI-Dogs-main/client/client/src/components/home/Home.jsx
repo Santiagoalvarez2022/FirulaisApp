@@ -5,6 +5,7 @@ import { sumar, dataApi, get_dogs } from "../../redux/actions";
 import style from './Home.module.css'
 import Loanding from "../loanding/Loading";
 import Paginado from "../paginado/paginado";
+import CardData from "./Card_data";
 
 const Home = (props) => {
   const dispatch = useDispatch()
@@ -12,6 +13,8 @@ const Home = (props) => {
   const [state, setState] = useState([])
   const [inicio, setInicio] = useState(0)
   const [fin, setFin] = useState(7)
+
+  const numberPage = useSelector((state)=> state.numberPage)
 
   useEffect(() => {
     dispatch(get_dogs())
@@ -43,7 +46,7 @@ const Home = (props) => {
   } else {
     return (
       <div className={style.all}>
-       <Paginado />
+        <CardData />
         <div className={style.conteiner_page}>
             {selector[0].error ?<div className={style.error}><h3>{selector[0].error}</h3> <form action=""><button>Ver todos</button></form> </div> 
             
@@ -64,6 +67,8 @@ const Home = (props) => {
             }) : null  }
           </div>}
         </div>
+        <Paginado />
+
       </div>
     )
   }

@@ -4,7 +4,8 @@ import {GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS, FILTER_TEMPERAMENT,DETAIL_DOG, 
 const initialSate = {
     dogs : [],
     temperaments : [],
-    detaildog : {}
+    detaildog : {},
+    numberPage :1
 
 }
 //debe ser una funcion pura

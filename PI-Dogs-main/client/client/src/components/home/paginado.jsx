@@ -37,7 +37,7 @@ const Pages =  () =>{
     return(
      <>
      {cantidadDogs}
- 
+      
      </>
     )
     

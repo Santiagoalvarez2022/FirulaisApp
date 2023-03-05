@@ -12,6 +12,7 @@ const router = express.Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 router.use("/", get_all)
+
 router.use("/", post_dog)
 
 

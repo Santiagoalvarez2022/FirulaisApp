@@ -10,7 +10,7 @@ import { Route } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 import About from './components/about/about';
-
+import Footer from './components/footer/Footer';
 
 function App() {
   const location = useLocation()
@@ -24,6 +24,7 @@ function App() {
       </Route>
       {/* Condiciono que la barra de navegacion para que no aparezca cuando esta el llogin */}
       {location.pathname === "/" ? null : <Navbar />}
+
 
       <Route exact path="/home">
         <Home />
@@ -40,6 +41,11 @@ function App() {
       <Route exact path="/about">
         <About />
       </Route>
+      
+      <Route  path="/">
+        <Footer />
+      </Route>
+
     </div>
   );
 }
