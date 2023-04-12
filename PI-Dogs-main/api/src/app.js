@@ -42,7 +42,16 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 
 
 
+/*El error indica que el servidor no pudo encontrar el host que se está intentando conectarse. Específicamente, el mensaje de error indica que la función getaddrinfo no pudo encontrar la dirección IP correspondiente al nombre de host 'undefined'. Esto puede suceder por varias razones, incluyendo:
 
+El nombre de
+El servidor no está disponible.
+La conexión a Internet no
+El servidor PostgreSQL no está configurado correctamente.
+Hay
+Para
+
+ */
 
 
 module.exports = server;
