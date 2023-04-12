@@ -6,6 +6,55 @@ export const FILTER_TEMPERAMENT = "FILTER_TEMPERAMENT";
 export const ORDER_RACE= "ORDER_RACE";
 export const DETAIL_DOG= "DETAIL_DOG";
 export const RESET_DETAIL_DOG= "RESET_DETAIL_DOG";
+export const  CHANGE_PAGE = " CHANGE_PAGE ";
+export const  HANDLER_INDICE = " HANDLER_INDICE ";
+
+
+export const change_page = (value) =>{
+    if(value){
+        return{
+            type :   CHANGE_PAGE,
+            payload : value
+        }
+    } else {
+        return{
+            type :   CHANGE_PAGE,
+            payload : 1
+        }
+    }
+}
+
+
+export const handler_indices = (value) => {
+    if(!value){
+        return {
+            type : HANDLER_INDICE,
+            payload : {
+                page : 1,
+                inicio : 0,
+                fin : 8
+            }
+        }
+    }
+
+    //despacho action que cambia la pagina
+    let start = (value - 1 ) * 8 
+    let end = (value * 8 )
+
+    return {
+        type : HANDLER_INDICE,
+        payload : {
+            page : value,
+            inicio : start,
+            fin : end
+        }
+    }
+  }
+
+
+
+
+
 
 
 

@@ -86,3 +86,26 @@
     background: #1d403c;
     border: aliceblue solid;
 }
+
+.indice{
+    display: flex;
+    justify-content: center;
+    height: 60px;
+    
+}
+
+.button_directions{
+    height: 30px;
+}
+
+
+.button_indice{
+    width: 30px;
+    height: 30px;
+}
+
+
+.paginado > button{
+    height: 50px;
+    width: 50px;
+}

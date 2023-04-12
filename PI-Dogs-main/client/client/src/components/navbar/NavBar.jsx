@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {Link} from "react-router-dom"
 import style from './NavBar.module.css'
-import { get_by_name , get_temperaments, filter_temperament, order_races , order_alfabet, order_peso} from "../../redux/actions";
+import { get_by_name , get_temperaments, filter_temperament, order_races , order_alfabet, order_peso, change_page, handler_indices} from "../../redux/actions";
 import { useLocation } from "react-router-dom";
 
 
@@ -36,24 +36,25 @@ const Navbar = () =>{
   const selectTemperament = (event) => {
     //delaro una variable que contien el temperamento seleccionado
     let temperament = event.target.value.trim()
-    console.log(event.target.value.trim());
-
+    dispatch(handler_indices())
     dispatch(filter_temperament(temperament))
    
   }
-
+  
   //orders 
   
   const handlerRaceOrder =(event) =>{
-   dispatch(order_races(event.target.id))
+    dispatch(handler_indices())
+    dispatch(order_races(event.target.id))
   }
   const handlerAlfabetOrder =(event) =>{
-    console.log(event.target.id)
+    dispatch(handler_indices())
     dispatch(order_alfabet(event.target.id))
   }
   const handlerPesoOrder =(event) =>{
+    dispatch(handler_indices())
     dispatch(order_peso(event.target.id))
-  }
+  } 
 
 
     return(

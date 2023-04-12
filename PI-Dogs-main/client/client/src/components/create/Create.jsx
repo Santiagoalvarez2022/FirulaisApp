@@ -6,26 +6,36 @@ import { get_dogs,filter_temperament, post_dog } from "../../redux/actions";
 import image from './cargando.gif'
 
 const validate = (form, dogs) =>{
-  const error ={}
-  const name = form.name.trim()
-  //evaluar con el nombre todo el minuscula al igual que el nombre de los perros del array
-  const find_dog = dogs.find((dog)=>  dog.name.trim().toLowerCase() === name.toLowerCase()  )
-  if(find_dog){
-    error.name = "Ya existe una raza con este nombre"
-  } else if(!/^[a-zA-Z ]+$/.test(name)){
-  //valido que el nombre solo contenga letras y numeros
-    error.name = "El nombre no puede estar vacio, tampoco contener numeros o caracteres especiales"
-  } 
-  if (parseInt(form.alturaMin) > parseInt(form.alturaMax) ){
-    error.altura = "La altura maxima no puede ser menor a la altura minima "
-  } 
-  if (parseInt(form.pesoMin) > parseInt(form.pesoMax)) {
-    error.altura = "El peso maximo no puede ser menor al peso minimo "
-  } 
-  if (form.años_de_vida < 0){
-    error.años_de_vida = "Los años de vida debe ser positivo"
-  }  
-  return error
+  console.log("entre a validate", form)
+  let error = {};
+  let{alturaMax, alturaMin, name, pesoMax, pesoMin, temperaments, vidaMax, vidaMin} = form;
+
+  if(!name || !alturaMax || !alturaMin || !pesoMax || !pesoMin || !temperaments || !vidaMax || !vidaMin){
+    error.vacio = "Todos los campos deben llenarse";
+  }
+
+  if(form.name){
+    const find_dog = dogs.find((dog)=>  dog.name.trim().toLowerCase() === name.toLowerCase()  )
+    if(find_dog){
+      error.name = "Ya existe una raza con este nombre"
+    } else if(!/^[a-zA-Z ]+$/.test(name)){
+    //valido que el nombre solo contenga letras y numeros
+      error.name = "El nombre no puede contener numeros o caracteres especiales"
+    } 
+  }
+
+
+
+  if(parseInt(alturaMax) < 0 || parseInt(alturaMin) < 0) error.alturaNegativa = "La altura no puede ser negativa"
+  if(parseInt(alturaMax) < parseInt(alturaMin) || parseInt(alturaMax) === parseInt(alturaMin) ) error.altura = "La altura maxima no puede ser igual o menor a la altura minima"
+  
+  if(parseInt(pesoMax) < 0 || parseInt(pesoMin) < 0) error.pesoNegativo = "El peso no puede ser negativo"
+  if(parseInt(pesoMax) < parseInt(pesoMin) || parseInt(pesoMax) === parseInt(pesoMin) ) error.peso = "El peso maximo no puede ser igual o menor al peso minimo"
+  
+  if(parseInt(vidaMax) < 0 || parseInt(vidaMin) < 0) error.vidaNegativa = "El rango de vida no puede contener numeros negativos"
+  if(parseInt(vidaMax) < parseInt(vidaMin) || parseInt(vidaMax) === parseInt(vidaMin) ) error.peso = "El peso maximo no puede ser igual o menor al peso mvidao"
+
+  return error 
 }
 
 const Create = () =>{
@@ -60,23 +70,26 @@ const Create = () =>{
 
   
 
-  const [error,setError] = useState({
-    // name : "", //que no tenga caracteres especiales ni numeros o si ya existe
-    // peso : "", // que el max sea menor a min  
-    // altura : "",  // "  " 
-    // años_de_vida : "" //no puede ser negativo
-  }) 
+  const [error,setError] = useState({}) 
 
   //manejador de estado del form
   const handlerForm = (event) =>{
     const {value, name} = event.target
+    console.log(event.target.value);
+    console.log(event.target.name);
+
+    if (name === "temperaments") {
+      setForm({...form, ["temperaments"] : (form.temperaments + " " + value).trim()})
+      setError(validate({...form, ["temperaments"] : form.temperaments + " " + value}, dogs))
+      return
+    }
+
     setForm({
       ...form,
       [name] : value
     })
     setError(validate({...form, [name] : value}, dogs))
   }
- 
   const handlerSubmit = (event)=>{
     event.preventDefault() 
   }
@@ -87,10 +100,13 @@ const Create = () =>{
   }
 
   const handlerTemperaments =(value)=>{
-    
-    setForm({...form, ["temperaments"] : form.temperaments + " " + value}) 
+    console.log("hola");
+    setForm({...form, ["temperaments"] : form.temperaments + " " + value})
+    setError(validate({...form, ["temperaments"] : form.temperaments + " " + value}, dogs))
+
     setTCreateTemperaments("")
   }
+  console.log(form);
    
   const deleteTemperament = (value) =>{
    
@@ -100,11 +116,11 @@ const Create = () =>{
     }
     let update_Temperaments = form.temperaments.trim().split(" ").filter(t => t !== value)
     setForm({...form,["temperaments"] : update_Temperaments.join(" ")})
+    setError(validate({...form, ["temperaments"] : update_Temperaments.join(" ")}, dogs))
   }  
 
  
   const handlerSendData = () =>{
-    console.log(form);
     dispatch(post_dog(form))
     setForm(   {
       name : "",
@@ -121,6 +137,7 @@ const Create = () =>{
 
   }
 
+ 
   if(!Object.keys(dogs).length){
     return(
       <div className={style.loading}>
@@ -131,69 +148,55 @@ const Create = () =>{
     return(
         <div  className={style.conteiner}>
           <form  onClick={(e)=> handlerSubmit(e)} >
-
-            <div className={style.formInfo} >
+            <div className={style.formInfo}>
               <div className={style.campos}>
                   <label htmlFor="name">Nombre</label>
                   <input onChange={handlerForm} value={form.name} name="name"  type="text" /> 
-                </div>
+              </div>
 
-                <div id={style.medidas}>
+              <div id={style.medidas}>
+                <label htmlFor="altura">Altura</label> 
+                <div className={style.medidas_input} >
+                  <input  type="number" placeholder="min" onChange={handlerForm}  name="alturaMin" value={form.alturaMin} />
+                  <input  type="number" placeholder="max" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
+                </div> 
+              </div>  
 
-                  <label htmlFor="altura">Altura</label> 
-                  <div className={style.medidas_input} >
-                    <input  type="number" placeholder="min" onChange={handlerForm}  name="alturaMin" value={form.alturaMin} />
-                    <input  type="number" placeholder="max" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
-                  </div>
-                
-                </div>  
-
-                <div id={style.medidas}>
-                  <label htmlFor="peso">Peso</label>
+              <div id={style.medidas}>
+                <label htmlFor="peso">Peso</label>
                 <div className={style.medidas_input} >
                   <input  type="number" placeholder="min" onChange={handlerForm}  name="pesoMin" value={form.pesoMin} />
                   <input  type="number" placeholder="max" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />
                 </div>
-                </div> 
-
-           
-                <div id={style.medidas}>
-                  <label htmlFor="vida">Rango de vida aproximado </label>
+              </div> 
+          
+              <div id={style.medidas}>
+                <label htmlFor="vida">Rango de vida aproximado </label>
                 <div className={style.medidas_input} >
                   <input  type="number" placeholder="min" onChange={handlerForm}  name="vidaMin" value={form.vidaMin} />
                   <input  type="number" placeholder="max" onChange={handlerForm}  name="vidaMax" value={form.vidaMax} />
                 </div>
-                </div>
+              </div>
 
-                <div id={style.medidas}>
-                  <label htmlFor="color">Color </label>
-                <div className={style.medidas_input} >
-                  <input  type="text" placeholder="añade su color" onChange={handlerForm}  name="color" value={form.color} />
-                </div>
-                </div>
-
-
-
-           
-      
               <div id={ form.name && !Object.keys(error).length && style.button}  className={style.campos}>
                 <button  disabled={ Object.keys(error).length} onClick={()=>{handlerSendData()}} type="submit">ENVIAR</button>
               </div>
+
             </div>
+
             <div className={style.formTemperaments} >
-
                 <div className={style.header} >
-
                   <div className={style.header_p}>
                     <p>SELECCIONA LOS TEMPERAMENTO</p> 
                   </div>
 
                   <div className={style.header_select} >
-                    <select  onChange={(e)=>handlerTemperaments(e.target.value)} className={style.select} name="" id="">
+                    <select  onChange={handlerForm} className={style.select} name="temperaments" id="">
                       <option value="lista"    >Lista de temperamentos</option>
                       {selectorTemps.length ? selectorTemps.map((temp)=>{
                         return <option
                         key={temp.id}
+                       
                         value = {temp.name.trim()}
                         >{temp.name.trim()}</option>
                       }): null} 
@@ -207,8 +210,6 @@ const Create = () =>{
                       <button onClick={()=>handlerTemperaments(createTemperaments)} >AGREGAR</button>
                     </div > 
                   </div>
-                
-
                 </div>
 
                 <div className={style.seleccionados} >
@@ -229,33 +230,32 @@ const Create = () =>{
                 </div>
             </div>
           </form>
-                
-
-{/* 
-          <div className={style.img}>
-                  <label htmlFor="años_de_vida">Foto</label>
-                  <input type="file"onChange={handlerForm}  name = "image" value={form.image} />
-
-          </div> 
-       
-         */}
-
+        
           {
             Object.keys(error).length ? 
             <div  className={style.error}>
+         
               {error.name ? <p>{error.name}</p> : null}
               {error.altura ? <p>{error.altura}</p> : null}
+              {error.alturaNegativa ? <p>{error.alturaNegativa}</p> : null}
+
               {error.peso ? <p>{error.peso}</p> : null}
-              {error.años_de_vida ? <p>{error.años_de_vida}</p> : null}
+              {error.pesoNegativo ? <p>{error.pesoNegativo}</p> : null}
+              
+
+              {error.vidaNegativa ? <p>{error.vidaNegativa}</p> : null}
+
+
+              {error.vacio ? <p>{error.vacio}</p> : null}
+
             </div>
-            : null
+            : null 
           }
           
         </div>
     )
   }
 }  
-
 
 
 export default Create;
