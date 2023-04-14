@@ -1,17 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
-import Card from './components/card/Card';
-import Create from './components/create/Create';
 import Detail from './components/datail/Detail';
 import Home from './components/home/Home';
 import Login from './components/login/Login';
-import Navbar from './components/navbar/NavBar';
 import { Route } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 import About from './components/about/about';
 import Footer from './components/footer/Footer';
+import axios from 'axios';
+//declaro la ruta a la cual le va a pegar el front al back
 
+axios.defaults.baseURL = "http://localhost:3001/"
 
 function App() {
   const location = useLocation()

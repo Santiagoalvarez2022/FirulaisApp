@@ -59,7 +59,7 @@ export const handler_indices = (value) => {
 
 
 export const get_dogs = () => async (dispatch) => {
-    let result = await axios.get("http://localhost:3001/dogs") 
+    let result = await axios.get("/dogs") 
     return dispatch({
         type : GET_DOGS,
         payload : result.data
@@ -67,13 +67,13 @@ export const get_dogs = () => async (dispatch) => {
 }
 
 export const post_dog = (data) =>async () => {
-    let newdog =  await axios.post("http://localhost:3001/dogs", data)
+    let newdog =  await axios.post("/dogs", data)
     console.log("actions ok");
     return newdog
 } 
 
 export const detail_dog = (id) => async (dispatch) => {
-    let result = await axios.get(`http://localhost:3001/dogs/${id}`) 
+    let result = await axios.get(`/dogs/${id}`) 
     return dispatch({
         type : DETAIL_DOG,
         payload : result.data
@@ -85,7 +85,7 @@ export const reset_detail_dog = () => async (dispatch) => {
     })
 }
 export const get_temperaments = () => async (dispatch) =>{
-    let result = await axios.get(`http://localhost:3001/temperaments`) 
+    let result = await axios.get(`/temperaments`) 
     return dispatch({
         type : GET_TEMPERAMENTS ,
         payload : result.data
@@ -96,7 +96,7 @@ export const get_temperaments = () => async (dispatch) =>{
 
 export const  filter_temperament = (temperament) => async (dispatch) =>{
     let filter = [] 
-    let result = await axios.get(`http://localhost:3001/dogs`) 
+    let result = await axios.get(`/dogs`) 
     if(temperament === "TODOS LOS PERROS"){
         filter = result.data
     } else{
@@ -118,7 +118,7 @@ export const  filter_temperament = (temperament) => async (dispatch) =>{
 
 
 export const get_by_name = (name) => async (dispatch) => {
-    let result = await axios.get(`http://localhost:3001/dogs?name=${name}`) 
+    let result = await axios.get(`/dogs?name=${name}`) 
     return dispatch({
         type : GET_BY_NAME ,
         payload : result.data
@@ -127,7 +127,7 @@ export const get_by_name = (name) => async (dispatch) => {
 
 
 export const order_peso = (order) => async (dispatch) => {
-    let result = await axios.get(`http://localhost:3001/dogs`) 
+    let result = await axios.get(`/dogs`) 
     let filter = []
     //de menor a mayor
 
@@ -159,7 +159,7 @@ export const order_peso = (order) => async (dispatch) => {
 }
 
 export const order_races = (type) => async (dispatch) =>{
-    let result = await axios.get(`http://localhost:3001/dogs`) 
+    let result = await axios.get(`/dogs`) 
     let filter = []
     //VER EL ID DE CADA UNO Y SI ES UN NUM == API, STRING === DATABASE
     if(type === "ALL"){
@@ -181,7 +181,7 @@ export const order_races = (type) => async (dispatch) =>{
 
 
 export const order_alfabet = (type) => async (dispatch) =>{
-    let result = await axios.get(`http://localhost:3001/dogs`) 
+    let result = await axios.get(`/dogs`) 
     let filter = []
     //VER EL ID DE CADA UNO Y SI ES UN NUM == API, STRING === DATABASE
 
