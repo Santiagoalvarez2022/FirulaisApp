@@ -150,22 +150,7 @@ const Create = () =>{
   } else {
     return(
         <div  className={style.conteiner}>
-        
-          <Modal isOpen={stateModal} className={style.modalcontainer}>
-            <ModalHeader className={style.modalheader}>
-              <p> Gracias por crear esta nueva raza! </p>
-            </ModalHeader>
-
-            <ModalBody className={style.modalBody}>
-              <h4>Vuelve al inicio o crea una nueva raza!</h4>
-                <div>  
-                  <Link to="/home" ><button  className={style.m_button_home} >Inicio</button></Link>
-                  <Link to="/create"><button onClick={()=>setStateModal(false)} className={style.m_button_create} >Crear Nueva raza</button></Link>
-                </div>
-            </ModalBody>
-         
-          </Modal>
-
+      
           <div className={style.boxOne}>
             <h1>CREA TU PROPIA RAZA</h1>
           </div>
@@ -210,7 +195,10 @@ const Create = () =>{
                 </div>
 
                 <div className={style.temperaments}>
+                      <p>Elige los temperamentos que más identifique a tu mascota o escribelo tú.
+                      Puedes poner hasta tres </p>
                   <div className={style.containerSelect} >
+                      <div className={style.containerSelect_select}>
                         <select  onChange={handlerForm} className={style.select} name="temperaments" id="">
                           <option value="lista" disabled   >Lista de temperamentos</option>
                           {selectorTemps.length ? selectorTemps.map((temp)=>{
@@ -221,28 +209,33 @@ const Create = () =>{
                             >{temp.name.trim()}</option>
                           }): null} 
                         </select>
-                   
-                      <div>
-                        <input onChange={handlerCreateTemperament}  name="search" type="text"   value={createTemperaments} /> 
-                        <button onClick={()=>handlerTemperaments(createTemperaments)} >AGREGAR</button>
-                      </div > 
+                      </div>
+                      <div className={style.containerSelect_input}>
+                       
+                          <input onChange={handlerCreateTemperament}  name="search" type="text"   value={createTemperaments} /> 
+                          <button onClick={()=>handlerTemperaments(createTemperaments)} >AGREGAR</button>
+                       
+                      </div>
                     </div>
                     
 
-                    <div className={style.seleccionados} >
-                      <p>SELECCIONADOS</p>
-                      <div>
-                        {form.temperaments.split(" ").map((temp)=>{
-                          if(temp === "") return
-                          return <div 
-                            className={style.temps_selected}
-                            key = {temp}>
-                              <p
-                              value ={temp}
-                              onClick = {(e)=> deleteTemperament(e.target.innerHTML)}
-                              >{temp}</p> 
-                          </div> 
-                        })}
+                    <div className={style.seleccionados_container} >
+                      <div className={style.seleccionados}>
+                        <p>SELECCIONADOS</p>
+                        <div>
+
+                          {form.temperaments.split(" ").map((temp)=>{
+                            if(temp === "") return
+                            return <div 
+                              className={style.temps_selected}
+                              key = {temp}>
+                                <p
+                                value ={temp}
+                                onClick = {(e)=> deleteTemperament(e.target.innerHTML)}
+                                >{temp}</p> 
+                            </div> 
+                          })}
+                        </div>
                       </div>  
                     </div>
 
