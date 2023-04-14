@@ -4,18 +4,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import { handler_indices, get_dogs, change_page } from "../../redux/actions";
 import style from './Home.module.css'
 import Loanding from "../loanding/Loading";
-import CardData from "./Card_data";
+
+import FilterAndOrders from "../FilterAndOrder/FilterAndOrders";
+import {FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowRightLong,faArrowRightFromBracket,faAnglesRight, faAnglesLeft, faArrowDownAZ, faArrowUpZA, faDog, faCircleArrowRight, faCircleArrowLeft,faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons"
+import logo from "../../assests/log2.png"
+import Create from "../create/Create";
 
 
-
-
-
+ 
 const Home = (props) => {
   const dispatch = useDispatch()
   const selector = useSelector((state) => state.dogs)
   const page = useSelector((state)=> state.page)
   const inicio = useSelector((state)=> state.inicio)
   const fin = useSelector((state)=> state.fin)
+
 
   useEffect(() => {
     dispatch(get_dogs())
@@ -56,16 +60,11 @@ const Home = (props) => {
     setTrhee(trhee+3)
   }
 
-
-
-
   function back(){
     setOne(one-3)
     setTwo(two-3)
     setTrhee(trhee-3)
   }
-
-
 
   function handler_indice(value){
     //despacho action que cambia la pagina
@@ -74,8 +73,9 @@ const Home = (props) => {
   }
 
   function handler_page(e){
-
+    console.log(e);
     let {id} = e.target
+    console.log(id);
     if(id === "next"){
       //si estoy en la ultima hoja no avanzar
      if( page === totalPages) return
@@ -89,12 +89,8 @@ const Home = (props) => {
       let num = page - 1 
       // handler_indice(num)
       dispatch(  handler_indices(num))
-
     }
-
   }
-
-
 
   if(!Object.keys(selector).length){
     return(
@@ -103,13 +99,18 @@ const Home = (props) => {
   } else {
     return (
       <div className={style.all}>
-        <div className={style.paginado}>
-          <button onClick={handler_page} id="back">-</button>
-          <button onClick={handler_page} id="next">+</button>
-        </div>
-       
         <div className={style.conteiner_page}>
-          <h2>pagina N {page}</h2>
+          <div className={style.homepage}>
+
+            <div className={style.logo}>
+              <img src={logo} alt="" />
+            </div>
+
+            <div className={style.nav}>
+              <FilterAndOrders />
+            </div>
+
+            <div className={style.content}>
             {selector[0].error 
               ? <div className={style.error}>
                   <h3>{selector[0].error}</h3>
@@ -117,33 +118,56 @@ const Home = (props) => {
                 </div> 
             
               : <div className={style.conteiner}>
-                  { selector.length > 0 
-                      ? selector.slice(inicio,fin).map((dog) => {
-                        const { name, id,  image, temperament, max ,min } = dog
-                        return <Card
-                            indice={selector.indexOf(dog)}
-                            name={name}
-                            key={id}
-                            id={id}
-                            image={image}
-                            temperament={temperament}
-                            max = {max} 
-                            min= {min}
-                            
-                          />
-                        }) 
+                  <div className={style.carrucel}> 
+                    <div className={style.paginado_button} onClick={handler_page} id="back" ></div>
+                    <div className={style.cardcontainer}>
+                    { selector.length > 0 
+                        ? selector.slice(inicio,4).map((dog) => {
+                          const { name, id,  image, temperament, max ,min } = dog
+                          return <Card
+                                className={style.Card}
+                                indice={selector.indexOf(dog)}
+                                name={name}
+                                key={id}
+                                id={id}
+                                image={image}
+                                temperament={temperament}
+                                max = {max} 
+                                min= {min}
+                                      
+                                      />
+                                      
+                                    }) 
+                                    
+                                    : null  }
+                    </div>
+                    <div className={style.paginado_button}  onClick={handler_page} id="next"  ></div>
+                  </div>
+                  
 
-                      : null  }
-          </div>}
+                  <div className={style.paginado}>
+                    <div className={style.indice}>
+                      <button className={style.button_directions_b} disabled={one === 1 ? true : false}  onClick={()=> back()}><FontAwesomeIcon icon={faAnglesLeft} /> </button>
+                        <button className={style.button_indice}   disabled={one > totalPages ? true : false} onClick={(e)=>handler_indice(e.target.innerHTML)} >{one}</button>
+                        <button className={style.button_indice}   disabled={two > totalPages ? true : false} onClick={(e)=>handler_indice(e.target.innerHTML)} >{two}</button>
+                        <button className={style.button_indice} disabled={trhee > totalPages ? true : false} onClick={(e)=>handler_indice(e.target.innerHTML)} >{trhee}</button>
+                      <button className={style.button_directions_n} disabled={one=== totalPages || two === totalPages || trhee === totalPages ? true : false }  onClick={()=> next()}><FontAwesomeIcon icon={faAnglesRight} /> </button>
+                    </div>
+                  </div>
+
+                </div>
+              }
+            </div>
+
+            </div>
+
+            <div className={style.createpage}>
+              <Create />
+
+            </div>
+             
+            </div>
         </div>      
-        <div className={style.indice}>
-          <button className={style.button_directions} disabled={one === 1 ? true : false}  onClick={()=> back()}>atras</button>
-            <button className={style.button_indice}   disabled={one > totalPages ? true : false} onClick={(e)=>handler_indice(e.target.innerHTML)} >{one}</button>
-            <button className={style.button_indice}   disabled={two > totalPages ? true : false} onClick={(e)=>handler_indice(e.target.innerHTML)} >{two}</button>
-            <button className={style.button_indice} disabled={trhee > totalPages ? true : false} onClick={(e)=>handler_indice(e.target.innerHTML)} >{trhee}</button>
-          <button className={style.button_directions} disabled={one=== totalPages || two === totalPages || trhee === totalPages ? true : false }  onClick={()=> next()}>adelante</button>
-        </div>
-      </div>
     )
   }
 }

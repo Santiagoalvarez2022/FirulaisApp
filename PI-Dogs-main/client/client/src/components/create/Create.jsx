@@ -4,9 +4,11 @@ import style from './Create.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { get_dogs,filter_temperament, post_dog } from "../../redux/actions";
 import image from './cargando.gif'
+import { Button, Modal, ModalHeader,ModalBody, ModalFooter } from "reactstrap";
+
 
 const validate = (form, dogs) =>{
-  console.log("entre a validate", form)
+  console.log(form);
   let error = {};
   let{alturaMax, alturaMin, name, pesoMax, pesoMin, temperaments, vidaMax, vidaMin} = form;
 
@@ -24,7 +26,9 @@ const validate = (form, dogs) =>{
     } 
   }
 
-
+  if(!/^[0-9]+$/.test(alturaMax || alturaMin || pesoMax  || pesoMin || vidaMax || vidaMin)){
+    error.caracteres = "El valor de la Altura, Peso y Años de vida deben ser numeros enteros, no pueden contener -,+,.,etc"
+  } 
 
   if(parseInt(alturaMax) < 0 || parseInt(alturaMin) < 0) error.alturaNegativa = "La altura no puede ser negativa"
   if(parseInt(alturaMax) < parseInt(alturaMin) || parseInt(alturaMax) === parseInt(alturaMin) ) error.altura = "La altura maxima no puede ser igual o menor a la altura minima"
@@ -75,8 +79,6 @@ const Create = () =>{
   //manejador de estado del form
   const handlerForm = (event) =>{
     const {value, name} = event.target
-    console.log(event.target.value);
-    console.log(event.target.name);
 
     if (name === "temperaments") {
       setForm({...form, ["temperaments"] : (form.temperaments + " " + value).trim()})
@@ -100,13 +102,11 @@ const Create = () =>{
   }
 
   const handlerTemperaments =(value)=>{
-    console.log("hola");
     setForm({...form, ["temperaments"] : form.temperaments + " " + value})
     setError(validate({...form, ["temperaments"] : form.temperaments + " " + value}, dogs))
 
     setTCreateTemperaments("")
   }
-  console.log(form);
    
   const deleteTemperament = (value) =>{
    
@@ -119,9 +119,12 @@ const Create = () =>{
     setError(validate({...form, ["temperaments"] : update_Temperaments.join(" ")}, dogs))
   }  
 
+  const [stateModal, setStateModal] = useState(false)
  
   const handlerSendData = () =>{
-    dispatch(post_dog(form))
+    setStateModal(true)
+    console.log(form);
+    // dispatch(post_dog(form))
     setForm(   {
       name : "",
       alturaMax : "",
@@ -147,90 +150,208 @@ const Create = () =>{
   } else {
     return(
         <div  className={style.conteiner}>
-          <form  onClick={(e)=> handlerSubmit(e)} >
-            <div className={style.formInfo}>
-              <div className={style.campos}>
-                  <label htmlFor="name">Nombre</label>
-                  <input onChange={handlerForm} value={form.name} name="name"  type="text" /> 
-              </div>
-
-              <div id={style.medidas}>
-                <label htmlFor="altura">Altura</label> 
-                <div className={style.medidas_input} >
-                  <input  type="number" placeholder="min" onChange={handlerForm}  name="alturaMin" value={form.alturaMin} />
-                  <input  type="number" placeholder="max" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
-                </div> 
-              </div>  
-
-              <div id={style.medidas}>
-                <label htmlFor="peso">Peso</label>
-                <div className={style.medidas_input} >
-                  <input  type="number" placeholder="min" onChange={handlerForm}  name="pesoMin" value={form.pesoMin} />
-                  <input  type="number" placeholder="max" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />
-                </div>
-              </div> 
-          
-              <div id={style.medidas}>
-                <label htmlFor="vida">Rango de vida aproximado </label>
-                <div className={style.medidas_input} >
-                  <input  type="number" placeholder="min" onChange={handlerForm}  name="vidaMin" value={form.vidaMin} />
-                  <input  type="number" placeholder="max" onChange={handlerForm}  name="vidaMax" value={form.vidaMax} />
-                </div>
-              </div>
-
-              <div id={ form.name && !Object.keys(error).length && style.button}  className={style.campos}>
-                <button  disabled={ Object.keys(error).length} onClick={()=>{handlerSendData()}} type="submit">ENVIAR</button>
-              </div>
-
-            </div>
-
-            <div className={style.formTemperaments} >
-                <div className={style.header} >
-                  <div className={style.header_p}>
-                    <p>SELECCIONA LOS TEMPERAMENTO</p> 
-                  </div>
-
-                  <div className={style.header_select} >
-                    <select  onChange={handlerForm} className={style.select} name="temperaments" id="">
-                      <option value="lista"    >Lista de temperamentos</option>
-                      {selectorTemps.length ? selectorTemps.map((temp)=>{
-                        return <option
-                        key={temp.id}
-                       
-                        value = {temp.name.trim()}
-                        >{temp.name.trim()}</option>
-                      }): null} 
-                    </select>
-                  </div>
-
-
-                  <div className={style.header_input} > 
-                    <div className={style.header_input_form}>
-                      <input onChange={handlerCreateTemperament}  name="search" type="text"   value={createTemperaments} /> 
-                      <button onClick={()=>handlerTemperaments(createTemperaments)} >AGREGAR</button>
-                    </div > 
-                  </div>
-                </div>
-
-                <div className={style.seleccionados} >
-                  <p>SELECCIONADOS</p>
-                  <div>
-                    {form.temperaments.split(" ").map((temp)=>{
-                      if(temp === "") return
-                      return <div 
-                        className={style.temps_selected}
-                        key = {temp}>
-                          <p
-                           value ={temp}
-                           onClick = {(e)=> deleteTemperament(e.target.innerHTML)}
-                           >{temp}</p> 
-                      </div> 
-                    })}
-                  </div>  
-                </div>
-            </div>
-          </form>
         
+          <Modal isOpen={stateModal} className={style.modalcontainer}>
+            <ModalHeader className={style.modalheader}>
+              <p> Gracias por crear esta nueva raza! </p>
+            </ModalHeader>
+
+            <ModalBody className={style.modalBody}>
+              <h4>Vuelve al inicio o crea una nueva raza!</h4>
+                <div>  
+                  <Link to="/home" ><button  className={style.m_button_home} >Inicio</button></Link>
+                  <Link to="/create"><button onClick={()=>setStateModal(false)} className={style.m_button_create} >Crear Nueva raza</button></Link>
+                </div>
+            </ModalBody>
+         
+          </Modal>
+
+          <div className={style.boxOne}>
+            <h1>CREA TU PROPIA RAZA</h1>
+          </div>
+          <div className={style.boxTwo}>
+            
+            <form className={style.form} onClick={(e)=> handlerSubmit(e)} >
+             
+                <div className={style.header}>
+                  <p>{form.name}</p>
+                </div>
+                
+
+                <div className={style.inputs}>
+                  <div>
+                    <input className={style.input} placeholder="nombre" onChange={handlerForm} value={form.name} name="name"  type="text" /> 
+                  </div>
+
+                   <div>
+                      <label htmlFor="min">Altura</label>
+                      <div className={style.container_inputs}>
+                        <input className={style.input} type="text" placeholder="pesoMin" onChange={handlerForm}  name="alturaMin" value={form.alturaMin} />
+                        <input className={style.input} type="text" placeholder="max" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
+                      </div>
+                   </div>
+
+                    <div>
+                      <label htmlFor="pesoMin">Peso</label>
+                      <div className={style.container_inputs}>
+                        <input className={style.input} type="text" placeholder="min" onChange={handlerForm} id="pesoMin" name="pesoMin" value={form.pesoMin} />
+                        <input className={style.input} type="text" placeholder="max" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="">Promedio de vida</label>
+                      <div className={style.container_inputs}>
+                        <input className={style.input} type="text" placeholder="min" onChange={handlerForm}  name="vidaMin" value={form.vidaMin} />
+                        <input className={style.input} type="text" placeholder="max" onChange={handlerForm}  name="vidaMax" value={form.vidaMax} />
+                      </div>
+                    </div>
+
+                </div>
+
+                <div className={style.temperaments}>
+                  <div className={style.containerSelect} >
+                        <select  onChange={handlerForm} className={style.select} name="temperaments" id="">
+                          <option value="lista" disabled   >Lista de temperamentos</option>
+                          {selectorTemps.length ? selectorTemps.map((temp)=>{
+                            return <option
+                            key={temp.id}
+                          
+                            value = {temp.name.trim()}
+                            >{temp.name.trim()}</option>
+                          }): null} 
+                        </select>
+                   
+                      <div>
+                        <input onChange={handlerCreateTemperament}  name="search" type="text"   value={createTemperaments} /> 
+                        <button onClick={()=>handlerTemperaments(createTemperaments)} >AGREGAR</button>
+                      </div > 
+                    </div>
+                    
+
+                    <div className={style.seleccionados} >
+                      <p>SELECCIONADOS</p>
+                      <div>
+                        {form.temperaments.split(" ").map((temp)=>{
+                          if(temp === "") return
+                          return <div 
+                            className={style.temps_selected}
+                            key = {temp}>
+                              <p
+                              value ={temp}
+                              onClick = {(e)=> deleteTemperament(e.target.innerHTML)}
+                              >{temp}</p> 
+                          </div> 
+                        })}
+                      </div>  
+                    </div>
+
+                </div>
+               
+
+                <div className={style.button} id={ form.name && !Object.keys(error).length && style.button}  >
+                  <button  disabled={ Object.keys(error).length} onClick={()=>{handlerSendData()}} className={style.sigin_btn} type="submit">ENVIAR</button>
+                </div>
+              </form>
+          </div>
+
+{/*      
+<form class="form">
+    <div class="header">Sign In</div>
+    <div class="inputs">
+        <input placeholder="Email" class="input" type="text">
+        <input placeholder="Password" class="input" type="password">
+        <div class="checkbox-container">
+            <label class="checkbox">
+            <input type="checkbox" id="checkbox">
+            </label>
+            <label for="checkbox" class="checkbox-text">Remember me</label>
+        </div>
+        <button class="sigin-btn">Submit</button>
+        <a class="forget" href="#">Forget password ?</a>
+        <p class="signup-link">Don't have an account? <a href="#">Sign up</a></p>
+    </div>
+</form>
+
+                <div id={style.medidas}>
+                  <label htmlFor="altura">Altura</label> 
+                  <div className={style.medidas_input} >
+                    <input  type="text" placeholder="min" onChange={handlerForm}  name="alturaMin" value={form.alturaMin} />
+                    <input  type="text" placeholder="max" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
+                  </div> 
+                </div>  
+
+                <div id={style.medidas}>
+                  <label htmlFor="peso">Peso</label>
+                  <div className={style.medidas_input} >
+                    <input  type="text" placeholder="min" onChange={handlerForm}  name="pesoMin" value={form.pesoMin} />
+                    <input  type="text" placeholder="max" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />
+                  </div>
+                </div> 
+            
+                <div id={style.medidas}>
+                  <label htmlFor="vida">Rango de vida aproximado </label>
+                  <div className={style.medidas_input} >
+                    <input  type="text" placeholder="min" onChange={handlerForm}  name="vidaMin" value={form.vidaMin} />
+                    <input  type="text" placeholder="max" onChange={handlerForm}  name="vidaMax" value={form.vidaMax} />
+                  </div>
+                </div>
+
+                <div id={ form.name && !Object.keys(error).length && style.button}  className={style.sigin_btn}>
+                  <button  disabled={ Object.keys(error).length} onClick={()=>{handlerSendData()}} type="submit">ENVIAR</button>
+                </div>
+
+              </div>
+
+              <div className={style.formTemperaments} >
+                  <div className={style.header} >
+                    <div className={style.header_p}>
+                      <p>SELECCIONA LOS TEMPERAMENTO</p> 
+                    </div>
+
+                    <div className={style.header_select} >
+                      <select  onChange={handlerForm} className={style.select} name="temperaments" id="">
+                        <option value="lista" disabled   >Lista de temperamentos</option>
+                        {selectorTemps.length ? selectorTemps.map((temp)=>{
+                          return <option
+                          key={temp.id}
+                        
+                          value = {temp.name.trim()}
+                          >{temp.name.trim()}</option>
+                        }): null} 
+                      </select>
+                    </div>
+
+
+                    <div className={style.header_input} > 
+                      <div className={style.inputs}>
+                        <input onChange={handlerCreateTemperament}  name="search" type="text"   value={createTemperaments} /> 
+                        <button onClick={()=>handlerTemperaments(createTemperaments)} >AGREGAR</button>
+                      </div > 
+                    </div>
+                  </div>
+
+                  <div className={style.seleccionados} >
+                    <p>SELECCIONADOS</p>
+                    <div>
+                      {form.temperaments.split(" ").map((temp)=>{
+                        if(temp === "") return
+                        return <div 
+                          className={style.temps_selected}
+                          key = {temp}>
+                            <p
+                            value ={temp}
+                            onClick = {(e)=> deleteTemperament(e.target.innerHTML)}
+                            >{temp}</p> 
+                        </div> 
+                      })}
+                    </div>  
+                  </div>
+              </div>
+          
+
+
+
           {
             Object.keys(error).length ? 
             <div  className={style.error}>
@@ -241,7 +362,7 @@ const Create = () =>{
 
               {error.peso ? <p>{error.peso}</p> : null}
               {error.pesoNegativo ? <p>{error.pesoNegativo}</p> : null}
-              
+              {error.caracteres ? <p>{error.caracteres}</p> : null}
 
               {error.vidaNegativa ? <p>{error.vidaNegativa}</p> : null}
 
@@ -250,7 +371,7 @@ const Create = () =>{
 
             </div>
             : null 
-          }
+          } */}
           
         </div>
     )

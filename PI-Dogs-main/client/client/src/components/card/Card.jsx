@@ -11,8 +11,24 @@ const Card = (props) =>{
 
     return(
       <Link to= {`/detail/${id}`} className={style.all} > 
+        <div className={style.imagen}>
+          <img src={image} alt="" />
+        </div>
+        <div className={style.name}>
+          <p>{name}</p>
+
+        </div>
+      </Link>
       
-          <div className={style.title}>
+    )
+}
+/*Imagen
+Nombre
+Temperamento
+Peso */
+
+export default Card;
+/*         <div className={style.title}>
             <p>{name}</p>
             <p>{indice}</p>
           </div>  
@@ -34,16 +50,4 @@ const Card = (props) =>{
                 <p>max : {max} kg</p>
               </div>
             </div>
-          </div>
-
-      
-      </Link>
-      
-    )
-}
-/*Imagen
-Nombre
-Temperamento
-Peso */
-
-export default Card;
+          </div> */

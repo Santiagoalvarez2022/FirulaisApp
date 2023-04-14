@@ -1,28 +1,134 @@
-/*.color1 {color: #ffb56f;}
-.color2 {color: #ffd75c;}
-.color3 {color: #003f90;}
-.color4 {color: #0084a8;}
-.color5 {color: #00d0c4;}
-
-
-.color1 {color: #201e06; negro }
-.color2 {color: #2f5828;}
-.color3 {color: #ff5d07; naranja}
-.color4 {color: #ffe24f;}
-.color5 {color: #fffbde;}
-
-*/
 
 .all{
-    display: flex;
-    flex-direction: column;
-    background:#0048E8 ;
-    height: 100vb;
+  width: 100%;
+  height: 100vh;
+  /* Ubicación de la imagen */
+  
+  
+  
+    /* Para dejar la imagen de fondo centrada, vertical y
 
-    box-shadow: inset  0px 1rem 2rem 0rem rgba(0, 0, 0, 0.551);
+    horizontalmente */
+
+    background-position: center center;
+
+    /* Para que la imagen de fondo no se repita */
+    
+    background-repeat: no-repeat;
+    
+    /* La imagen se fija en la ventana de visualización para que la altura de la imagen no supere a la del contenido */
+    
+    background-attachment: fixed;
+    
+    /* La imagen de fondo se reescala automáticamente con el cambio del ancho de ventana del navegador */
+    
+    background-size: cover;
+    
+    /* Se muestra un color de fondo mientras se está cargando la imagen
+    
+    de fondo o si hay problemas para cargarla */
+    
+    background-color: #669999;
+    
+}
+/*cuando llega a 689 la foto se deforma*/
+@media screen and (max-width: 380px){
+    .all{
+        background-image: url("../../assests/320x640.png");
+        
+    }
+    
+}
+@media screen and (max-width: 480px){
+    .all{
+        background-image: url("../../assests/480x870.png");
+    }
+}
+@media screen and (max-width: 768px) {
+    .all{
+        background-image: url("../../assests/768x870.png");
+        
+    }
+}
+
+
+
+@media screen and (min-width:768px)   {
+    .all{
+        background-image: url("../../assests/labrador.png");
+    }
+}
+
+
+
+.firulais{
+    position:absolute;
+    top: 18%;
+    right: 46.5%;
+
+    color:white;
+    font-size: 4rem;
+    
+}
+
+.app_title{
+    position:absolute;
+    top: 21%;
+    right: 39.5%;
+    color:white;
+    font-size: 4rem;
+}
+.container_button{
+    position: absolute;
+    bottom: 11%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.all >  div >  a > button {
+
+
+    padding: 1.3em 3em;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #FF9040;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  
+.all >  div >  a >  button:hover {
+    box-shadow: 5px 15px 20px ,
+    -5px 15px 20px 
+    ;
+    color: #fff;
+    transform: translateY(-5px);
+  }
   
 
-}
+  .all >  div >  a >  button:active {
+    transform: translateY(-1px);
+  }
+
+
+
+
+
+
+
+
+
+
+
 
 .conteiner_title { 
     height: 15%;

@@ -8,34 +8,16 @@ import img from "./dogPresentacion.png"
 const Login = () =>{
     return( 
       <div className={style.all}>
-        
-        <div className={style.conteiner_title} >
-          <h1 className={style.title}> FiruApp </h1>  
-        </div>
+        <h1 className={style.firulais} >FIRULAIS</h1>
+        <h1 className={style.app_title} >APP</h1>
+        <div className={style.container_button}>
+          <Link to="/home">
+            <button>Entrar</button>
+          </Link>
 
-        <div className={style.body}>
-          <div className={style.getIn}>     
-            <div className={style.sub}>
-              <div className={style.enunciado}>
-                <h3 className={style.subtitle}>Conocé a tus mascostas</h3>
-                <p>y aprendé más de ellas</p>
-              </div>
-              <div  className={style.button}>
-                  <Link to= '/home' >
-                    <div>
-                      <h3>Entrar</h3> 
-                     </div>  
-                  </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className={style.imagen}>
-              <img src={img} alt="" />
-          </div>
         </div>
-    
       </div>
+
     )
 }
 

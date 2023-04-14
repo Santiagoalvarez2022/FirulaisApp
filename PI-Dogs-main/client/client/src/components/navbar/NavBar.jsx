@@ -58,7 +58,9 @@ const Navbar = () =>{
 
 
     return(
+
       <div className={style.all}>
+
         <div className={style.logout} >
           <Link className={style.link}  to= '/' >Salir </Link> 
         </div>
