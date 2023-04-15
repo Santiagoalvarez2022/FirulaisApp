@@ -10,7 +10,7 @@ import Footer from './components/footer/Footer';
 import axios from 'axios';
 //declaro la ruta a la cual le va a pegar el front al back
 
-axios.defaults.baseURL = "http://localhost:3001/"
+axios.defaults.baseURL = "https://pi-dogs-main-production-9b3d.up.railway.app/"
 
 function App() {
   const location = useLocation()
