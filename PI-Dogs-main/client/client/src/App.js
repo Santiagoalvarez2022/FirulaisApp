@@ -8,6 +8,9 @@ import React, { useEffect, useState } from "react";
 import About from './components/about/about';
 import Footer from './components/footer/Footer';
 import axios from 'axios';
+import Favicon from "react-favicon"
+import favicon from "./assests/favicon.png"
+
 //declaro la ruta a la cual le va a pegar el front al back
 
 axios.defaults.baseURL = "https://pi-dogs-main-production-9b3d.up.railway.app/"
@@ -18,6 +21,8 @@ function App() {
 
   return (
     <div className="App">
+
+      <Favicon url={favicon}></Favicon>
 
       <Route exact path="/">
         <Login />
