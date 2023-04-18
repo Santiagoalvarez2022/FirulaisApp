@@ -10,6 +10,7 @@ const Loanding = () =>{
     return(
       <div className={style.conteiner} >
         <img src={image}  alt="" />
+        <div className={style.loader}></div>
       </div>
     )
 }
