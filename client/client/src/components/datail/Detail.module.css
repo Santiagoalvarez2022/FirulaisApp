@@ -1,0 +1,143 @@
+.all{
+    display: flex;
+    justify-content: center;
+    /* background-image: linear-gradient(310deg, #ffcd7e 0, #ffc279 12.5%, #ffb46f 25%, #fea163 37.5%, #f28953 50%, #e67146 62.5%, #dd5c3e 75%, #d64b3d 87.5%, #d33d40 100%); */
+    width: 100%;
+    height: 100vh;
+    background: #23282F;
+}
+.contaiener {
+    width: 65%; 
+    background: #0b1624;
+    box-shadow:3rem 0 4rem #060b12;
+    filter: drop-shadow(-3rem 0 2rem #060b12);
+
+    display: flex;
+    align-items:center;
+    justify-content: center;
+
+    flex-direction: column;
+    gap: 2rem;
+}
+.icon{
+    width: 100%;
+    padding-inline-start: 3rem;
+}
+.icon_a{
+    color: white;
+}
+.icon_a:hover{
+    transition: .4s;
+    color:#ec6e14 ; 
+}
+
+.card{
+    height: 80%;
+    width: 75%;
+    display: grid;
+    grid-template-columns: .6fr 1.4fr;
+    gap: 1rem;
+}
+
+/*box one*/
+.boxOne{
+
+}
+
+.container_image{
+    width: 100%;
+    height: 30%;
+    
+}
+
+.container_image > img {
+    width: 100%;
+    height: 100%;
+    
+}
+
+.contaiener_name{
+    height: 70%;
+}
+
+.contaiener_name > h1{
+    color: white;
+    font-size: 3rem;
+}
+
+/*box two*/
+.boxTwo{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.header{
+    background: #0e0b11;
+    height: 16%;
+    width: 100%;
+}
+.info{
+    background: rgba(255, 255, 255, 0.726);
+    height: 60%;
+    display: grid;
+    grid-template-columns: .7fr 1.3fr ;
+    width: 100%;
+    padding: 1rem;
+}
+
+.info_boxOne{
+    display: grid;
+    grid-template-rows: .40fr .40fr .40fr  .40fr  ;
+    gap: 1rem;
+}
+
+
+
+
+.info_boxOne > div{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background: black;
+    color:white;
+}
+
+.info_boxOne > div> h3{
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.info_boxTwo{
+    display: grid;
+    grid-template-rows: .40fr .40fr .40fr  .40fr  ;
+    gap: 1rem;
+
+}
+.info_boxTwo > div{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background: black;
+    color:white;
+}
+
+.info_boxTwo > div> h3{
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+}
+.info_boxTwo > div> h4{
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+} 
+
+.footer{
+    width: 100%;
+    height: 24%;
+    background: #0e0b11;
+
+}

@@ -1,0 +1,44 @@
+
+
+.all{
+  width: 25%;
+  height: 20rem;
+  border-radius: 20px;
+  background: linear-gradient(170deg, rgba(58, 56, 56, 0.925) 0%, rgb(19, 18, 18) 100%);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.55);
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.all:hover{
+    background:#1269eb  ;
+}
+
+
+
+.imagen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+}
+
+
+.imagen img {
+    border-radius: 5px;
+    width: 95%;
+    height: 60%;
+
+}
+
+.name{
+    height: 10%;
+    text-align: center;
+    color:white;
+    text-decoration: none;
+    margin: 0;
+}
+/*elimino decoraciones de los enlaces*/
+a:link, a:visited, a:active{
+    text-decoration: none;
+}
