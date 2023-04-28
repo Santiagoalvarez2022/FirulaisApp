@@ -11,6 +11,7 @@ export const  HANDLER_INDICE = " HANDLER_INDICE ";
 
 
 export const change_page = (value) =>{
+    console.log("cambios de paginas");
     if(value){
         return{
             type :   CHANGE_PAGE,
@@ -26,20 +27,21 @@ export const change_page = (value) =>{
 
 
 export const handler_indices = (value) => {
+
     if(!value){
         return {
             type : HANDLER_INDICE,
             payload : {
                 page : 1,
                 inicio : 0,
-                fin : 8
+                fin : 4
             }
         }
     }
 
     //despacho action que cambia la pagina
-    let start = (value - 1 ) * 8 
-    let end = (value * 8 )
+    let start = (value - 1 ) * 4 
+    let end = (value * 4 )
 
     return {
         type : HANDLER_INDICE,
@@ -52,14 +54,9 @@ export const handler_indices = (value) => {
   }
 
 
-
-
-
-
-
-
 export const get_dogs = () => async (dispatch) => {
-    let result = await axios.get("/dogs") 
+    let result = await axios.get("/dogs/api") 
+    console.log("todos los perros",result.data);
     return dispatch({
         type : GET_DOGS,
         payload : result.data
@@ -116,13 +113,13 @@ export const  filter_temperament = (temperament) => async (dispatch) =>{
     })
 }
 
+//esta function va a buscar en los 
+export const get_by_name = (name) =>{
 
-export const get_by_name = (name) => async (dispatch) => {
-    let result = await axios.get(`/dogs?name=${name}`) 
-    return dispatch({
+    return {
         type : GET_BY_NAME ,
-        payload : result.data
-    })
+        payload : name
+    }
 }
 
 

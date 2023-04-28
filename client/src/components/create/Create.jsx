@@ -63,7 +63,7 @@ const Create = () =>{
       vidaMax : "",
       vidaMin : "",
       image : "",
-      color : ""
+     
     }
   )   
   //estado para los temperamentos seleccionados de la lista <select /> y de los que voy a crear en el input
@@ -124,7 +124,7 @@ const Create = () =>{
   const handlerSendData = () =>{
     setStateModal(true)
     console.log(form);
-    // dispatch(post_dog(form))
+    dispatch(post_dog(form))
     setForm(   {
       name : "",
       alturaMax : "",
@@ -135,7 +135,7 @@ const Create = () =>{
       vidaMax : "",
       vidaMin : "",
       image : "",
-      color : ""
+   
     })
 
   }

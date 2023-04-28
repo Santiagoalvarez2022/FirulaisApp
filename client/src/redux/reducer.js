@@ -7,7 +7,7 @@ const initialSate = {
     detaildog : {},
     page:1,
     inicio: 0,
-    fin : 8 
+    fin : 4 
 
 }
 //debe ser una funcion pura
@@ -36,7 +36,8 @@ const rootReducer = (state = initialSate , action) =>{
         case GET_BY_NAME:
             return {
                 ...state,
-                dogs: action.payload
+                dogs: state.dogs.filter(dog=>dog.name === action.payload)
+                
             };
         
         case GET_TEMPERAMENTS:{

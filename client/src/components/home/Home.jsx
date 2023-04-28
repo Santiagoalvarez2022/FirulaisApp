@@ -37,7 +37,7 @@ const Home = (props) => {
 
   //paginado 
 
-  const [finDogs, setFinDogs] = useState(8) // VALOR INCIAL DE CANTIDAD DE PERROSS
+  const [finDogs, setFinDogs] = useState(4) // VALOR INCIAL DE CANTIDAD DE PERROSS
 
   //total pages es el numero de la cantidad de paginas que deberia haber, en este caso con 172 perros es 22
   const totalPages = Math.ceil(selector.length/finDogs)
@@ -73,7 +73,6 @@ const Home = (props) => {
   }
 
   function handler_page(e){
-    console.log(e);
     let {id} = e.target
     console.log(id);
     if(id === "next"){
@@ -92,7 +91,7 @@ const Home = (props) => {
     }
   }
 
-  if(!Object.keys(selector).length){
+  if(!Object.keys(selector).length){ 
     return(
       <Loanding />
     )
@@ -122,7 +121,7 @@ const Home = (props) => {
                     <div className={style.paginado_button} onClick={handler_page} id="back" ></div>
                     <div className={style.cardcontainer}>
                     { selector.length > 0 
-                        ? selector.slice(inicio,4).map((dog) => {
+                        ? selector.slice(inicio,fin).map((dog) => {
                           const { name, id,  image, temperament, max ,min } = dog
                           return <Card
                                 className={style.Card}

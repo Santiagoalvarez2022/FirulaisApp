@@ -13,7 +13,8 @@ import favicon from "./assests/favicon.png"
 
 //declaro la ruta a la cual le va a pegar el front al back
 
-axios.defaults.baseURL = "https://pi-dogs-main-production-9b3d.up.railway.app/"
+// axios.defaults.baseURL = "https://pi-dogs-main-production-9b3d.up.railway.app/"
+axios.defaults.baseURL = "http://localhost:3001"
 
 function App() {
   const location = useLocation()
