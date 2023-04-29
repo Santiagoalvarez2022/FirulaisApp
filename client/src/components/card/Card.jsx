@@ -6,11 +6,11 @@ import fakeimage from './dog.jpg'
 
 const Card = (props) =>{
 
-    const {id,name,image,temperament, indice,max,min} = props
+    const {id,name,image,temperament, indice,max,min,type} = props
 
 
     return(
-      <Link to= {`/detail/${id}`} className={style.all} > 
+      <Link to= {`/detail/${id}?type=${type}`} className={style.all} > 
         <div className={style.imagen}>
           <img src={image} alt="" />
         </div>

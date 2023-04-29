@@ -153,6 +153,9 @@ const Create = () =>{
       
           <div className={style.boxOne}>
             <h1>CREA TU PROPIA RAZA</h1>
+            <Link to="/createdraces">
+              <button>Ver razas creadas por la comunidad</button>
+            </Link>
           </div>
           <div className={style.boxTwo}>
             

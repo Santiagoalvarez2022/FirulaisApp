@@ -10,6 +10,7 @@ import Footer from './components/footer/Footer';
 import axios from 'axios';
 import Favicon from "react-favicon"
 import favicon from "./assests/favicon.png"
+import CreatedRaces from './components/createdRaces/CreatedRaces';
 
 //declaro la ruta a la cual le va a pegar el front al back
 
@@ -44,6 +45,9 @@ function App() {
         <About />
       </Route>
       
+      <Route exact path="/createdraces">
+        <CreatedRaces />
+      </Route>
       <Route  path="/">
         <Footer />
       </Route>

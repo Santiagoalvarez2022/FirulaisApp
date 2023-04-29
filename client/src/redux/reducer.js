@@ -1,8 +1,9 @@
 //debemos importar las actions
-import {HANDLER_INDICE,CHANGE_PAGE,GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS, FILTER_TEMPERAMENT,DETAIL_DOG, RESET_DETAIL_DOG} from './actions'
+import {GET_CREATEDRACES,CLEAR_DOGS,HANDLER_INDICE,CHANGE_PAGE,GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS, FILTER_TEMPERAMENT,DETAIL_DOG, RESET_DETAIL_DOG} from './actions'
 
 const initialSate = {
     dogs : [],
+    createdRaces : [],
     temperaments : [],
     detaildog : {},
     page:1,
@@ -32,12 +33,21 @@ const rootReducer = (state = initialSate , action) =>{
                 ...state,
                 dogs: action.payload
             };
+        case GET_CREATEDRACES:
+            return {
+                ...state,
+                createdRaces: action.payload
+            };
+        case CLEAR_DOGS: 
+            return {
+                ...state,
+                dogs:action.payload
+            }
         
         case GET_BY_NAME:
             return {
                 ...state,
-                dogs: state.dogs.filter(dog=>dog.name === action.payload)
-                
+                dogs: action.payload             
             };
         
         case GET_TEMPERAMENTS:{

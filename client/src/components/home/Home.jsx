@@ -32,7 +32,7 @@ const Home = (props) => {
     setTrhee(3)
   },[selector])
 
-
+console.log("estos son los dogs desde el home", selector);
 
 
   //paginado 
@@ -74,7 +74,6 @@ const Home = (props) => {
 
   function handler_page(e){
     let {id} = e.target
-    console.log(id);
     if(id === "next"){
       //si estoy en la ultima hoja no avanzar
      if( page === totalPages) return
@@ -110,9 +109,10 @@ const Home = (props) => {
             </div>
 
             <div className={style.content}>
-            {selector[0].error 
+            {selector[0].msg
               ? <div className={style.error}>
-                  <h3>{selector[0].error}</h3>
+                  {console.log(selector[0], "este es el mensaje de errors")}
+                  <h3>{selector[0].msg}</h3>
                   <form action=""><button>Ver todos</button></form>
                 </div> 
             
@@ -122,7 +122,7 @@ const Home = (props) => {
                     <div className={style.cardcontainer}>
                     { selector.length > 0 
                         ? selector.slice(inicio,fin).map((dog) => {
-                          const { name, id,  image, temperament, max ,min } = dog
+                          const { name, id,  image, temperament, max ,min,type } = dog
                           return <Card
                                 className={style.Card}
                                 indice={selector.indexOf(dog)}
@@ -133,12 +133,9 @@ const Home = (props) => {
                                 temperament={temperament}
                                 max = {max} 
                                 min= {min}
-                                      
-                                      />
-                                      
-                                    }) 
-                                    
-                                    : null  }
+                                type = {type}                                   
+                                />})                                
+                          : null  }
                     </div>
                     <div className={style.paginado_button}  onClick={handler_page} id="next"  ></div>
                   </div>

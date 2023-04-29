@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRightFromBracket,faAnglesRight, faAnglesLeft, faArrowDownAZ, faArrowUpZA, faDog, faCircleArrowRight, faCircleArrowLeft,faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons"
 import style from "./FilterAndOrders.module.css"
-import { get_by_name , get_temperaments, filter_temperament, order_races , order_alfabet, order_peso, change_page, handler_indices} from "../../redux/actions";
+import { get_by_name , get_temperaments, filter_temperament, order_races , order_alfabet, order_peso, change_page, handler_indices, clear_dogs} from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from '../navbar/NavBar'
 
@@ -24,9 +24,10 @@ export default function FilterAndOrders() {
   const dispatch = useDispatch()
   //elimino er refresh defaull de la accion submit
   const handlerSubmit = (event) =>{
-    console.log(event);
     event.preventDefault()
-    dispatch(get_by_name(stateForm))
+    let name = stateForm.trim()
+    dispatch(clear_dogs())
+    dispatch(get_by_name(name))
     setForm("")
   } 
    

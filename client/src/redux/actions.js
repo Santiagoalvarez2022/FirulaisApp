@@ -6,12 +6,19 @@ export const FILTER_TEMPERAMENT = "FILTER_TEMPERAMENT";
 export const ORDER_RACE= "ORDER_RACE";
 export const DETAIL_DOG= "DETAIL_DOG";
 export const RESET_DETAIL_DOG= "RESET_DETAIL_DOG";
-export const  CHANGE_PAGE = " CHANGE_PAGE ";
-export const  HANDLER_INDICE = " HANDLER_INDICE ";
+export const CHANGE_PAGE = "CHANGE_PAGE";
+export const HANDLER_INDICE = "HANDLER_INDICE";
+export const CLEAR_DOGS = "CLEAR_DOGS";
+export const GET_CREATEDRACES = "GET_CREATEDRACES";
 
+export const clear_dogs = () =>{
+    return{
+        type: CLEAR_DOGS,
+        payload: [{msg:"cargando"}]
+    }
+}
 
 export const change_page = (value) =>{
-    console.log("cambios de paginas");
     if(value){
         return{
             type :   CHANGE_PAGE,
@@ -55,32 +62,109 @@ export const handler_indices = (value) => {
 
 
 export const get_dogs = () => async (dispatch) => {
+    //trae todos los datos de la api
+
     let result = await axios.get("/dogs/api") 
-    console.log("todos los perros",result.data);
     return dispatch({
         type : GET_DOGS,
         payload : result.data
     })
 }
+export const get_createdRaces = () => async (dispatch) => {
+    //trae todos los datos de la api
 
-export const post_dog = (data) =>async () => {
-    let newdog =  await axios.post("/dogs", data)
-    console.log("actions ok");
-    return newdog
-} 
-
-export const detail_dog = (id) => async (dispatch) => {
-    let result = await axios.get(`/dogs/${id}`) 
+    let result = await axios.get("/dogs") 
     return dispatch({
-        type : DETAIL_DOG,
+        type : GET_CREATEDRACES,
         payload : result.data
     })
 }
+
+
+
+//filtrar por nombre todos los perros 
+//esta function va a buscar en los 
+
+export const get_by_name = (name) => async(dispatch)=> {
+
+    let result = await axios.get("/dogs/api") 
+    let filter = result.data.filter(dog=>dog.name.toLowerCase().includes(name.toLowerCase()))
+    if (filter.length) {    
+        return dispatch({
+            type : GET_BY_NAME ,
+            payload : filter
+        })
+    } else {
+        return dispatch({
+            type : GET_BY_NAME ,
+            payload : [{msg:"no se encontro una raza llamada "+ name}]
+        })
+    }
+
+} 
+
+export const post_dog = (data) =>async () => {
+    let newdog =  await axios.post("/dogs", data)
+    return newdog
+} 
+
+
+
+
+
+
+
+
+
+export const detail_dog = (id,type) => async (dispatch) => {
+
+    //al buscar detalle es bueno volver a hacer una peticion a la api o bd porque si alguien tiene el link solo del detalle y accede sin pasar por el home nunca se cargaran los otros estados de redux, entonces sno se pueden filtrar nada y se romperia
+ 
+    let result = {}
+    let request =[]
+
+
+    if (type==="api") {
+        let request = await axios.get(`/dogs/api`)
+        let index = request.data.findIndex(e => parseInt(e.id) === parseInt(id))
+        result = request.data[index]
+    } else if(type==="bd") {
+        let request = await axios.get(`/dogs`)
+        let index = request.data.findIndex(e => e.id === id)
+        result = request.data[index]
+    }
+    
+    //si no se encuentra mando un error 
+    if(!result) result = {error:"No se encontro"}
+    
+
+    
+    return dispatch({
+        type : DETAIL_DOG,
+        payload : result
+    })
+}
+
 export const reset_detail_dog = () => async (dispatch) => {
     return dispatch({
         type : RESET_DETAIL_DOG,
     })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const get_temperaments = () => async (dispatch) =>{
     let result = await axios.get(`/temperaments`) 
     return dispatch({
@@ -113,14 +197,7 @@ export const  filter_temperament = (temperament) => async (dispatch) =>{
     })
 }
 
-//esta function va a buscar en los 
-export const get_by_name = (name) =>{
 
-    return {
-        type : GET_BY_NAME ,
-        payload : name
-    }
-}
 
 
 export const order_peso = (order) => async (dispatch) => {

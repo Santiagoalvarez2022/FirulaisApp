@@ -32,7 +32,8 @@ const get_data_api = async () => {
             max,
             Años_de_vida: life_span,
             image :image.url,
-            temperament
+            temperament,
+            type:"api"
         }
     }) 
 

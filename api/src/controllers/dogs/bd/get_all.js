@@ -33,7 +33,8 @@ const get_all = async () =>{
          min,
          Años_de_vida,
          image,
-         temperament :dog.temperaments.map((t)=> t.name).join(", ")
+         temperament :dog.temperaments.map((t)=> t.name).join(", "),
+         type:"bd"
         }
 
     })

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {Link, useParams} from "react-router-dom"
+import {Link, useLocation, useParams, useQuery} from "react-router-dom"
 import { detail_dog, reset_detail_dog } from "../../redux/actions";
 import style from "./Detail.module.css"
 import Loanding from '../loanding/Loading'
@@ -13,23 +13,49 @@ import { faHouse} from "@fortawesome/free-solid-svg-icons"
 const Detail = () =>{
     const selector = useSelector((state)=>state.detaildog)
     const dispatch = useDispatch()
+
+    const location = useLocation()
     const {id} = useParams()
+
+    //busco las el value de las querys que paso por la url
+    //declaro instancia de URLSearchParama pasandole como parametro el string con todo el valos de la url despues del endpoint, estos valores se encuentran en el objeto location que instancie antes
+
+    let query  = new URLSearchParams(location.search)
+    //tomo el valor pasando el nombre de la query que busco puedo usar .get(query) si busco un solo valor o -getAll() si busco mas de un valor con la misma query . Por ejemplo type=${type}&&type=banana => resultado  ['api', 'banana']
+    let type = query.getAll("type")
+
 
 
     useEffect(()=>{
-      dispatch(detail_dog(id))
+      console.log(id,type);
+      dispatch(detail_dog(id,type[0]))
       return ()=>{ 
         dispatch(reset_detail_dog())
       }
     },[])
 
     console.log(selector);
-    const años = Object.keys(selector).length? selector.Años_de_vida.replace(" years","") : null
+
+    let años = null
+    //si encontre una raza hago los cambios
+    if (selector.id) {
+      años = Object.keys(selector).length
+      ? selector.Años_de_vida.replace(" years","") 
+      : null
+      
+    } else{
+    }
+    
 
     if(!Object.keys(selector).length){
       return(
         <Loanding />
       )
+    } else if(selector.error) {
+      return(
+      <>
+      No se encontro esta raza 
+    </>)
     } else {
       return(
         <div className={style.all} >

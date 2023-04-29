@@ -1,7 +1,6 @@
 //INDEX DE TODOS LOS CONTROLLERS, ACA CONVERGEN TODAS LAS FUNCIONES EN UN OBJETO QUE EXPORTO
 
 
-const get_allForName_api = require('./dogs/api/get_allForName_api')
 const get_data_api= require('./dogs/api/get_data_api')
 
 const get_all = require('./dogs/bd/get_all')
@@ -11,7 +10,6 @@ const get_by_Id = require('./dogs/bd/get_by_Id')
 const get_temperaments = require('./temperaments/get_temperaments')
 
 module.exports = {
-    get_allForName_api,
     get_data_api,
     get_all,
     post_dog,
