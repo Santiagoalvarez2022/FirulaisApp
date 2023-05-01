@@ -1,0 +1,128 @@
+.container{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items:center;
+    flex-direction: column;
+    background: #23282F;
+
+}
+.icon{
+  width: 10%;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+
+.searched{
+  width: 30%;
+}
+
+.navbar{
+  width: 80%;
+  display: flex;
+  height: 20vh;
+
+}
+
+
+.SearchBar{
+    height: 20vh;
+    width: 60%;
+
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.SearchBar > input {
+    height: 80%;
+    width: 40% ;
+    border:none;
+    border-radius: 1rem 0 0 1rem; 
+    background: whitesmoke;
+    outline: none;
+    box-shadow: 10px 15px 10px rgb(0, 0, 0);
+
+}
+
+.SearchBar >button{
+    background: whitesmoke;
+    height: 80%;
+    width: 20% ;
+    border:none;
+    border-radius:  0 1rem 1rem 0; 
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    box-shadow: 10px 15px 10px rgb(0, 0, 0);
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    cursor: pointer;
+}
+.SearchBar > button:hover{
+    transition: .4s;
+    background: #ec6e14;
+    color:snow;
+}
+
+
+
+
+
+.SearchBar> input, .SearchBar> button{
+    height: 7vh;
+}
+.container_card{
+    width: 80%;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+
+.card{
+    height: 20rem;
+    border-radius: 20px;
+    background: linear-gradient(170deg, rgba(240, 170, 18, 0.925) 0%, rgb(218, 84, 0) 100%);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.55);
+    cursor: pointer;
+    transition: all .3s;
+    color:white;
+
+  }
+  
+  .card:hover{
+    background:#12eb86 ;
+    color:#1269eb
+  }
+  
+  
+  
+  .imagen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+  }
+  
+  
+  .imagen img {
+    border-radius: 5px;
+    width: 95%;
+    height: 60%;
+  
+  }
+  
+  .name{
+    height: 10%;
+    text-align: center;
+    text-decoration: none;
+    margin: 0;
+  }
+  /*elimino decoraciones de los enlaces*/
+  a:link, a:visited, a:active{
+    text-decoration: none;
+  }
+  
