@@ -102,10 +102,14 @@
 
 .temperaments > p{
     height: 15%;
-    text-align: center;
+    padding-inline: .5rem;
+    font-style : italic;
+    font-weight: bolder;
+    color: rgb(163, 160, 160);
 }
 .containerSelect{
     display: flex;
+    justify-content: center;
     height:25% ;
 }
 .containerSelect > div{
@@ -187,6 +191,7 @@
     background: peru;
     border-radius: 0.4rem;
     cursor: pointer;
+    padding-inline: .4rem;
 } 
 
 .temps_selected:hover{
