@@ -43,13 +43,13 @@
     background: whitesmoke;
     outline: none;
     box-shadow: 10px 15px 10px rgb(0, 0, 0);
-
+  padding: .5rem;
 }
 
-.SearchBar >button{
+.iconInput{
     background: whitesmoke;
     height: 80%;
-    width: 20% ;
+    width: 5% ;
     border:none;
     border-radius:  0 1rem 1rem 0; 
     display: flex;
@@ -61,17 +61,13 @@
     justify-content: center;
     cursor: pointer;
 }
-.SearchBar > button:hover{
-    transition: .4s;
-    background: #ec6e14;
-    color:snow;
-}
 
 
 
 
 
-.SearchBar> input, .SearchBar> button{
+
+.SearchBar> input, .iconInput{
     height: 7vh;
 }
 .container_card{

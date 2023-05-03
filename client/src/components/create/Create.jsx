@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom"
 import style from './Create.module.css'
 import { useDispatch, useSelector } from "react-redux";
-import { get_dogs,filter_temperament, post_dog } from "../../redux/actions";
+import { get_dogs,filter_temperament, post_dog,get_createdRaces } from "../../redux/actions";
 import image from './cargando.gif'
 import { Button, Modal, ModalHeader,ModalBody, ModalFooter } from "reactstrap";
 
 
 const validate = (form, dogs) =>{
-  console.log(form);
   let error = {};
   let{alturaMax, alturaMin, name, pesoMax, pesoMin, temperaments, vidaMax, vidaMin} = form;
 
@@ -17,6 +16,7 @@ const validate = (form, dogs) =>{
   }
 
   if(form.name){
+    //cambiar para que consulte directamente a la base de datos y en la api para no crear duplicados 
     const find_dog = dogs.find((dog)=>  dog.name.trim().toLowerCase() === name.toLowerCase()  )
     if(find_dog){
       error.name = "Ya existe una raza con este nombre"
@@ -30,14 +30,14 @@ const validate = (form, dogs) =>{
     error.caracteres = "El valor de la Altura, Peso y Años de vida deben ser numeros enteros, no pueden contener -,+,.,etc"
   } 
 
-  if(parseInt(alturaMax) < 0 || parseInt(alturaMin) < 0) error.alturaNegativa = "La altura no puede ser negativa"
   if(parseInt(alturaMax) < parseInt(alturaMin) || parseInt(alturaMax) === parseInt(alturaMin) ) error.altura = "La altura maxima no puede ser igual o menor a la altura minima"
+  if(parseInt(alturaMax) < 0 || parseInt(alturaMin) < 0) error.altura = "La altura no puede ser negativa"
   
-  if(parseInt(pesoMax) < 0 || parseInt(pesoMin) < 0) error.pesoNegativo = "El peso no puede ser negativo"
   if(parseInt(pesoMax) < parseInt(pesoMin) || parseInt(pesoMax) === parseInt(pesoMin) ) error.peso = "El peso maximo no puede ser igual o menor al peso minimo"
+  if(parseInt(pesoMax) < 0 || parseInt(pesoMin) < 0) error.peso = "El peso no puede ser negativo"
   
-  if(parseInt(vidaMax) < 0 || parseInt(vidaMin) < 0) error.vidaNegativa = "El rango de vida no puede contener numeros negativos"
-  if(parseInt(vidaMax) < parseInt(vidaMin) || parseInt(vidaMax) === parseInt(vidaMin) ) error.peso = "El peso maximo no puede ser igual o menor al peso mvidao"
+  if(parseInt(vidaMax) < parseInt(vidaMin) || parseInt(vidaMax) === parseInt(vidaMin) ) error.vida = "El promedio maximo no puede ser igual o menor al promedio minimo"
+  if(parseInt(vidaMax) < 0 || parseInt(vidaMin) < 0) error.vida = "El rango de vida no puede ser negativo"
 
   return error 
 }
@@ -45,13 +45,11 @@ const validate = (form, dogs) =>{
 const Create = () =>{
   const dispatch = useDispatch()
   const selectorTemps = useSelector((state)=>state.temperaments)
-  const dogs = useSelector((state)=>state.dogs)
 
-  useEffect(()=>{
-    dispatch(get_dogs())
-  },[])
+  
+  let  {dogs,copy_createdRaces }= useSelector((state)=>state)
 
-
+  dogs = dogs.concat(copy_createdRaces)
   const [form , setForm] = useState(
     {
       name : "",
@@ -66,6 +64,15 @@ const Create = () =>{
      
     }
   )   
+
+  console.log("Estos son los perros desde el create",dogs);
+  useEffect(()=>{
+    dispatch(get_dogs())
+    dispatch(get_createdRaces())
+    setError(validate(form, dogs))
+  },[])
+
+
   //estado para los temperamentos seleccionados de la lista <select /> y de los que voy a crear en el input
   const [temperaments, setTemperaments ] = useState([])
   
@@ -123,7 +130,6 @@ const Create = () =>{
  
   const handlerSendData = () =>{
     setStateModal(true)
-    console.log(form);
     dispatch(post_dog(form))
     setForm(   {
       name : "",
@@ -167,32 +173,42 @@ const Create = () =>{
                 
 
                 <div className={style.inputs}>
-                  <div>
-                    <input className={style.input} placeholder="nombre" onChange={handlerForm} value={form.name} name="name"  type="text" /> 
+                  <div  className={style.inputs_div}>
+                    <label >Nombre</label>
+                    <div className={style.container_inputs}>  
+                      <input className={style.input} placeholder="Nombra a tu nueva raza como quieras" onChange={handlerForm} value={form.name} name="name"  type="text" />
+                    </div>  
+                    <p id={style.error}> {error.name ? <p>{error.name}</p> : null}</p>
                   </div>
 
-                   <div>
+                   <div className={style.inputs_div}>
                       <label htmlFor="min">Altura</label>
                       <div className={style.container_inputs}>
-                        <input className={style.input} type="text" placeholder="pesoMin" onChange={handlerForm}  name="alturaMin" value={form.alturaMin} />
-                        <input className={style.input} type="text" placeholder="max" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
+                        <input className={style.input} type="text" placeholder="¿Cuál su altura minimo?" onChange={handlerForm}  name="alturaMin" value={form.alturaMin} />
+                        <input className={style.input} type="text" placeholder="¿Cuál es su altura maximo?" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
                       </div>
+                      <p id={style.error}> 
+                      {error.altura ? <p>{error.altura}</p> : null}
+                      </p>
                    </div>
 
-                    <div>
+                    <div className={style.inputs_div}>
                       <label htmlFor="pesoMin">Peso</label>
                       <div className={style.container_inputs}>
-                        <input className={style.input} type="text" placeholder="min" onChange={handlerForm} id="pesoMin" name="pesoMin" value={form.pesoMin} />
-                        <input className={style.input} type="text" placeholder="max" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />
+                        <input className={style.input} type="text" placeholder="¿Cuál es su peso minimo?" onChange={handlerForm} id="pesoMin" name="pesoMin" value={form.pesoMin} />
+                        <input className={style.input} type="text" placeholder="¿Cuál es su peso maximo?" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />
                       </div>
+                      <p id={style.error}> {error.peso ? <p>{error.peso}</p> : null}</p>
+
                     </div>
 
-                    <div>
+                    <div className={style.inputs_div}>
                       <label htmlFor="">Promedio de vida</label>
                       <div className={style.container_inputs}>
-                        <input className={style.input} type="text" placeholder="min" onChange={handlerForm}  name="vidaMin" value={form.vidaMin} />
-                        <input className={style.input} type="text" placeholder="max" onChange={handlerForm}  name="vidaMax" value={form.vidaMax} />
+                        <input className={style.input} type="text" placeholder="¿Promedio de vida minimo?" onChange={handlerForm}  name="vidaMin" value={form.vidaMin} />
+                        <input className={style.input} type="text" placeholder="¿Promedio de vida maximo?" onChange={handlerForm}  name="vidaMax" value={form.vidaMax} />
                       </div>
+                      <p id={style.error}> {error.vida ? <p>{error.vida}</p> : null}</p>
                     </div>
 
                 </div>
@@ -246,10 +262,30 @@ const Create = () =>{
                
 
                 <div className={style.button} id={ form.name && !Object.keys(error).length && style.button}  >
-                  <button  disabled={ Object.keys(error).length} onClick={()=>{handlerSendData()}} className={style.sigin_btn} type="submit">ENVIAR</button>
+                  <p id={style.error_button}>
+                    {error.vacio ? <p>{error.vacio}</p> : null}
+                  </p>
+                  <button  disabled={Object.keys(error).length} onClick={()=>{handlerSendData()}} className={style.sigin_btn} type="submit">ENVIAR</button>
                 </div>
               </form>
           </div>
+          {/* {
+            Object.keys(error).length ? 
+            <div  className={style.error}>
+         
+             
+
+              {error.peso ? <p>{error.peso}</p> : null}
+              {error.pesoNegativo ? <p>{error.pesoNegativo}</p> : null}
+              {error.caracteres ? <p>{error.caracteres}</p> : null}
+
+              {error.vidaNegativa ? <p>{error.vidaNegativa}</p> : null}
+
+
+             
+            </div>
+            : null 
+          } */}
 
 {/*      
 <form class="form">
@@ -348,26 +384,7 @@ const Create = () =>{
 
 
 
-          {
-            Object.keys(error).length ? 
-            <div  className={style.error}>
-         
-              {error.name ? <p>{error.name}</p> : null}
-              {error.altura ? <p>{error.altura}</p> : null}
-              {error.alturaNegativa ? <p>{error.alturaNegativa}</p> : null}
-
-              {error.peso ? <p>{error.peso}</p> : null}
-              {error.pesoNegativo ? <p>{error.pesoNegativo}</p> : null}
-              {error.caracteres ? <p>{error.caracteres}</p> : null}
-
-              {error.vidaNegativa ? <p>{error.vidaNegativa}</p> : null}
-
-
-              {error.vacio ? <p>{error.vacio}</p> : null}
-
-            </div>
-            : null 
-          } */}
+           */}
           
         </div>
     )

@@ -32,8 +32,6 @@ const Home = (props) => {
     setTrhee(3)
   },[selector])
 
-console.log("estos son los dogs desde el home", selector);
-
 
   //paginado 
 
@@ -111,7 +109,6 @@ console.log("estos son los dogs desde el home", selector);
             <div className={style.content}>
             {selector[0].msg
               ? <div className={style.error}>
-                  {console.log(selector[0], "este es el mensaje de errors")}
                   <h3>{selector[0].msg}</h3>
                   <form action=""><button>Ver todos</button></form>
                 </div> 

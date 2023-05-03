@@ -20,6 +20,7 @@ export default function FilterAndOrders() {
   
   //selectorTemps esta subscirptos al store
   const selectorTemps = useSelector((state)=>state.temperaments)
+  
   const [stateForm, setForm] = useState("")
   const dispatch = useDispatch()
   //elimino er refresh defaull de la accion submit

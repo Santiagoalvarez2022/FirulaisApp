@@ -1,14 +1,15 @@
 //debemos importar las actions
-import {GET_CREATEDRACES,CLEAR_DOGS,HANDLER_INDICE,CHANGE_PAGE,GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS, FILTER_TEMPERAMENT,DETAIL_DOG, RESET_DETAIL_DOG} from './actions'
+import {SEARCH_CREATED_RACES,GET_CREATEDRACES,CLEAR_DOGS,HANDLER_INDICE,CHANGE_PAGE,GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS, FILTER_TEMPERAMENT,DETAIL_DOG, RESET_DETAIL_DOG} from './actions'
 
 const initialSate = {
     dogs : [],
-    createdRaces : [],
     temperaments : [],
     detaildog : {},
     page:1,
     inicio: 0,
-    fin : 4 
+    fin : 4 ,
+    createdRaces : [],
+    copy_createdRaces:[],
 
 }
 //debe ser una funcion pura
@@ -16,6 +17,11 @@ const initialSate = {
 //mantener como una funcion pura, no hacer llamados  a la api aca
 const rootReducer = (state = initialSate , action) =>{
     switch(action.type){
+        case SEARCH_CREATED_RACES:
+            return{
+                ...state,
+                createdRaces:action.payload
+            }
         case HANDLER_INDICE:
             return {
                 ...state,
@@ -36,7 +42,8 @@ const rootReducer = (state = initialSate , action) =>{
         case GET_CREATEDRACES:
             return {
                 ...state,
-                createdRaces: action.payload
+                createdRaces: action.payload,
+                copy_createdRaces: action.payload,
             };
         case CLEAR_DOGS: 
             return {

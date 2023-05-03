@@ -10,6 +10,17 @@ export const CHANGE_PAGE = "CHANGE_PAGE";
 export const HANDLER_INDICE = "HANDLER_INDICE";
 export const CLEAR_DOGS = "CLEAR_DOGS";
 export const GET_CREATEDRACES = "GET_CREATEDRACES";
+export const SEARCH_CREATED_RACES =  "SEARCH_CREATED_RACES" ;
+
+export const search_created_races = (result) =>{
+    console.log("esto es reesult desde LAS ACTIONS", result);
+
+    return{
+        type: SEARCH_CREATED_RACES,
+        payload: result
+    }
+}
+
 
 export const clear_dogs = () =>{
     return{
