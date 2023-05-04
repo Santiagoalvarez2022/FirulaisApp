@@ -165,9 +165,6 @@ const Create = () =>{
       
           <div className={style.boxOne}>
             <h1>CREA TU PROPIA RAZA</h1>
-            <Link to="/createdraces">
-              <button>Ver razas creadas por la comunidad</button>
-            </Link>
           </div>
           <div className={style.boxTwo}>
             
@@ -188,7 +185,7 @@ const Create = () =>{
                   </div>
 
                    <div className={style.inputs_div}>
-                      <label htmlFor="min">Altura</label>
+                      <label htmlFor="min">Altura(cm)</label>
                       <div className={style.container_inputs}>
                         <input className={style.input} type="text" placeholder="¿Cuál su altura minimo?" onChange={handlerForm}  name="alturaMin" value={form.alturaMin} />
                         <input className={style.input} type="text" placeholder="¿Cuál es su altura maximo?" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
@@ -199,7 +196,7 @@ const Create = () =>{
                    </div>
 
                     <div className={style.inputs_div}>
-                      <label htmlFor="pesoMin">Peso</label>
+                      <label htmlFor="pesoMin">Peso(Kg)</label>
                       <div className={style.container_inputs}>
                         <input className={style.input} type="text" placeholder="¿Cuál es su peso minimo?" onChange={handlerForm} id="pesoMin" name="pesoMin" value={form.pesoMin} />
                         <input className={style.input} type="text" placeholder="¿Cuál es su peso maximo?" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />

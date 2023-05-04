@@ -3,10 +3,10 @@
     justify-content: center;
     /* background-image: linear-gradient(310deg, #ffcd7e 0, #ffc279 12.5%, #ffb46f 25%, #fea163 37.5%, #f28953 50%, #e67146 62.5%, #dd5c3e 75%, #d64b3d 87.5%, #d33d40 100%); */
     width: 100%;
-    height: 260vh;
+    height: 270vh;
     background: #23282F;
 }
-
+ 
 
 .conteiner_page{ 
     display: flex;
@@ -35,7 +35,7 @@
 
 
 .nav{
-    height: 30%;
+    height: 20%;
     width: 100%;
 }
 
@@ -168,13 +168,36 @@
 .homepage{
     height: 130vh;
     width: 100%;
-
 }
 
 .createpage{
+ 
     width: 100%;
-    height: 100vh;
+    height: 115vh;
 }
+.CreatedRacesLink{
+    height: 25vh;
+    display: flex;
+    align-items:start;
+    justify-content: center;
+}
+
+.CreatedRacesLink>a{
+    transition: .5s;
+    color:snow;
+    filter: drop-shadow(#23282F 2px 2px 5px);
+    background: #ec6e14;
+    padding: .5rem;
+    border-radius:20px;
+}
+.CreatedRacesLink>a:hover{
+    transition: .5s;
+    scale: 1.1;
+    color:snow;
+}
+
+.CreatedRacesLink > a:link { text-decoration:none; } 
+.CreatedRacesLink > a:visited { text-decoration:none; }
 
 .error{
     display: flex;
@@ -208,4 +231,8 @@
     background: #1d403c;
     border: aliceblue solid;
 }
-  
+
+.icon{ 
+    width:  2.5rem;
+    height: 2.5rem ;
+}

@@ -1,5 +1,5 @@
 .conteiner{
-    height: 130vh;
+    height: 115vh;
     display: flex;
     width: 100%;
 }
@@ -9,6 +9,8 @@
     width: 30%;
     padding-left: 1rem;
     color:snow;
+    display: flex;
+    align-items:center;
 }
 
 .boxTwo{
@@ -16,7 +18,7 @@
     display: flex;
     justify-content: center;
     align-items:end;
-    height: 130vh;
+    height: 115vh;
     padding-bottom: 10vh;
 }
 .form{

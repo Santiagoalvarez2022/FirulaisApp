@@ -11,6 +11,7 @@ import axios from 'axios';
 import Favicon from "react-favicon"
 import favicon from "./assests/favicon.png"
 import CreatedRaces from './components/createdRaces/CreatedRaces';
+import Nav from './components/nav/Nav';
 
 //declaro la ruta a la cual le va a pegar el front al back
 
@@ -30,7 +31,7 @@ function App() {
         <Login />
       </Route>
       {/* Condiciono que la barra de navegacion para que no aparezca cuando esta el llogin */}
-      {/* {location.pathname === "/" ? null : <Navbar />} */}
+      {location.pathname === "/home" ? <Nav /> :null} 
 
 
       <Route exact path="/home">

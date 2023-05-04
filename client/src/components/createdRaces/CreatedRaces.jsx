@@ -34,7 +34,7 @@ export default function CreatedRaces() {
 
 
   return (
-    <div className={style.container}>
+    <div   className={style.container}>
         <div className={style.navbar}>
                 <div className={style.icon}>
                     <Link to="/home">

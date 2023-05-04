@@ -10,6 +10,7 @@ import {FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRightLong,faArrowRightFromBracket,faAnglesRight, faAnglesLeft, faArrowDownAZ, faArrowUpZA, faDog, faCircleArrowRight, faCircleArrowLeft,faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons"
 import logo from "../../assests/log2.png"
 import Create from "../create/Create";
+import { Link } from "react-router-dom";
 
 
  
@@ -102,7 +103,7 @@ const Home = (props) => {
               <img src={logo} alt="" />
             </div>
 
-            <div className={style.nav}>
+            <div id="dogs" className={style.nav}>
               <FilterAndOrders />
             </div>
 
@@ -154,11 +155,16 @@ const Home = (props) => {
 
             </div>
 
-            <div className={style.createpage}>
-              <Create />
-
+            <div id="create"   className={style.createpage}>
+              <Create  />
             </div>
              
+             <div className={style.CreatedRacesLink}>
+              <Link to="/createdraces">
+                <h2> Ver razas creadas por la Comunidad <FontAwesomeIcon className={style.icon} style={{color:"white"}} beat icon={faDog}/> </h2>       
+              </Link>
+             </div>
+
             </div>
         </div>      
     )
