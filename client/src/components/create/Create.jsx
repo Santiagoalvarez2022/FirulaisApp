@@ -26,13 +26,13 @@ const validate = (form, dogs) =>{
 
   //evaluar solo si hay algo en los inputs
   if (alturaMax || alturaMin) {
-    if(!/^[0-9]+$/.test(alturaMax || alturaMin)) error.altura ="Solo se aceptan numeros"
+    if(!/^[0-9]+$/.test(alturaMax) || !/^[0-9]+$/.test(alturaMin) ) error.altura ="Solo se aceptan numeros, no puedes dejar ningun campo vacio"
     if(parseInt(alturaMax) < parseInt(alturaMin) || parseInt(alturaMax) === parseInt(alturaMin) ) error.altura = "La altura maxima no puede ser igual o menor a la altura minima"
     if(parseInt(alturaMax) < 0 || parseInt(alturaMin) < 0) error.altura = "La altura no puede ser negativa"
   }
 
   if (pesoMax || pesoMin) { 
-    if(!/^[0-9]+$/.test(pesoMax || pesoMin)) error.peso ="Solo se aceptan numeros"
+    if(!/^[0-9]+$/.test(pesoMax )  ||!/^[0-9]+$/.test(pesoMin )   ) error.peso ="Solo se aceptan numeros, no puedes dejar ningun campo vacio"
     if(parseInt(pesoMax) < parseInt(pesoMin) || parseInt(pesoMax) === parseInt(pesoMin) ) error.peso = "El peso maximo no puede ser igual o menor al peso minimo"
     if(parseInt(pesoMax) < 0 || parseInt(pesoMin) < 0) error.peso = "El peso no puede ser negativo"
     
@@ -40,7 +40,7 @@ const validate = (form, dogs) =>{
     
 
   if (vidaMax || vidaMin) { 
-    if(!/^[0-9]+$/.test(vidaMax || vidaMin)) error.vida ="Solo se aceptan numeros";
+    if(!/^[0-9]+$/.test(vidaMax) || !/^[0-9]+$/.test(vidaMin)) error.vida ="Solo se aceptan numeros, no puedes dejar ningun campo vacio";
     if(parseInt(vidaMax) < parseInt(vidaMin) || parseInt(vidaMax) === parseInt(vidaMin) ) error.vida = "El promedio maximo no puede ser igual o menor al promedio minimo";
     if(parseInt(vidaMax) < 0 || parseInt(vidaMin) < 0) error.vida = "El rango de vida no puede ser negativo";
     
@@ -81,36 +81,36 @@ const Create = () =>{
 
   const [temperaments, setTemperaments ] = useState([])
   
-  console.log("array de temperamento", temperaments);
-  
-      
   const [error,setError] = useState({}) 
   const [errorTemps, setErrorTemps] = useState(false)
 
   //manejador de estado del form
   const handlerForm = (event) =>{
-    const {value, name} = event.target;
-    console.log("estoy en el handler form");
+    let {value, name} = event.target;
 
     if (name==="temperaments") {    
       if(temperaments.length === 3 ) return;
       if (temperaments.findIndex(temp => temp===value) === -1) {
       setTemperaments([...temperaments, value])  
       setErrorTemps(true)
+      return ;
+      }
     }
-    
-    return ;
-  }
 
-  if(!temperaments.length){
-    setErrorTemps(false)
-  }
+    if(!temperaments.length){
+      setErrorTemps(false)
+    }
+
+    
+    if(name ==="name"){
+      value = value.charAt(0).toLocaleUpperCase()+value.slice(1).toLowerCase() 
+      console.log("este ese el input", name, "y el valor es ", value);
+    }
 
     setForm({
       ...form,
       [name] : value
     })
-    
     
     setError(validate({...form, [name] : value}, dogs))
   }
@@ -118,20 +118,8 @@ const Create = () =>{
     event.preventDefault() 
   }
 
-  //agrego temperamentos
-  const handlerTemperaments = ({target}) =>{ 
-    // const {value} = target;
-    // //si ya esta no lo agrego 
-    // if(temperaments.length === 3 ) return;
-    // if (temperaments.findIndex(temp => temp===value) === -1) {
-    //   setTemperaments([...temperaments, value])
-    //   return ;
-    // }
-  }
-
   //elimino temperamnetos
   const deleteTemperament = (temp) =>{
- 
 
   if(temperaments.length === 1){
     setTemperaments([])
@@ -142,12 +130,10 @@ const Create = () =>{
     setTemperaments(update_Temperaments)
   }  
 
-
-
-
  
   const handlerSendData = () =>{
     let temperaments_ = temperaments.join(" ")
+    dispatch(post_dog(form))
     setForm(   {
       name : "",
       alturaMax : "",
@@ -240,11 +226,7 @@ const Create = () =>{
 
                       <div className={style.containerSelect_select}>
 
-                        <select  onChange={(e)=>{
-                          handlerTemperaments(e)
-                          handlerForm(e)
-                        } 
-                        } className={style.select} name="temperaments" id="">
+                        <select  onChange={handlerForm} className={style.select} name="temperaments" id="">
                           <option value="lista" disabled>Lista de temperamentos</option>
                           {selectorTemps.length ? selectorTemps.map((temp)=>{
                             return <option
@@ -284,9 +266,9 @@ const Create = () =>{
 
                 <div className={style.button} id={ form.name && !Object.keys(error).length && style.button}  >
                   <p id={style.error_button}>
-                    {error.vacio ? <p>{error.vacio}</p> : null}
+                    {error.vacio || !errorTemps ? <p>Debes completar todos los campos y escoger por lo menos un temperamento</p> : null}
                   </p>
-                  {console.log(Boolean(errorTemps))}
+
                   <button  disabled={  Object.keys(error).length || !errorTemps} onClick={()=>{handlerSendData()}} className={style.sigin_btn} type="submit">ENVIAR</button>
                 </div> 
               </form>
