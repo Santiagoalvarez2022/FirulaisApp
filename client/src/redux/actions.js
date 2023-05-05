@@ -11,10 +11,10 @@ export const HANDLER_INDICE = "HANDLER_INDICE";
 export const CLEAR_DOGS = "CLEAR_DOGS";
 export const GET_CREATEDRACES = "GET_CREATEDRACES";
 export const SEARCH_CREATED_RACES =  "SEARCH_CREATED_RACES" ;
+export const NEW_ORDER =  "NEW_ORDER" ;
+
 
 export const search_created_races = (result) =>{
-    console.log("esto es reesult desde LAS ACTIONS", result);
-
     return{
         type: SEARCH_CREATED_RACES,
         payload: result
@@ -22,12 +22,12 @@ export const search_created_races = (result) =>{
 }
 
 
-export const clear_dogs = () =>{
-    return{
-        type: CLEAR_DOGS,
-        payload: [{msg:"cargando"}]
-    }
-}
+// export const clear_dogs = () =>{
+//     return{
+//         type: CLEAR_DOGS,
+//         payload: [{msg:"cargando"}]
+//     }
+// }
 
 export const change_page = (value) =>{
     if(value){
@@ -93,28 +93,19 @@ export const get_createdRaces = () => async (dispatch) => {
 
 
 
-//filtrar por nombre todos los perros 
-//esta function va a buscar en los 
-
-export const get_by_name = (name) => async(dispatch)=> {
-
-    let result = await axios.get("/dogs/api") 
-    let filter = result.data.filter(dog=>dog.name.toLowerCase().includes(name.toLowerCase()))
-    if (filter.length) {    
-        return dispatch({
-            type : GET_BY_NAME ,
-            payload : filter
-        })
-    } else {
-        return dispatch({
-            type : GET_BY_NAME ,
-            payload : [{msg:"no se encontro una raza llamada "+ name}]
-        })
+export const get_by_name  = (result) =>{
+    console.log(result);
+    return{
+        type: GET_BY_NAME,
+        payload: result
     }
+}
 
-} 
+
+
 
 export const post_dog = (data) =>async () => {
+    console.log("actions",data);
     let newdog =  await axios.post("/dogs", data)
     return newdog
 } 
@@ -134,15 +125,18 @@ export const detail_dog = (id,type) => async (dispatch) => {
     let result = {}
     let request =[]
 
+    console.log("desde actions", id, type);
 
     if (type==="api") {
         let request = await axios.get(`/dogs/api`)
         let index = request.data.findIndex(e => parseInt(e.id) === parseInt(id))
         result = request.data[index]
-    } else if(type==="bd") {
+
+    } else if(type==="db") {
         let request = await axios.get(`/dogs`)
         let index = request.data.findIndex(e => e.id === id)
         result = request.data[index]
+        
     }
     
     //si no se encuentra mando un error 
@@ -238,7 +232,7 @@ export const order_peso = (order) => async (dispatch) => {
     }
     
     return dispatch({
-        type : GET_DOGS,
+        type : NEW_ORDER,
         payload : result.data
     })
 }
@@ -258,7 +252,7 @@ export const order_races = (type) => async (dispatch) =>{
         filter = result.data
     }
     return dispatch({
-        type : GET_DOGS ,
+        type : NEW_ORDER ,
         payload : filter
     })
 
@@ -302,7 +296,7 @@ export const order_alfabet = (type) => async (dispatch) =>{
         filter = result.data
     }
     return dispatch({
-        type : GET_DOGS ,
+        type :  NEW_ORDER,
         payload : filter
     })
 

@@ -21,7 +21,6 @@ const Home = (props) => {
   const inicio = useSelector((state)=> state.inicio)
   const fin = useSelector((state)=> state.fin)
 
-
   useEffect(() => {
     dispatch(get_dogs())
   }, [])
@@ -111,7 +110,7 @@ const Home = (props) => {
             {selector[0].msg
               ? <div className={style.error}>
                   <h3>{selector[0].msg}</h3>
-                  <form action=""><button>Ver todos</button></form>
+                  <form action=""><button>Volver a intentar</button></form>
                 </div> 
             
               : <div className={style.conteiner}>

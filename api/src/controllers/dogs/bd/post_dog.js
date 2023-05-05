@@ -1,26 +1,20 @@
 const {Dog, Temperament} = require('../../../db')
 
-const post_dog = async (name,  alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,vidaMin,image,temperaments) =>{
+const post_dog = async (data) =>{
+    //validation of required fields
+    let {name,  alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,vidaMin,image,temperaments} = data;
 
-    let Altura = `${alturaMin} - ${alturaMax}`
-    let Peso = `${pesoMin} - ${pesoMax}`
-    let temperament = temperaments.trim()
-    let Años_de_vida = `${vidaMin} - ${vidaMax} years`
+    if(!name || !alturaMax || !alturaMin || !pesoMax || !pesoMin || !vidaMax || !vidaMin  || !temperaments) throw Error("Incomplete data to create the Breed")
+    
+    //record creation
+    const newrace = await Dog.create({name,  alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,vidaMin,image })
 
-    //validaciones : solo validos los campos obligatorio
-    if(!name ) throw Error("Faltan datos")
-    //creo registro de Dog
-    const newrace = await Dog.create({name,Altura,Peso,Años_de_vida})
-
-    //creo array con cada temperamento
-    let arr_temperaments = temperament.split(" ");
+    //array creation with each temperament
+    let arr_temperaments = temperaments.split(" ");
 
     for (let index = 0; index < arr_temperaments.length; index++) {
         const element = arr_temperaments[index];
-        //creo  registros de Temperament
        try {
-          // let newTemp = await Temperament.create({name : element})
-          //row obj devuelto created boolean que determina si lo creo o ya existia 
           const [row, created] = await Temperament.findOrCreate({
             where : {name : element}
           })
@@ -30,6 +24,7 @@ const post_dog = async (name,  alturaMax ,alturaMin, pesoMax ,pesoMin, vidaMax ,
        }
 
     }
+  
     return {...newrace.dataValues, ...{temperaments}}
 }
 

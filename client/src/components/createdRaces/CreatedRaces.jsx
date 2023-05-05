@@ -29,6 +29,9 @@ export default function CreatedRaces() {
         let {value} = target;
         SetForm(value)
         let result = copy_createdRaces.filter(dog=> dog.name.toLowerCase().includes(value.toLowerCase()))
+
+       
+
         dispatch(search_created_races(result))
     }
 

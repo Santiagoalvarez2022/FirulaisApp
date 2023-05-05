@@ -38,26 +38,27 @@ const func_all_temperaments = (arrayOftemperaments) =>{
 //controller
 const get_temperaments = async () =>{
   //peticion a la api
-  const {data} = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${apikey}`)
+  // const {data} = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${apikey}`)
  
-  const arrayOftemperaments =  func_arrayOftemperaments(data)
+  // const arrayOftemperaments =  func_arrayOftemperaments(data)
 
-  const all_temperaments = func_all_temperaments(arrayOftemperaments)
+  // const all_temperaments = func_all_temperaments(arrayOftemperaments)
 
-  //utilizo un filter para eliminar temperamentos repetidos
-  const temps_sin_repetir = all_temperaments.filter((temp, index)=>{
-    return all_temperaments.indexOf(temp) === index;
-  })
+  // //utilizo un filter para eliminar temperamentos repetidos
+  // const temps_sin_repetir = all_temperaments.filter((temp, index)=>{
+  //   return all_temperaments.indexOf(temp) === index;
+  // })
 
-  // creo los registros en la base de dato
-  temps_sin_repetir.forEach(temp =>{
-    Temperament.findOrCreate({
-      where : {name :temp}
-    })
-  })
+  // // creo los registros en la base de dato
+  // temps_sin_repetir.forEach(temp =>{
+  //   Temperament.findOrCreate({
+  //     where : {name :temp}
+  //   })
+  // })
 
   //busco temperamentos de la base de datos
   const temps_db = await Temperament.findAll()
+  console.log(temps_db);
   return temps_db
 }
 

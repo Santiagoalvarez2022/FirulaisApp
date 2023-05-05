@@ -10,46 +10,63 @@ import Navbar from '../navbar/NavBar'
 
 
 export default function FilterAndOrders() {
+    useEffect(()=>{
+        dispatch(get_temperaments())
+    
+    },[])
 
 
     const [orderAZ, setOrderAZ] = useState(true)
+    const {temperaments,dogs,copy_dogs }= useSelector((state)=>state)
+
+    console.log("state",temperaments,dogs,copy_dogs);    
+
+    const [stateForm, setForm] = useState("")
+    const dispatch = useDispatch()
+
+    const changeHandler = ({target}) =>{
+        let {value} = target; 
+        setForm(value)
+        let result = copy_dogs.filter(dog=> dog.name.toLowerCase().includes(value.toLowerCase()))
+        console.log("este es result ", result); 
+        if (!result.length) {
+            //si no encuentra nada mando un msg
+            result = [{msg:"No se encontro una raza con este nombre, revisa lso filtros que has colocado para mejorar tu busqueda"}]
+
+        }
+        dispatch(get_by_name(result))
+    }
+        
+  
+    //elimino er refresh defaull de la accion submit
+    const handlerSubmit = (event) =>{
+        event.preventDefault()
+        // dispatch(clear_dogs())
+        setForm("")
+    } 
+    
+
     const handlerOrderAz = ()=>{
         setOrderAZ(!orderAZ)
     }
+
+
+
+
+
+
+
+
+
     
-  
-  //selectorTemps esta subscirptos al store
-  const selectorTemps = useSelector((state)=>state.temperaments)
-  
-  const [stateForm, setForm] = useState("")
-  const dispatch = useDispatch()
-  //elimino er refresh defaull de la accion submit
-  const handlerSubmit = (event) =>{
-    event.preventDefault()
-    let name = stateForm.trim()
-    dispatch(clear_dogs())
-    dispatch(get_by_name(name))
-    setForm("")
-  } 
-   
-  const changeHandler = (event) =>{
-    setForm(event.target.value)
-    //dispatch(get_by_name(stateForm))
-  }
-
-  useEffect(()=>{
-    dispatch(get_temperaments())
-
-  },[])
-  
-  const selectTemperament = (event) => {
-    //delaro una variable que contien el temperamento seleccionado
-    let temperament = event.target.value.trim()
-    dispatch(handler_indices())
-    dispatch(filter_temperament(temperament))
-   
-  }
-  
+    const selectTemperament = (event) => {
+        //delaro una variable que contien el temperamento seleccionado
+        let temperament = event.target.value.trim()
+        dispatch(handler_indices())
+        dispatch(filter_temperament(temperament))
+    
+    }
+    
 
 
 
@@ -58,15 +75,20 @@ export default function FilterAndOrders() {
 
             <div className={style.temperaments}>
                 <form  onSubmit={(e)=>{handlerSubmit(e)}}  className={style.form}>
-                    <input onChange={(e)=>changeHandler(e)} name="search" type="text" value={stateForm}/>
-                    <button> 
+                    <label htmlFor='search' className={style.iconSearch}> 
                         <FontAwesomeIcon icon={faMagnifyingGlass} beat />
-                    </button>
+                    </label>
+                    <input id='search' onChange={(e)=>changeHandler(e)} name="search" type="text" value={stateForm}/>
                 </form>
+
+
+
+
+
                 <form action="#"> 
                     <select onChange = {selectTemperament}  name="temperamentos" id="temp" >
                         <option >TODOS LOS PERROS</option>
-                                    {selectorTemps.length ? selectorTemps.map((temp)=>{
+                                    {temperaments.length ? temperaments.map((temp)=>{
                                     return <option
                                     value={temp.name}
                                     key={temp.id}

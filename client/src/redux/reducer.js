@@ -1,8 +1,9 @@
 //debemos importar las actions
-import {SEARCH_CREATED_RACES,GET_CREATEDRACES,CLEAR_DOGS,HANDLER_INDICE,CHANGE_PAGE,GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS, FILTER_TEMPERAMENT,DETAIL_DOG, RESET_DETAIL_DOG} from './actions'
+import {NEW_ORDER,SEARCH_CREATED_RACES,GET_CREATEDRACES,CLEAR_DOGS,HANDLER_INDICE,CHANGE_PAGE,GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS, FILTER_TEMPERAMENT,DETAIL_DOG, RESET_DETAIL_DOG} from './actions'
 
 const initialSate = {
     dogs : [],
+    copy_dogs:[],
     temperaments : [],
     detaildog : {},
     page:1,
@@ -34,10 +35,12 @@ const rootReducer = (state = initialSate , action) =>{
                 ...state,
                 page:action.payload
             }
+
         case GET_DOGS:
             return {
                 ...state,
-                dogs: action.payload
+                dogs: action.payload,
+                copy_dogs:action.payload
             };
         case GET_CREATEDRACES:
             return {
@@ -84,6 +87,14 @@ const rootReducer = (state = initialSate , action) =>{
             }
         }
            
+        //caso para los ordenamientos 
+
+        case NEW_ORDER :{
+            return{
+                ...state,
+                dogs:action.payload
+            }
+        }
         default:{
             return {...state}
         }

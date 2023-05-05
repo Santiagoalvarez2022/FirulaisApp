@@ -13,29 +13,30 @@ const get_all = async () =>{
          }
        }
      })
-     dogs_db = dogs_db.map(dog =>{
-       const {id, name, Altura, Peso, Años_de_vida,image} = dog;
-
-       let altura = Altura.split("-")
-       let min_altura = parseInt(altura[0].trim());
-       let max_altura = parseInt(altura[1].trim());
 
 
-       let promedio = Peso.split("-")
-       let min = parseInt(promedio[0].trim());
-       let max = parseInt(promedio[1].trim());
-       return{
-         id,
-         name,
-         min_altura,
-         max_altura,
-         max,
-         min,
-         Años_de_vida,
-         image,
-         temperament :dog.temperaments.map((t)=> t.name).join(", "),
-         type:"bd"
+    dogs_db = dogs_db.map(dog =>{
+      let temperaments = ""
+
+      dog.temperaments.forEach(objTemps => {
+        if (Boolean(objTemps.name)) {
+          temperaments = temperaments + " " +objTemps.name
         }
+
+      });
+
+      //depuro los datos
+      let dog_ = dog.dataValues
+
+      //cambio la propiedad temperaments por el string
+
+      let dog__ = {
+        ...dog_,
+        temperaments:temperaments.trim(),
+        type:"db"
+      }
+
+      return dog__
 
     })
     

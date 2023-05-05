@@ -14,24 +14,37 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true
     },
-    Altura: {
+
+    alturaMax: {
       type: DataTypes.STRING,
       allowNull :false,
     },
-    Peso: {
+    alturaMin: {
       type: DataTypes.STRING,
       allowNull :false,
     },
-    Años_de_vida:{
+
+    pesoMax: {
       type: DataTypes.STRING,
+      allowNull :false,
     },
+    pesoMin: {
+      type: DataTypes.STRING,
+      allowNull :false,
+    },
+ 
+    vidaMax: {
+      type: DataTypes.STRING,
+      allowNull :false,
+    },
+    vidaMin: {
+      type: DataTypes.STRING,
+      allowNull :false,
+    },
+
     image : {
       type : DataTypes.STRING,
     },
-    color: {
-      type : DataTypes.STRING,
-    }
-    
   },
   {timestamps: false}//elimina las propiedades de fecha de creacion y de modificacion
   );

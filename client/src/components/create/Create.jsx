@@ -53,7 +53,9 @@ const validate = (form, dogs) =>{
 const Create = () =>{
   const dispatch = useDispatch()
   const selectorTemps = useSelector((state)=>state.temperaments)
-
+  let [ArrayTemps, SetArrayTemps] = useState([])
+  const [error,setError] = useState({}) 
+  const [errorTemps, setErrorTemps] = useState(false)
   
   let  {dogs,copy_createdRaces }= useSelector((state)=>state)
 
@@ -79,34 +81,16 @@ const Create = () =>{
     setError(validate(form, dogs))
   },[])
 
-  const [temperaments, setTemperaments ] = useState([])
   
-  const [error,setError] = useState({}) 
-  const [errorTemps, setErrorTemps] = useState(false)
-
+ 
+  
   //manejador de estado del form
   const handlerForm = (event) =>{
     let {value, name} = event.target;
 
-    if (name==="temperaments") {    
-      if(temperaments.length === 3 ) return;
-      if (temperaments.findIndex(temp => temp===value) === -1) {
-      setTemperaments([...temperaments, value])  
-      setErrorTemps(true)
-      return ;
-      }
-    }
-
-    if(!temperaments.length){
-      setErrorTemps(false)
-    }
-
-    
     if(name ==="name"){
       value = value.charAt(0).toLocaleUpperCase()+value.slice(1).toLowerCase() 
-      console.log("este ese el input", name, "y el valor es ", value);
     }
-
     setForm({
       ...form,
       [name] : value
@@ -118,35 +102,40 @@ const Create = () =>{
     event.preventDefault() 
   }
 
+  //agrego temperamentos
+  const handlerTemperaments = async ({target}) =>{
+    let {value} = target;   
+    setForm({...form, ["temperaments"] : form.temperaments + " " + value})
+    SetArrayTemps([...ArrayTemps,value])
+  }
+
   //elimino temperamnetos
   const deleteTemperament = (temp) =>{
-
-  if(temperaments.length === 1){
-    setTemperaments([])
-    setErrorTemps(false)
-      return 
-    }
-    let update_Temperaments = temperaments.filter(t => t !== temp)
-    setTemperaments(update_Temperaments)
+  //tengo que hacer un string nuevo sacando el temperamento que deseo eliminar
+    setForm({...form, ["temperaments"] : form.temperaments.replace(temp,"")})
+    let arrayFiltrado = ArrayTemps.filter(t => t !== temp)
+    SetArrayTemps(arrayFiltrado)
   }  
 
  
   const handlerSendData = () =>{
-    let temperaments_ = temperaments.join(" ")
+    
+
+
     dispatch(post_dog(form))
-    setForm(   {
+    //SETEO A VALORES INICIALES 
+    SetArrayTemps([])
+    setForm({
       name : "",
       alturaMax : "",
       alturaMin : "",
       pesoMax : "",
       pesoMin : "",
-      temperaments :temperaments_,
+      temperaments :"",
       vidaMax : "",
       vidaMin : "",
       image : "",
-   
     })
-
   }
 
 
@@ -181,7 +170,7 @@ const Create = () =>{
                     <div className={style.container_inputs}>  
                       <input className={style.input} placeholder="Nombra a tu nueva raza como quieras" onChange={handlerForm} value={form.name} name="name"  type="text" />
                     </div>  
-                    <p id={style.error}> {error.name ? <p>{error.name}</p> : null}</p>
+                    <p id={style.error}> {error.name ?  `${error.name}` : null}</p>
                   </div>
 
                    <div className={style.inputs_div}>
@@ -191,7 +180,7 @@ const Create = () =>{
                         <input className={style.input} type="text" placeholder="¿Cuál es su altura maximo?" onChange={handlerForm}  name="alturaMax" value={form.alturaMax} />
                       </div>
                       <p id={style.error}> 
-                      {error.altura ? <p>{error.altura}</p> : null}
+                      {error.altura ? `${error.altura}` : null}
                       </p>
                    </div>
 
@@ -201,7 +190,7 @@ const Create = () =>{
                         <input className={style.input} type="text" placeholder="¿Cuál es su peso minimo?" onChange={handlerForm} id="pesoMin" name="pesoMin" value={form.pesoMin} />
                         <input className={style.input} type="text" placeholder="¿Cuál es su peso maximo?" onChange={handlerForm}  name="pesoMax" value={form.pesoMax} />
                       </div>
-                      <p id={style.error}> {error.peso ? <p>{error.peso}</p> : null}</p>
+                      <p id={style.error}> {error.peso ? `${error.peso}` : null}</p>
 
                     </div>
 
@@ -211,7 +200,7 @@ const Create = () =>{
                         <input className={style.input} type="text" placeholder="¿Promedio de vida minimo?" onChange={handlerForm}  name="vidaMin" value={form.vidaMin} />
                         <input className={style.input} type="text" placeholder="¿Promedio de vida maximo?" onChange={handlerForm}  name="vidaMax" value={form.vidaMax} />
                       </div>
-                      <p id={style.error}> {error.vida ? <p>{error.vida}</p> : null}</p>
+                      <p id={style.error}> {error.vida ? `${error.vida}` : null}</p>
                     </div>
 
                 </div>
@@ -223,7 +212,7 @@ const Create = () =>{
 
                       <div className={style.containerSelect_select}>
 
-                        <select  onChange={handlerForm} className={style.select} name="temperaments" id="">
+                        <select  onChange={handlerTemperaments} className={style.select} name="temperaments" id="">
                           <option value="lista" disabled>Lista de temperamentos</option>
                           {selectorTemps.length ? selectorTemps.map((temp)=>{
                             return <option
@@ -242,11 +231,10 @@ const Create = () =>{
                         <p id={style.error}>{errorTemps ? errorTemps :null}  </p>
                         <div>
                           {/*aca se muestran los temperamentos selecionados */}
-                          {
-                            temperaments.map(temp =>{
-                              let count = 0
+                           {
+                            ArrayTemps.map(temp =>{
                               return <div
-                                key={++count}                              
+                                key={temp}                              
                                 onClick={()=>deleteTemperament(temp)}
                                 className={style.temps_selected}
                               >
@@ -263,10 +251,10 @@ const Create = () =>{
 
                 <div className={style.button} id={ form.name && !Object.keys(error).length && style.button}  >
                   <p id={style.error_button}>
-                    {error.vacio || !errorTemps ? <p>Debes completar todos los campos y escoger por lo menos un temperamento</p> : null}
+                    {error.vacio || !Boolean(form.temperaments.trim()) ? `Debes completar todos los campos y escoger por lo menos un temperamento` : null}
                   </p>
 
-                  <button  disabled={  Object.keys(error).length || !errorTemps} onClick={()=>{handlerSendData()}} className={style.sigin_btn} type="submit">ENVIAR</button>
+                  <button  disabled={  Object.keys(error).length ||   !Boolean(form.temperaments.trim())   } onClick={()=>{handlerSendData()}} className={style.sigin_btn} type="submit">ENVIAR</button>
                 </div> 
               </form>
           </div>
@@ -275,6 +263,6 @@ const Create = () =>{
   }
 }  
 
-
+ 
 export default Create;
 

@@ -24,28 +24,17 @@ const Detail = () =>{
     //tomo el valor pasando el nombre de la query que busco puedo usar .get(query) si busco un solo valor o -getAll() si busco mas de un valor con la misma query . Por ejemplo type=${type}&&type=banana => resultado  ['api', 'banana']
     let type = query.getAll("type")
 
-
+    const {name,alturaMax,alturaMin,pesoMax,pesoMin,vidaMax,vidaMin,temperaments} = selector;
 
     useEffect(()=>{
-      console.log(id,type);
+      console.log("===============>id y type",id,type);
       dispatch(detail_dog(id,type[0]))
       return ()=>{ 
         dispatch(reset_detail_dog())
       }
     },[])
 
-    console.log(selector);
-
-    let años = null
-    //si encontre una raza hago los cambios
-    if (selector.id) {
-      años = Object.keys(selector).length
-      ? selector.Años_de_vida.replace(" years","") 
-      : null
-      
-    } else{
-    }
-    
+    console.log("este es el detalle del dog",selector);
 
     if(!Object.keys(selector).length){
       return(
@@ -65,7 +54,8 @@ const Detail = () =>{
                 <FontAwesomeIcon className={style.icon_a} icon={faHouse} style={{  height:"2.1rem"}} /> 
 
               </Link>
-            </div>
+              </div>
+
             <div className={style.card}>
           
               <div className={style.boxOne}>
@@ -73,11 +63,11 @@ const Detail = () =>{
                   <img src={selector.image ||image_respaldo } alt="" />
                 </div>
                 <div className={style.contaiener_name}>
-                  <h1>{selector.name}</h1>
+                  <h1>{name}</h1>
                 </div>
               </div>
 
-
+        
               <div className={style.boxTwo}>
                 <div className={style.header} ></div>
                 
@@ -96,33 +86,28 @@ const Detail = () =>{
                         <h3>TEMPERAMENTOS</h3>
                       </div>
                     </div>
+
+  
+
                     <div className={style.info_boxTwo}>
                       <div>
-                        <h3 className={style.Peso}>{selector.Peso} Kg</h3>
+                        <h3 className={style.Peso}>{`${pesoMin} - ${pesoMax}`}  Kg</h3>
                       </div>
 
                       <div>
-                        <h3> {selector.Altura} cm</h3>
+                        <h3> {`${alturaMin} - ${alturaMax}`} cm</h3>
                       </div>
 
                       <div>
-                        <h3 className={style.Vida}>{años} Años</h3>
+                        <h3 className={style.Vida}> {`${vidaMin} - ${vidaMax}`} Años</h3>
 
                       </div>
 
                       <div>
-                       
-                        {typeof(selector.temperament) === "string"
-                          ? <h4>{selector.temperament}</h4>
-                          : selector.temperaments.map((t)=>{
-                            return <h4
-                            
-                        >{t.name }</h4>
-                      })
-                    }
-                      
+                            <h3>{temperaments}</h3>                                  
                       </div>
                     </div>
+                  
                   </div>
 
                 <div className={style.footer} ></div>
@@ -133,7 +118,7 @@ const Detail = () =>{
 
             
          
-          </div>
+          </div> 
         </div> 
       )
   }
