@@ -72,8 +72,19 @@ export const handler_indices = (value) => {
   }
 
 
-export const get_dogs = () => async (dispatch) => {
+export const get_dogs = (dogs=undefined) => async (dispatch) => {
     //trae todos los datos de la api
+
+    //el paramentro dogs va a ser un parametro el cual va a albergar diferentes contenidos, puede ser una copia del estado que para ahorrar tiempo no vuelvo ha hacer una peticion si no que utiliza la copia backup llamada copy_dogs de mi redux o si no pasamos un parametro para hacer esta nueva peticion y tambien para intentar guardar una copia de mis filtros 
+
+
+    if (dogs) {
+        return dispatch({
+            type : GET_DOGS,
+            payload : dogs
+        })
+    }
+
 
     let result = await axios.get("/dogs/api") 
     return dispatch({
@@ -81,6 +92,8 @@ export const get_dogs = () => async (dispatch) => {
         payload : result.data
     })
 }
+
+
 export const get_createdRaces = () => async (dispatch) => {
     //trae todos los datos de la api
 
@@ -94,7 +107,6 @@ export const get_createdRaces = () => async (dispatch) => {
 
 
 export const get_by_name  = (result) =>{
-    console.log(result);
     return{
         type: GET_BY_NAME,
         payload: result
@@ -105,7 +117,6 @@ export const get_by_name  = (result) =>{
 
 
 export const post_dog = (data) =>async () => {
-    console.log("actions",data);
     let newdog =  await axios.post("/dogs", data)
     return newdog
 } 
@@ -125,7 +136,6 @@ export const detail_dog = (id,type) => async (dispatch) => {
     let result = {}
     let request =[]
 
-    console.log("desde actions", id, type);
 
     if (type==="api") {
         let request = await axios.get(`/dogs/api`)
@@ -159,17 +169,6 @@ export const reset_detail_dog = () => async (dispatch) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 export const get_temperaments = () => async (dispatch) =>{
     let result = await axios.get(`/temperaments`) 
     return dispatch({
@@ -179,93 +178,124 @@ export const get_temperaments = () => async (dispatch) =>{
 }
 
 
+export const  filter_temperament = (temp,dogs) => async (dispatch) =>{
+    //evaluar si la conbinacion de filtros devultve por lo menos un perrro si no es asi debe retornar un mensaje
 
-export const  filter_temperament = (temperament) => async (dispatch) =>{
-    let filter = [] 
-    let result = await axios.get(`/dogs`) 
-    if(temperament === "TODOS LOS PERROS"){
-        filter = result.data
-    } else{
-
-        filter = await result.data.filter(dog => {
-        let temperaments = dog.temperament
-        if(dog.temperament){
-            if(temperaments.includes(temperament)){
-                return dog
+    let coincidencias = []
+    if (!temp) {
+       
+        coincidencias = dogs;
+    } else {
+        coincidencias = dogs.filter((dog)=>{
+            if (dog.temperaments) {
+                if(dog.temperaments.includes(temp)){
+                    return dog;
+                }
             }
-        } 
         })
     }
+    
+
+    if (!coincidencias.length) {
+        return dispatch({
+            type : FILTER_TEMPERAMENT,
+            payload : [{msg:"No se han encontrada razas de perros con esa conbinacion de filtros"}]
+        })
+    } 
+
     return dispatch({
         type : FILTER_TEMPERAMENT,
-        payload : filter
+        payload : coincidencias
     })
 }
 
 
 
 
-export const order_peso = (order) => async (dispatch) => {
-    let result = await axios.get(`/dogs`) 
+export const order_height = (order, dogs) => async (dispatch) => {
     let filter = []
     //de menor a mayor
 
     if(order === "AD"){
-        filter = result.data.sort(function (a, b) {
-            let A  =  a.min; // ignore upper and lowercase
-            //para que no aparezcan los que no tienen dato minimo primero 
+        filter = dogs.sort(function (a, b) {
+
+            let A  =  parseInt(a.alturaMin) 
+            //para que no aparezcan los que no tienen datos primero 
             if(!A ){
                 A = 10000
             }
-            let  B = b.min; // ignore upper and lowercase
+            let  B = parseInt(b.alturaMin) 
             if(!B ){
                 B = 10000
             }
             return A - B
         })
     } else if(order === "DA"){
-        filter = result.data.sort(function (a, b) {
-            let  A = a.max; // ignore upper and lowercase
-            let  B = b.max; // ignore upper and lowercase
+        filter = dogs.sort(function (a, b) {
+            let  A = parseInt(a.alturaMax) ; 
+            let  B = parseInt(b.alturaMax) ;
             return B - A
         })
     }
     
     return dispatch({
         type : NEW_ORDER,
-        payload : result.data
+        payload : dogs
     })
 }
 
-export const order_races = (type) => async (dispatch) =>{
-    let result = await axios.get(`/dogs`) 
+export const order_width = (order, dogs) => async (dispatch) => {
     let filter = []
-    //VER EL ID DE CADA UNO Y SI ES UN NUM == API, STRING === DATABASE
-    if(type === "ALL"){
-        filter = result.data
-    }
-    if(type === "API"){
-        filter = result.data.filter((dog) => typeof(dog.id) === "number" )
-    } else if( type === "BDD"){
-        filter = result.data.filter((dog) => typeof(dog.id) === "string" )
-    } else {
-        filter = result.data
-    }
-    return dispatch({
-        type : NEW_ORDER ,
-        payload : filter
-    })
+    //de menor a mayor
 
+    if(order === "AD"){
+        filter = dogs.sort(function (a, b) {
+
+            let A  =  parseInt(a.pesoMin) 
+            //para que no aparezcan los que no tienen datos primero 
+            if(!A ){
+                A = 10000
+            }
+            let  B = parseInt(b.pesoMin) 
+            if(!B ){
+                B = 10000
+            }
+            return A - B
+        })
+    } else if(order === "DA"){
+        filter = dogs.sort(function (a, b) {
+            let  A = parseInt(a.pesoMax) ; 
+            let  B = parseInt(b.pesoMax) ;
+            return B - A
+        })
+    }
+    
+    return dispatch({
+        type : NEW_ORDER,
+        payload : dogs
+    })
 }
 
 
-export const order_alfabet = (type) => async (dispatch) =>{
-    let result = await axios.get(`/dogs`) 
+
+
+
+
+
+
+
+
+
+
+
+
+export const order_alfabet = (type,dogs) => async (dispatch) =>{
+    
     let filter = []
     //VER EL ID DE CADA UNO Y SI ES UN NUM == API, STRING === DATABASE
 
    if( type === "ZA"){
-        filter = result.data.sort(function (a, b) {
+        filter = dogs.sort(function (a, b) {
             const nameA = a.name.toUpperCase(); // ignore upper and lowercase
             const nameB = b.name.toUpperCase(); // ignore upper and lowercase
             if (nameA < nameB) {
@@ -279,7 +309,7 @@ export const order_alfabet = (type) => async (dispatch) =>{
             return 0;
         })
     } else if (type === "AZ"){
-        filter = result.data.sort(function (a, b) {
+        filter = dogs.sort(function (a, b) {
             const nameA = a.name.toUpperCase(); // ignore upper and lowercase
             const nameB = b.name.toUpperCase(); // ignore upper and lowercase
             if (nameA < nameB) {
@@ -293,7 +323,7 @@ export const order_alfabet = (type) => async (dispatch) =>{
             return 0;
         })
     } else {
-        filter = result.data
+        filter = dogs
     }
     return dispatch({
         type :  NEW_ORDER,

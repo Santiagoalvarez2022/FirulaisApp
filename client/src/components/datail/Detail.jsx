@@ -27,15 +27,13 @@ const Detail = () =>{
     const {name,alturaMax,alturaMin,pesoMax,pesoMin,vidaMax,vidaMin,temperaments} = selector;
 
     useEffect(()=>{
-      console.log("===============>id y type",id,type);
       dispatch(detail_dog(id,type[0]))
       return ()=>{ 
         dispatch(reset_detail_dog())
       }
     },[])
 
-    console.log("este es el detalle del dog",selector);
-
+    console.log("esto en el detalle");
     if(!Object.keys(selector).length){
       return(
         <Loanding />
@@ -124,20 +122,5 @@ const Detail = () =>{
   }
 }
 
-
-/*  <h3 className={style.Altura}>Altura aproximada {selector.Altura} cm.</h3>
-                    <h3 className={style.Peso}>Rango aproximado de su peso es de {selector.Peso}kg.</h3>
-                    <h3 className={style.Vida}>Estimativo de vida {años} años.</h3>
-
-                    <div className={style.Temperaments}>
-                      <h3 className={style.Temperaments}>Temperamentos que los caracterizan:</h3> {typeof(selector.temperament) === "string"
-                      ? <h4>{selector.temperament}</h4>
-                      : selector.temperaments.map((t)=>{
-                        return <h4
-                        
-                        >{t.name }</h4>
-                      })
-                    }
-                    </div>*/
 export default Detail;
 
