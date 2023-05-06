@@ -22,12 +22,7 @@ export const search_created_races = (result) =>{
 }
 
 
-// export const clear_dogs = () =>{
-//     return{
-//         type: CLEAR_DOGS,
-//         payload: [{msg:"cargando"}]
-//     }
-// }
+
 
 export const change_page = (value) =>{
     if(value){
