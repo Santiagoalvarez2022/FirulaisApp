@@ -98,7 +98,7 @@ const Detail = () =>{
                       </div>
 
                       <div>
-                        <h3 className={style.Vida}> {`${vidaMin} - ${vidaMax ? vidaMax.replace("years"," ") : undefined}`} Años</h3>
+                        <h3 className={style.Vida}> {`${vidaMin ? vidaMin.replace("years"," ") : undefined} - ${vidaMax ? vidaMax.replace("years"," ") : undefined}`} Años</h3>
 
                       </div>
 
