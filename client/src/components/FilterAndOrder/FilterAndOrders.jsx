@@ -102,7 +102,6 @@ export default function FilterAndOrders() {
         //delaro una variable que contien el temperamento seleccionado
         dispatch(handler_indices())
         let temperament = event.target.value.trim()
-        console.log(temperament);
         if(temperament==="TODOS LOS PERROS"){
             setFilterTemps([])
             dispatch(filter_temperament(null,copy_dogs))
@@ -114,9 +113,7 @@ export default function FilterAndOrders() {
                 //cuando agrego filtros hago un filtrado progresivo entonces paso como parametro el array ya filtrado(cuadno borro un filtro vuelvo a filtrar todo osea la copia original)
                 //le envio a al aaction un array con los filtros y otro con todas las razas
                 dispatch(filter_temperament(temperament,dogs))
-            } else{
-            }
-            
+            } 
             
         }
 

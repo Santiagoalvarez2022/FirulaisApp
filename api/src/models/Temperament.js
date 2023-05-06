@@ -16,7 +16,8 @@ module.exports = (sequelize) => {
     }
 
 
-  })
+  },    
+  {timestamps: false})//elimina las propiedades de fecha de creacion y de modificacion)
 }
 
 /*Años de vida

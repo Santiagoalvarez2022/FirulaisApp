@@ -122,7 +122,7 @@ const Home = (props) => {
             
               : <div className={style.conteiner}>
                   <div className={style.carrucel}> 
-                    <div className={style.paginado_button} onClick={handler_page} id="back" ></div>
+                    <div className={style.paginado_button} onClick={handler_page} id="back" > {"<"}</div>
                     <div className={style.cardcontainer}>
                     { dogs.length > 0 
                         ? dogs.slice(inicio,fin).map((dog) => {
@@ -141,7 +141,9 @@ const Home = (props) => {
                                 />})                                
                           : null  }
                     </div>
-                    <div className={style.paginado_button}  onClick={handler_page} id="next"  ></div>
+                    <div className={style.paginado_button}  onClick={handler_page} id="next"  >
+                        {">"}
+                    </div>
                   </div>
                   
 

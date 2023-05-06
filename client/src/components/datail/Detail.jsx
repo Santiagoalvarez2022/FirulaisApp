@@ -33,6 +33,7 @@ const Detail = () =>{
       }
     },[])
 
+ 
     console.log("esto en el detalle");
     if(!Object.keys(selector).length){
       return(
@@ -97,7 +98,7 @@ const Detail = () =>{
                       </div>
 
                       <div>
-                        <h3 className={style.Vida}> {`${vidaMin} - ${vidaMax}`} Años</h3>
+                        <h3 className={style.Vida}> {`${vidaMin} - ${vidaMax ? vidaMax.replace("years"," ") : undefined}`} Años</h3>
 
                       </div>
 
