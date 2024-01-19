@@ -15,7 +15,7 @@ import Nav from './components/nav/Nav';
 
 //declaro la ruta a la cual le va a pegar el front al back
 
-axios.defaults.baseURL = "http://localhost:3001/"
+axios.defaults.baseURL = "firulaisapp-production.up.railway.app"
 
 
 function App() {
