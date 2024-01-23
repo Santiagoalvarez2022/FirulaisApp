@@ -23,8 +23,6 @@ export default function FilterAndOrders() {
     
     },[])
 
-    console.log("estos son los perros", dogs);
-
     const changeHandler = ({target}) =>{
         let {value} = target; 
         setForm(value)

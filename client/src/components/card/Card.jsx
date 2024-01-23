@@ -4,13 +4,13 @@ import style from './Card.module.css'
 //de prueba 
 import fakeimage from './dog.jpg'
 
-const Card = (props) =>{
+const Card = ({id,image,name}) =>{
 
-    const {id,name,image,temperament, indice,max,min,type} = props
+    //funcion que al hacer onClivk en el link se guarde en redux el estado global la info de la raza pedida
 
 
     return(
-      <Link to= {`/detail/${id}?type=${type}`} className={style.all} > 
+      <Link to= {`/detail/${id}`} className={style.all}  > 
         <div className={style.imagen}>
           <img src={image} alt="" />
         </div>

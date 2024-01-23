@@ -23,13 +23,12 @@ const Home = (props) => {
   const inicio = useSelector((state)=> state.inicio)
   const fin = useSelector((state)=> state.fin)
 
-  useEffect(() => {
+console.log("todos los perros",dogs);
 
-    if (Boolean(dogs.length)) {
-      
-    } else {
+  useEffect(() => {
+    if (!copy_dogs.length) {      
       dispatch(get_dogs())   
-      
+      console.log("dogs vacios", dogs);
     }
   }, [])
 
@@ -112,7 +111,6 @@ const Home = (props) => {
             <div id="dogs" className={style.nav}>
               <FilterAndOrders />
             </div>
-
             <div className={style.content}>
             {dogs[0].msg
               ? <div className={style.error}>
@@ -126,7 +124,10 @@ const Home = (props) => {
                     <div className={style.cardcontainer}>
                     { dogs.length > 0 
                         ? dogs.slice(inicio,fin).map((dog) => {
-                          const { name, id,  image, temperament, max ,min,type } = dog
+                          const { name, id, image, temperament, max ,min,type } = dog;
+
+                          //reference_image_id: "BJa4kxc4X"
+                          //modularizar
                           return <Card
                                 className={style.Card}
                                 indice={dogs.indexOf(dog)}

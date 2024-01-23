@@ -68,20 +68,9 @@ export const handler_indices = (value) => {
 
 
 export const get_dogs = (dogs=undefined) => async (dispatch) => {
-    //trae todos los datos de la api
+ 
 
-    //el paramentro dogs va a ser un parametro el cual va a albergar diferentes contenidos, puede ser una copia del estado que para ahorrar tiempo no vuelvo ha hacer una peticion si no que utiliza la copia backup llamada copy_dogs de mi redux o si no pasamos un parametro para hacer esta nueva peticion y tambien para intentar guardar una copia de mis filtros 
-
-
-    if (dogs) {
-        return dispatch({
-            type : GET_DOGS,
-            payload : dogs
-        })
-    }
-
-
-    let result = await axios.get("/dogs/api") 
+    let result = await axios.get("/dogs") 
     return dispatch({
         type : GET_DOGS,
         payload : result.data
@@ -118,42 +107,39 @@ export const post_dog = (data) =>async () => {
 
 
 
-
-
-
-
-
-
-export const detail_dog = (id,type) => async (dispatch) => {
-
-    //al buscar detalle es bueno volver a hacer una peticion a la api o bd porque si alguien tiene el link solo del detalle y accede sin pasar por el home nunca se cargaran los otros estados de redux, entonces sno se pueden filtrar nada y se romperia
- 
-    let result = {}
-    let request =[]
-
-
-    if (type==="api") {
-        let request = await axios.get(`/dogs/api`)
-        let index = request.data.findIndex(e => parseInt(e.id) === parseInt(id))
-        result = request.data[index]
-
-    } else if(type==="db") {
-        let request = await axios.get(`/dogs`)
-        let index = request.data.findIndex(e => e.id === id)
-        result = request.data[index]
+export const detail_dog = (id) => { 
+    return async (dispatch, getState) => {
+        //estado global actual
+        const currentState = getState();
+    
+        // Verifica si el array dogs está cargado
+        if (!currentState.copy_dogs.length) {
+         // Si no está cargado, realizo una petición a la API para obtener todos los perros
+            try {
+                const {data} = await axios.get("/dogs");
+                // Despacha una acción para actualizar el estado con la información de los perros
+                dispatch({ type: GET_DOGS, payload: data });
+                //busco en la repuesta de la api por el id recibido
+                const dogDetail = data.find((dog) => dog.id === id);
         
-    }
+                // // Despacha una acción para actualizar el estado con el detalle del perro
+                return dispatch({ type: DETAIL_DOG, payload: dogDetail });
+
+            } catch (error) {
+            /// Manejo de errores
+            console.error('Error al obtener la lista de perros', error);
+            }
+        }
     
-    //si no se encuentra mando un error 
-    if(!result) result = {error:"No se encontro"}
-    
+        const dogDetail = currentState.copy_dogs.find((dog) => dog.id === id);
+        
+        // Despacha una acción para actualizar el estado con el detalle del perro
+       return dispatch({ type: DETAIL_DOG, payload: dogDetail });
+      };
+    };
+
 
     
-    return dispatch({
-        type : DETAIL_DOG,
-        payload : result
-    })
-}
 
 export const reset_detail_dog = () => async (dispatch) => {
     return dispatch({
