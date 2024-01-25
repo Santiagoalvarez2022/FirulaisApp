@@ -13,15 +13,17 @@ import favicon from "./assests/favicon.png"
 import CreatedRaces from './components/createdRaces/CreatedRaces';
 import Nav from './components/nav/Nav';
 
-//declaro la ruta a la cual le va a pegar el front al back
+// const url = process.env.REACT_APP_URL_BACKEND
+// axios.defaults.baseURL = url
+axios.defaults.baseURL = "http://localhost:3001/api"
 
-axios.defaults.baseURL = "https://firulaisapp-production.up.railway.app/"
+
 
 
 function App() {
+  
   const location = useLocation()
   
-
   return (
     <div className="App">
 

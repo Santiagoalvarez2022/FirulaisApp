@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { get_createdRaces, search_created_races } from '../../redux/actions'
 import {Link} from "react-router-dom"
-import imgBackup from "./dog.jpg"
+import imgBackup from "../card/dog.jpg"
 import style from "./CreatedRaces.module.css"
 import {FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
@@ -12,7 +12,6 @@ import { faHouse} from "@fortawesome/free-solid-svg-icons"
 export default function CreatedRaces() { 
     let {createdRaces,copy_createdRaces} = useSelector(state=> state);
 
-    console.log(createdRaces, copy_createdRaces);
 
     
     const [form, SetForm] = useState("");
@@ -30,9 +29,8 @@ export default function CreatedRaces() {
         SetForm(value)
         let result = copy_createdRaces.filter(dog=> dog.name.toLowerCase().includes(value.toLowerCase()))
 
-       
-
-        dispatch(search_created_races(result))
+       dispatch(search_created_races(result))
+        
     }
 
 
