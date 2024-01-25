@@ -67,9 +67,8 @@ export const handler_indices = (value) => {
   }
 
 
-export const get_dogs = (dogs=undefined) => async (dispatch) => {
+export const get_dogs = (dogs=undefined) => async (dispatch,getState) => {
  
-
     let result = await axios.get("/dogs") 
     return dispatch({
         type : GET_DOGS,
@@ -81,10 +80,11 @@ export const get_dogs = (dogs=undefined) => async (dispatch) => {
 export const get_createdRaces = () => async (dispatch) => {
     //trae todos los datos de la api
 
-    let result = await axios.get("/dogs") 
+    const  {data} = await axios.get("/dogs")
+    const result = data.filter((dog)=> dog.type !== "api" ) 
     return dispatch({
         type : GET_CREATEDRACES,
-        payload : result.data
+        payload : result
     })
 }
 
@@ -98,11 +98,18 @@ export const get_by_name  = (result) =>{
 }
 
 
+//UPDATE_DOGS = "UPDATE_DOGS"
 
-
-export const post_dog = (data) =>async () => {
-    let newdog =  await axios.post("/dogs", data)
-    return newdog
+export const post_dog = (data) =>async (dispatch) => {
+    try {   
+        const result= await axios.post("/dogs", data);
+        return dispatch({
+            type : GET_DOGS,
+            payload : result.data
+        })
+    } catch (error) {
+        return {error : error.message}
+    }
 } 
 
 
@@ -159,8 +166,56 @@ export const get_temperaments = () => async (dispatch) =>{
 }
 
 
+
+export const order_alfabet = (type,dogs) => async (dispatch) =>{
+    console.log("action order_az");
+
+    let filter = []
+    //VER EL ID DE CADA UNO Y SI ES UN NUM == API, STRING === DATABASE
+
+   if( type === "ZA"){
+        filter = dogs.sort(function (a, b) {
+            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+              return 1;
+            }
+            if (nameA > nameB) {
+              return -1;
+            }
+          
+            // names must be equal
+            return 0;
+        })
+    } else if (type === "AZ"){
+        filter = dogs.sort(function (a, b) {
+            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+              return -1;
+            }
+            if (nameA > nameB) {
+              return 1;
+            }
+          
+            // names must be equal
+            return 0;
+        })
+    } else {
+        filter = dogs
+    }
+
+    console.log("este es el result", filter);
+    return dispatch({
+        type :  NEW_ORDER,
+        payload : filter
+    })
+
+}
+
 export const  filter_temperament = (temp,dogs) => async (dispatch) =>{
     //evaluar si la conbinacion de filtros devultve por lo menos un perrro si no es asi debe retornar un mensaje
+    // console.log("estas son los dogs q itero", dogs, "y este el temperamento buscadp", temp);
 
     let coincidencias = []
     if (!temp) {
@@ -269,47 +324,4 @@ export const order_width = (order, dogs) => async (dispatch) => {
 
 
 
-
-export const order_alfabet = (type,dogs) => async (dispatch) =>{
-    
-    let filter = []
-    //VER EL ID DE CADA UNO Y SI ES UN NUM == API, STRING === DATABASE
-
-   if( type === "ZA"){
-        filter = dogs.sort(function (a, b) {
-            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) {
-              return 1;
-            }
-            if (nameA > nameB) {
-              return -1;
-            }
-          
-            // names must be equal
-            return 0;
-        })
-    } else if (type === "AZ"){
-        filter = dogs.sort(function (a, b) {
-            const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-            const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-            if (nameA < nameB) {
-              return -1;
-            }
-            if (nameA > nameB) {
-              return 1;
-            }
-          
-            // names must be equal
-            return 0;
-        })
-    } else {
-        filter = dogs
-    }
-    return dispatch({
-        type :  NEW_ORDER,
-        payload : filter
-    })
-
-}
 

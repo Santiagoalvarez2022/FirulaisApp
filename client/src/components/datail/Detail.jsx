@@ -4,7 +4,7 @@ import {Link, useParams} from "react-router-dom"
 import { detail_dog, get_dogs, reset_detail_dog } from "../../redux/actions";
 import style from "./Detail.module.css"
 import Loanding from '../loanding/Loading'
-import image_respaldo from './fotoRespaldo.jpg' 
+import image_respaldo from '../card/dog.jpg' 
 import {FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHouse} from "@fortawesome/free-solid-svg-icons"
 
@@ -17,22 +17,17 @@ import { faHouse} from "@fortawesome/free-solid-svg-icons"
 const Detail = () =>{
   const dispatch = useDispatch();
   const {id} = useParams()
-  const selector = useSelector(state=>state.detaildog )
+  const selector = useSelector((state)=>state.detaildog )
+  
   
   useEffect(()=>{
     //si copy_dogs es undefined o [] depacho la action get all para traer todos
     dispatch(detail_dog(id))
     return ()=>{
       dispatch(reset_detail_dog())
-      console.log(selector);
     }
   },[])
-
-  if(!Object.keys(selector).length){
-    return(
-      <Loanding />
-    )
-  } else if(selector.error) {
+ if(selector.error) {
     return(
     <>
     No se encontro esta raza 

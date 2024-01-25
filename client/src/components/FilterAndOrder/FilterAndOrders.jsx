@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowRightFromBracket,faAnglesRight, faAnglesLeft, faArrowDownAZ, faArrowUpZA, faDog, faCircleArrowRight, faCircleArrowLeft,faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons"
+import { faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons"
 import style from "./FilterAndOrders.module.css"
 import { get_by_name , get_temperaments, filter_temperament,  order_alfabet, order_width, order_height,handler_indices} from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,20 +8,45 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 
-export default function FilterAndOrders() {
+export default function FilterAndOrders({hlandlerFlag}) {
   
     const [orderAZ, setOrderAZ] = useState(true)
-    const {temperaments,dogs,copy_dogs }= useSelector((state)=>state)
-    const [stateForm, setForm] = useState("")
-    const [filterTemperaments, setFilterTemps] = useState([])
-    const [sortsChosen, setSortsChosen] = useState("")
+    // const {temperaments,dogs,copy_dogs }= useSelector((state)=>state)
+    const temperaments = useSelector((state)=>state.temperaments)
+    const dogs = useSelector((state)=>state.dogs)
+    const copy_dogs = useSelector((state)=>state.copy_dogs)
 
+    const [stateForm, setForm] = useState("");
+    const [filterTemperaments, setFilterTemps] = useState([]);
+    const [sortsChosen, setSortsChosen] = useState("")
     const dispatch = useDispatch()
 
+    //guardar temperamentos en el localstorage
+        
+
     useEffect(()=>{
+
+        const handleBeforeUnload = () => {
+            //antes de recargar la pagina borro el filtro porque solo quiero  mantenerlo miestras nevego en la pagina si la recargo borro todos los filtros
+            localStorage.setItem('temperaments', JSON.stringify([]));
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
         dispatch(get_temperaments())
-    
+        const tempsLocalStorage = JSON.parse(localStorage.getItem('temperaments'));
+        if (tempsLocalStorage.length) {
+            
+            setFilterTemps(tempsLocalStorage)
+        }
+
+
     },[])
+
+    useEffect(()=>{
+        localStorage.setItem('temperaments', JSON.stringify(filterTemperaments));
+
+    },[filterTemperaments])
+
 
     const changeHandler = ({target}) =>{
         let {value} = target; 
@@ -47,6 +72,7 @@ export default function FilterAndOrders() {
         let {value} = event.target;
         setSortsChosen("")
         dispatch(handler_indices())
+        hlandlerFlag()
 
         if(value==="DA" || value==="AD"){
             value === "DA" 
@@ -62,6 +88,7 @@ export default function FilterAndOrders() {
         let {value} = event.target;
         dispatch(handler_indices())
         setSortsChosen("")
+        hlandlerFlag()
 
         if (value === "DA" || value==="AD") {
             value === "DA" 
@@ -79,8 +106,7 @@ export default function FilterAndOrders() {
     const handlerAlfabetOrder =(event) =>{
         let {value} = event.target;
         dispatch(handler_indices())
-        setSortsChosen("")
-
+        hlandlerFlag()
         if (value=== "ZA" || value==="AZ") {
             value === "ZA" 
                 ? setSortsChosen("ZA")
@@ -91,8 +117,13 @@ export default function FilterAndOrders() {
     }
 
 
+
+
+
     const deleteOrder = () =>{
         setSortsChosen("")
+        hlandlerFlag()
+
     }
 
     
@@ -100,6 +131,7 @@ export default function FilterAndOrders() {
         //delaro una variable que contien el temperamento seleccionado
         dispatch(handler_indices())
         let temperament = event.target.value.trim()
+        
         if(temperament==="TODOS LOS PERROS"){
             setFilterTemps([])
             dispatch(filter_temperament(null,copy_dogs))
@@ -205,7 +237,8 @@ export default function FilterAndOrders() {
             <div className={style.sortsChosen}>
                 <div className={style.chosen_sorts}>
                   <div onClick={()=>deleteOrder()} > 
-                    <p className={style.sort_p}> {sortsChosen}</p></div> 
+                    <p className={style.sort_p}> {sortsChosen} </p>
+                    </div> 
                 </div>
                
             </div>

@@ -50,7 +50,7 @@ const validate = (form, dogs) =>{
   return error 
 }
 
-const Create = () =>{
+const Create = ({handlerArrayDogs}) =>{
   const dispatch = useDispatch()
   const selectorTemps = useSelector((state)=>state.temperaments)
   let [ArrayTemps, SetArrayTemps] = useState([])
@@ -76,7 +76,7 @@ const Create = () =>{
   )   
 
   useEffect(()=>{
-    dispatch(get_dogs())
+    // dispatch(get_dogs())
     dispatch(get_createdRaces())
     setError(validate(form, dogs))
   },[])
@@ -123,6 +123,7 @@ const Create = () =>{
 
 
     dispatch(post_dog(form))
+    handlerArrayDogs()
     //SETEO A VALORES INICIALES 
     SetArrayTemps([])
     setForm({
