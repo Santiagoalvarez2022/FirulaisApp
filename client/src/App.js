@@ -12,6 +12,8 @@ import Favicon from "react-favicon"
 import favicon from "./assests/favicon.png"
 import CreatedRaces from './components/createdRaces/CreatedRaces';
 import Nav from './components/nav/Nav';
+import Maintenance from './components/maintance/Maintenance';
+
 
  const url = process.env.REACT_APP_URL_BACKEND
  axios.defaults.baseURL = url
@@ -28,11 +30,11 @@ function App() {
     <div className="App">
 
       <Favicon url={favicon}></Favicon>
+      <Maintenance />
 
-      <Route exact path="/">
+      {/* <Route exact path="/">
         <Login />
       </Route>
-      {/* Condiciono que la barra de navegacion para que no aparezca cuando esta el llogin */}
       {location.pathname === "/home" ? <Nav /> :null} 
 
 
@@ -53,7 +55,7 @@ function App() {
       </Route>
       <Route  path="/">
         <Footer />
-      </Route>
+      </Route> */}
 
     </div>
   );
