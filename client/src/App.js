@@ -13,11 +13,11 @@ import favicon from "./assests/favicon.png"
 import CreatedRaces from './components/createdRaces/CreatedRaces';
 import Nav from './components/nav/Nav';
 import Maintenance from './components/maintance/Maintenance';
+  
 
-
- const url = process.env.REACT_APP_URL_BACKEND
- axios.defaults.baseURL = url
-//axios.defaults.baseURL = "http://localhost:3001/api"
+//  const url = process.env.REACT_APP_URL_BACKEND
+//  axios.defaults.baseURL = url
+axios.defaults.baseURL = process.env.REACT_APP_URL_BACKEND
 
 
 
@@ -30,18 +30,18 @@ function App() {
     <div className="App">
 
       <Favicon url={favicon}></Favicon>
-      <Maintenance />
+      {/* <Maintenance /> */}
 
-      {/* <Route exact path="/">
-        <Login />
-      </Route>
+      <Route exact path="/">
+        <Login /> 
+      </Route> 
       {location.pathname === "/home" ? <Nav /> :null} 
 
 
       <Route exact path="/home">
         <Home />
       </Route>
-
+ 
       <Route exact path="/detail/:id">
         <Detail />
       </Route>
@@ -55,7 +55,7 @@ function App() {
       </Route>
       <Route  path="/">
         <Footer />
-      </Route> */}
+      </Route> 
 
     </div>
   );

@@ -69,7 +69,9 @@ export const handler_indices = (value) => {
 
 export const get_dogs = (dogs=undefined) => async (dispatch,getState) => {
  
-    let result = await axios.get("/dogs") 
+    let result = await axios.get("/dogs");
+    console.log(result);
+    
     return dispatch({
         type : GET_DOGS,
         payload : result.data

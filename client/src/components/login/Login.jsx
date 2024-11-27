@@ -12,7 +12,7 @@ const Login = () =>{
         <h1 className={style.app_title} >APP</h1>
         <div className={style.container_button}>
           <Link to="/home">
-            <button>Entrar</button>
+            <button className={style.btnLogin}>Entrar</button>
           </Link>
 
         </div>
