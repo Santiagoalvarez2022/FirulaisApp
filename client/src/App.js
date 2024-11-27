@@ -17,9 +17,7 @@ import Maintenance from './components/maintance/Maintenance';
 
 //  const url = process.env.REACT_APP_URL_BACKEND
 //  axios.defaults.baseURL = url
-axios.defaults.baseURL = process.env.REACT_APP_URL_BACKEND
-
-
+axios.defaults.baseURL = "https://portfoliobackend-6ra1.onrender.com"
 
 
 function App() {

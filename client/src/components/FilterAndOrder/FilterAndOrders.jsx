@@ -183,7 +183,9 @@ export default function FilterAndOrders({hlandlerFlag}) {
             <form className={style.container_temperaments} action="#"> 
                 <select className={style.select_temperaments} onChange = {(e)=>selectTemperament(e,dogs)}  name="temperamentos" id="temp" >
                     <option defaultValue={true} >TODOS LOS PERROS</option>
-                                {temperaments.length ? temperaments.map((temp)=>{
+
+
+                                {Array.isArray(temperaments) && temperaments.length ? temperaments.map((temp)=>{
                                     if (!temp.name.trim()) {
                                         return;
                                     }

@@ -138,7 +138,7 @@ const Home = (props) => {
                   <div className={style.carrucel}> 
                     <div className={style.paginado_button} onClick={handler_page} id="back" > {"<"}</div>
                     <div className={style.cardcontainer}>
-                    { arrayDogs.length > 0 
+                    { Array.isArray(arrayDogs) && arrayDogs.length 
                         ? arrayDogs.slice(inicio,fin).map((dog) => {
                           const { name, id, image, temperament, max ,min,type } = dog;
 
